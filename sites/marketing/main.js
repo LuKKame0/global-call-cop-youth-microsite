@@ -117,6 +117,8 @@
   }
 
   function animate(time) {
+    // stop when the 3D globe (globe.js) has taken over the hero background
+    if (document.documentElement.dataset.globe === "on") return;
     drawNetwork(time);
     animationFrame = window.requestAnimationFrame(animate);
   }

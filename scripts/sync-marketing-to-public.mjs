@@ -31,6 +31,12 @@ function copyEntry(relativePath) {
 
   const extension = path.extname(relativePath).toLowerCase();
 
+  // vendor/ holds third-party bundles (three.js) — copy verbatim, never rewrite
+  if (relativePath.split(path.sep)[0] === "vendor") {
+    fs.copyFileSync(sourcePath, targetPath);
+    return;
+  }
+
   if (TEXT_EXTENSIONS.has(extension)) {
     const content = fs.readFileSync(sourcePath, "utf8");
     fs.writeFileSync(targetPath, rewriteMarketingPaths(content), "utf8");

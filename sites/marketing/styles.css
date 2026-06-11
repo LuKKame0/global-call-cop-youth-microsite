@@ -345,6 +345,19 @@ button {
   opacity: 0.9;
 }
 
+/* 3D coordination globe (globe.js) — replaces the 2D network when WebGL is available */
+.globe-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+html[data-globe="on"] .hero-canvas {
+  display: none;
+}
+
 .hero-glow {
   position: absolute;
   inset: 0;
