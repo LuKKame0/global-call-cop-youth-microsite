@@ -19,6 +19,8 @@ import {
   MarkerLayer,
   BrushLayer,
   LabelLayer,
+  CapitalLayer,
+  AdminLayer,
 } from "./layers.js";
 import { PointerManager } from "./tools.js";
 import { GlobeRenderer } from "./globe.js";
@@ -51,11 +53,15 @@ export class Atlas {
     this.markers = new MarkerLayer();
     this.brush = new BrushLayer();
     this.labels = new LabelLayer(this.political);
+    this.admin1 = new AdminLayer();
+    this.capitals = new CapitalLayer();
     this.layers = [
       this.graticule,
       this.political,
+      this.admin1,
       this.flows,
       this.markers,
+      this.capitals,
       this.labels,
       this.brush,
     ];

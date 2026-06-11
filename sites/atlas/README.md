@@ -9,8 +9,20 @@ Custom-built vector map engine. Zero dependencies, no build step, ~150 KB total
 npx serve sites/atlas        # or any static HTTP server (ES modules need HTTP)
 ```
 
-## What it does (v0.2)
+## What it does (v0.3)
 
+- **Digital twin of The Global Call** — a three-tier dossier that follows the
+  view: whole globe → **GLOBAL COMMAND** (global leadership), segmented
+  continent → **REGIONAL COMMAND** (regional leader + coordinators), selected
+  country → **NATIONAL NODE** (national focal point, who it reports to, capital).
+  Expandable structure card with draft hemispheric doctrine per tier. All names
+  and texts are **fictional placeholders** (`data/tgc-structure.js`) — every
+  country resolves to a deterministic focal point so the twin is always complete
+- **Capitals** — national capitals appear when a continent is segmented; on
+  country select, provincial/state capitals appear too (gold markers, NE 50m)
+- **Internal political map** — selecting a country lazy-loads its admin-1
+  boundaries (provinces/states) where available (AR, BR, US, FR, NG, IN);
+  renders in both 2D and on the 3D globe
 - **2D / 3D toggle** — Mercator map or orthographic globe (keyboard F / G),
   same layers, tools and data in both; view carries over when switching
 
@@ -51,6 +63,10 @@ engine/
 data/
   countries-110m.json   world-atlas@2.0.2 TopoJSON (Natural Earth, public domain)
   country-meta.js       ccn3 → [name, iso2, iso3, lat, lon, region, independent]
+  capitals.js           ccn3 → [name, lat, lon] (NE 50m, 194 national capitals)
+  tgc-structure.js      ⚠ PLACEHOLDER org hierarchy: global/regional/national,
+                        fictional names + draft doctrine (replace via adapter)
+  admin1/<ISO3>.json    lazy-loaded provinces/states + admin capitals (NE 10m/50m)
 index.html / atlas.css / app.js   demo console (simulated dataset, labeled)
 ```
 
@@ -90,8 +106,10 @@ source.subscribe((rows) => {
 ## Roadmap
 
 - [x] Orthographic (globe) projection toggle
-- [ ] Admin-1 boundaries at high zoom (Natural Earth 50m/10m, lazy-loaded)
-- [ ] Label engine (zoom-dependent country labels, collision avoidance)
+- [x] Admin-1 boundaries (Natural Earth 50m/10m, lazy-loaded per country)
+- [x] Label engine (zoom-dependent country labels, collision avoidance)
+- [ ] Replace `tgc-structure.js` placeholders with the real registry via adapter
+- [ ] Admin-1 for all countries (currently 6 demo countries)
 - [ ] Timeline scrubber for temporal datasets
 - [ ] Vector tile support if 10m detail is ever needed
 - [ ] Persist annotations (serialize brush strokes → JSON → DB)

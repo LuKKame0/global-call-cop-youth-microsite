@@ -370,6 +370,19 @@ export class GlobeRenderer {
       ctx.stroke();
     }
 
+    if (atlas.admin1.visible && atlas.admin1.units.length) {
+      ctx.lineWidth = 1;
+      for (const u of atlas.admin1.units) {
+        ctx.fillStyle = "rgba(30,46,62,0.55)";
+        ctx.strokeStyle = "rgba(120,160,200,0.45)";
+        for (const ring of u._ll ?? []) {
+          ctx.beginPath();
+          this._polyline(ctx, ring, cx, cy);
+          ctx.stroke();
+        }
+      }
+    }
+
     if (atlas.flows.visible) {
       for (const f of atlas.flows.flows) {
         const samples = [];
@@ -423,6 +436,30 @@ export class GlobeRenderer {
           ctx.fillStyle = "rgba(220,235,250,0.9)";
           ctx.fillText(m.label, sx + 7, sy - 4);
         }
+      }
+    }
+
+    if (atlas.capitals.visible) {
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      for (const p of atlas.capitals.points) {
+        const [lon, lat] = worldToLonLat(p.x, p.y);
+        const [sx, sy, vis] = this.project(lon, lat, cx, cy);
+        if (!vis) continue;
+        const national = p.kind === "national";
+        const r = national ? 3.4 : 2.4;
+        ctx.strokeStyle = national ? "#FFD27A" : "rgba(255,210,122,0.7)";
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(sx, sy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = national ? "#FFD27A" : "rgba(255,210,122,0.8)";
+        ctx.beginPath();
+        ctx.arc(sx, sy, r * 0.45, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.font = `${national ? 11 : 9.5}px ui-monospace, monospace`;
+        ctx.fillStyle = national ? "rgba(255,228,170,0.95)" : "rgba(255,210,122,0.8)";
+        ctx.fillText(p.name, sx + r * 1.6, sy);
       }
     }
 

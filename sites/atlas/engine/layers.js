@@ -302,7 +302,90 @@ export class BrushLayer {
   }
 }
 
-// ── Labels (country names — zoom-progressive, collision-avoiding) ───
+// Capitals — shown for the segmented region or selected country
+export class CapitalLayer {
+  constructor() {
+    this.id = "capitals";
+    this.visible = true;
+    this.points = []; // { x, y, name, kind } kind: "national" | "admin"
+  }
+
+  set(points) {
+    this.points = points.map((p) => {
+      const [x, y] = lonLatToWorld(p.lon, p.lat);
+      return { x, y, name: p.name, kind: p.kind ?? "national" };
+    });
+  }
+
+  clear() {
+    this.points = [];
+  }
+
+  draw(ctx, camera) {
+    const s = 1 / camera.scale;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    for (const p of this.points) {
+      const national = p.kind === "national";
+      const r = (national ? 3.2 : 2.2) * s;
+      ctx.strokeStyle = national ? "#FFD27A" : "rgba(255,210,122,0.7)";
+      ctx.lineWidth = 1.2 * s;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = national ? "#FFD27A" : "rgba(255,210,122,0.8)";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r * 0.45, 0, Math.PI * 2);
+      ctx.fill();
+      if (camera.scale > (national ? 0.5 : 1.6)) {
+        ctx.font = `${(national ? 11 : 9.5) * s}px ui-monospace, monospace`;
+        ctx.fillStyle = national ? "rgba(255,228,170,0.95)" : "rgba(255,210,122,0.8)";
+        ctx.fillText(p.name, p.x + r * 1.6, p.y);
+      }
+    }
+  }
+}
+
+// Admin-1 — provinces/states of a selected country, lazy-loaded
+export class AdminLayer {
+  constructor() {
+    this.id = "admin1";
+    this.visible = true;
+    this.units = []; // { name, path }
+  }
+
+  set(geo) {
+    this.units = geo.units.map((u) => {
+      const path = new Path2D();
+      for (const ring of u.r) {
+        ring.forEach(([lon, lat], i) => {
+          const [x, y] = lonLatToWorld(lon, lat);
+          if (i === 0) path.moveTo(x, y);
+          else path.lineTo(x, y);
+        });
+        path.closePath();
+      }
+      // _ll: raw lon/lat rings reused by the 3D globe overlay
+      return { name: u.n, path, _ll: u.r };
+    });
+  }
+
+  clear() {
+    this.units = [];
+  }
+
+  draw(ctx, camera) {
+    const lw = 1 / camera.scale;
+    for (const u of this.units) {
+      ctx.fillStyle = "rgba(30,46,62,0.55)";
+      ctx.fill(u.path);
+      ctx.strokeStyle = "rgba(120,160,200,0.45)";
+      ctx.lineWidth = lw;
+      ctx.stroke(u.path);
+    }
+  }
+}
+
 export class LabelLayer {
   constructor(political) {
     this.id = "labels";

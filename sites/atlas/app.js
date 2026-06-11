@@ -3,7 +3,14 @@
 
 import { Atlas } from "./engine/atlas.js";
 import { COUNTRY_META } from "./data/country-meta.js";
+import { CAPITALS } from "./data/capitals.js";
 import { colorRamp, seededValue } from "./engine/data.js";
+import {
+  GLOBAL_COMMAND,
+  REGIONS,
+  getFocalPoint,
+  NATIONAL_DOCTRINE,
+} from "./data/tgc-structure.js";
 
 const canvas = document.getElementById("map");
 const atlas = await Atlas.create(canvas, {
@@ -104,9 +111,25 @@ atlas.pointer.onSelect = (c) => {
   statusSel.textContent = c
     ? `SEL ${(c.name ?? "").toUpperCase()}`
     : "NO SELECTION";
-  if (c && c.meta) {
-    const current = atlas.mode === "3d" ? atlas.globe.eqScale() : atlas.camera.scale;
-    atlas.flyTo({ lon: c.meta[4], lat: c.meta[3], scale: Math.max(current, 1.4) });
+  if (c) {
+    showNationalDossier(c);
+    loadCountryDetail(c);
+    if (c.meta) {
+      const current = atlas.mode === "3d" ? atlas.globe.eqScale() : atlas.camera.scale;
+      atlas.flyTo({ lon: c.meta[4], lat: c.meta[3], scale: Math.max(current, 2.2) });
+    }
+  } else {
+    // deselect → back to region or global dossier
+    atlas.admin1.clear();
+    const region = atlas.political.regionFilter;
+    if (region) {
+      showRegionDossier(region);
+      showRegionCapitals(region);
+    } else {
+      showGlobalDossier();
+      atlas.capitals.clear();
+    }
+    atlas.animator.invalidate();
   }
 };
 
@@ -177,10 +200,131 @@ flyButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     flyButtons.forEach((b) => b.classList.remove("is-active"));
     btn.classList.add("is-active");
-    atlas.setRegion(btn.dataset.region ?? null);
+    const region = btn.dataset.region ?? null;
+    atlas.setRegion(region);
+    atlas.political.selectedId = null;
+    atlas.admin1.clear();
+    statusSel.textContent = "NO SELECTION";
+    if (region) {
+      showRegionDossier(region);
+      showRegionCapitals(region);
+    } else {
+      showGlobalDossier();
+      atlas.capitals.clear();
+    }
     atlas.flyTo(VIEWS[btn.dataset.fly]);
   });
 });
+
+// ═══ DIGITAL TWIN: dossier (global → regional → national) ═══════════
+const dossierTier = document.getElementById("dossier-tier");
+const dossierName = document.getElementById("dossier-name");
+const dossierSub = document.getElementById("dossier-sub");
+const dossierBody = document.getElementById("dossier-body");
+const dossierToggle = document.getElementById("dossier-toggle");
+
+dossierToggle.addEventListener("click", () => {
+  const open = dossierBody.classList.toggle("collapsed") === false;
+  dossierToggle.setAttribute("aria-expanded", String(open));
+});
+
+function person(p) {
+  return `<div class="person"><div class="role">${p.role}</div><div class="pname">${p.name}</div><div class="pbase">${p.base}</div></div>`;
+}
+
+function showGlobalDossier() {
+  dossierTier.textContent = "GLOBAL COMMAND";
+  dossierName.textContent = "The Global Call";
+  dossierSub.textContent = GLOBAL_COMMAND.title;
+  dossierBody.innerHTML =
+    `<p class="dossier-doctrine">${GLOBAL_COMMAND.doctrine}</p>` +
+    `<div class="dossier-group-title">GLOBAL LEADERSHIP</div>` +
+    GLOBAL_COMMAND.leaders.map(person).join("");
+}
+
+function showRegionDossier(region) {
+  const r = REGIONS[region];
+  if (!r) return showGlobalDossier();
+  dossierTier.textContent = "REGIONAL COMMAND";
+  dossierName.textContent = r.title;
+  dossierSub.textContent = `${region} · hemispheric circuit`;
+  dossierBody.innerHTML =
+    `<p class="dossier-doctrine">${r.doctrine}</p>` +
+    `<div class="dossier-group-title">REGIONAL LEADER</div>` +
+    person(r.leader) +
+    (r.coordinators.length
+      ? `<div class="dossier-group-title">REGIONAL COORDINATORS</div>` +
+        r.coordinators.map(person).join("")
+      : "");
+}
+
+function showNationalDossier(country) {
+  const meta = country.meta;
+  const region = meta ? meta[5] : "Americas";
+  const fp = getFocalPoint(country.id, country.name);
+  dossierTier.textContent = "NATIONAL NODE";
+  dossierName.textContent = (country.name ?? "—").toUpperCase();
+  dossierSub.textContent = `${region} command · ${meta ? meta[2] : country.id}`;
+  const cap = CAPITALS[country.id];
+  dossierBody.innerHTML =
+    `<p class="dossier-doctrine">${NATIONAL_DOCTRINE[region] ?? NATIONAL_DOCTRINE.Americas}</p>` +
+    `<div class="dossier-group-title">NATIONAL FOCAL POINT</div>` +
+    person({ role: `FOCAL POINT · since ${fp.since}`, name: fp.name, base: fp.node }) +
+    `<div class="dossier-group-title">REPORTS TO</div>` +
+    person({ ...REGIONS[region]?.leader, role: `${region} REGIONAL LEADER` }) +
+    (cap
+      ? `<div class="dossier-group-title">CAPITAL</div>` +
+        `<div class="person"><div class="pname">${cap[0]}</div><div class="pbase">${cap[1]}°, ${cap[2]}°</div></div>`
+      : "");
+}
+
+// ── Capitals for a region / selection; admin-1 lazy-load ────────────
+function showRegionCapitals(region) {
+  const pts = [];
+  for (const c of atlas.political.countries) {
+    if (c.meta && c.meta[5] === region && CAPITALS[c.id]) {
+      const cap = CAPITALS[c.id];
+      pts.push({ name: cap[0], lat: cap[1], lon: cap[2], kind: "national" });
+    }
+  }
+  atlas.capitals.set(pts);
+  atlas.animator.invalidate();
+}
+
+const ADMIN_AVAILABLE = { "032": "ARG", "076": "BRA", "840": "USA", "250": "FRA", "566": "NGA", "356": "IND" };
+const adminCache = new Map();
+
+async function loadCountryDetail(country) {
+  const iso3 = ADMIN_AVAILABLE[country.id];
+  const caps = [];
+  if (CAPITALS[country.id]) {
+    const c = CAPITALS[country.id];
+    caps.push({ name: c[0], lat: c[1], lon: c[2], kind: "national" });
+  }
+  if (!iso3) {
+    atlas.admin1.clear();
+    atlas.capitals.set(caps);
+    atlas.animator.invalidate();
+    return;
+  }
+  let geo = adminCache.get(iso3);
+  if (!geo) {
+    try {
+      geo = await (await fetch(`./data/admin1/${iso3}.json`)).json();
+      adminCache.set(iso3, geo);
+    } catch {
+      geo = { units: [], capitals: [] };
+    }
+  }
+  // ignore if the user already moved on to another country
+  if (atlas.political.selectedId !== country.id) return;
+  atlas.admin1.set(geo);
+  for (const [name, lat, lon] of geo.capitals) {
+    caps.push({ name, lat, lon, kind: "admin" });
+  }
+  atlas.capitals.set(caps);
+  atlas.animator.invalidate();
+}
 
 // ── 2D / 3D projection toggle ────────────────────────────────────────
 const modeButtons = document.querySelectorAll("[data-mode]");
@@ -200,5 +344,17 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "f") document.querySelector('[data-mode="2d"]').click();
 });
 
-// initial framing
+// expose for debugging / external control
+window.__atlas = atlas;
+window.__selectCountry = (ccn3) => {
+  const c = atlas.political.byId.get(ccn3);
+  if (c) {
+    atlas.political.selectedId = ccn3;
+    atlas.pointer.onSelect(c);
+  }
+  return !!c;
+};
+
+// initial framing + global dossier
+showGlobalDossier();
 atlas.flyTo({ ...VIEWS.world, duration: 1600 });

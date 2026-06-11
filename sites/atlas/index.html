@@ -49,6 +49,19 @@
       </aside>
 
       <aside class="panel" aria-label="Intelligence panel">
+        <div class="dossier" id="dossier">
+          <div class="dossier-head">
+            <span class="dossier-tier" id="dossier-tier">GLOBAL COMMAND</span>
+            <h2 class="dossier-name" id="dossier-name">The Global Call</h2>
+            <p class="dossier-sub" id="dossier-sub">Planetary coordination layer</p>
+          </div>
+          <button class="dossier-toggle" id="dossier-toggle" aria-expanded="true">
+            STRUCTURE <span class="chev">▾</span>
+          </button>
+          <div class="dossier-body" id="dossier-body"></div>
+          <p class="draft-note">⚠ Placeholder data — fictional names, draft doctrine.</p>
+        </div>
+
         <h2 class="panel-title">INTEL</h2>
         <div class="intel" id="intel">
           <p class="muted">Hover a country. Click to lock.<br />Scroll to zoom · drag to pan.</p>
@@ -60,6 +73,8 @@
           <li><label><input type="checkbox" data-layer="flows" checked /> Coordination flows</label></li>
           <li><label><input type="checkbox" data-layer="markers" checked /> Operations</label></li>
           <li><label><input type="checkbox" data-layer="labels" checked /> Country names</label></li>
+          <li><label><input type="checkbox" data-layer="capitals" checked /> Capitals</label></li>
+          <li><label><input type="checkbox" data-layer="admin1" checked /> Provinces / states</label></li>
           <li><label><input type="checkbox" data-layer="graticule" checked /> Graticule</label></li>
           <li><label><input type="checkbox" data-layer="brush" checked /> Annotations</label></li>
         </ul>
