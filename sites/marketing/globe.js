@@ -62,6 +62,9 @@ import { COUNTRIES } from "./globe-data.js";
 
   document.documentElement.dataset.globe = "on";
 
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 50);
   camera.position.set(0, 0, 6.4);
@@ -78,13 +81,98 @@ import { COUNTRIES } from "./globe-data.js";
     isLight: false,
   };
 
-  // ── Occluder sphere (hides far-side dots, takes theme background color)
-  const occluderMaterial = new THREE.MeshBasicMaterial({ color: theme.bg });
-  const occluder = new THREE.Mesh(
-    new THREE.SphereGeometry(R * 0.992, 64, 48),
-    occluderMaterial,
+  // ── Earth (NASA Blue Marble textures, real relief via displacement,
+  //    clearcoat for a lacquered-glass finish, specular oceans)
+  // re-render the static frame once all textures arrive (reduced-motion path)
+  const loadingManager = new THREE.LoadingManager(() => {
+    if (!running) renderer.render(scene, camera);
+  });
+  const textureLoader = new THREE.TextureLoader(loadingManager);
+  function loadTexture(url, srgb) {
+    const tex = textureLoader.load(url);
+    if (srgb) tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    return tex;
+  }
+
+  const earthMaterial = new THREE.MeshPhysicalMaterial({
+    map: loadTexture("./assets/earth/earth-albedo.jpg", true),
+    normalMap: loadTexture("./assets/earth/earth-normal.jpg"),
+    normalScale: new THREE.Vector2(1.1, 1.1),
+    displacementMap: loadTexture("./assets/earth/earth-bump.jpg"),
+    displacementScale: 0.05,
+    roughness: 0.9,
+    metalness: 0,
+    clearcoat: 1,
+    clearcoatRoughness: 0.24,
+  });
+  // oceans glossy, land matte: invert the specular map into a roughness map
+  new THREE.ImageLoader(loadingManager).load("./assets/earth/earth-specular.jpg", (image) => {
+    const c = document.createElement("canvas");
+    c.width = image.width;
+    c.height = image.height;
+    const ctx = c.getContext("2d");
+    ctx.drawImage(image, 0, 0);
+    const data = ctx.getImageData(0, 0, c.width, c.height);
+    for (let i = 0; i < data.data.length; i += 4) {
+      data.data[i] = data.data[i + 1] = data.data[i + 2] = 255 - data.data[i];
+    }
+    ctx.putImageData(data, 0, 0);
+    earthMaterial.roughnessMap = new THREE.CanvasTexture(c);
+    earthMaterial.roughness = 1;
+    earthMaterial.needsUpdate = true;
+  });
+
+  const isSmallScreen = window.matchMedia("(max-width: 880px)").matches;
+  const earth = new THREE.Mesh(
+    new THREE.SphereGeometry(
+      R * 0.975,
+      isSmallScreen ? 128 : 224,
+      isSmallScreen ? 80 : 140,
+    ),
+    earthMaterial,
   );
-  spinGroup.add(occluder);
+  spinGroup.add(earth);
+
+  // clouds drift slightly faster than the surface
+  const clouds = new THREE.Mesh(
+    new THREE.SphereGeometry(R * 1.045, 64, 48),
+    new THREE.MeshLambertMaterial({
+      map: loadTexture("./assets/earth/earth-clouds.png", true),
+      transparent: true,
+      opacity: 0.32,
+      depthWrite: false,
+    }),
+  );
+  spinGroup.add(clouds);
+
+  // ── Lighting + studio reflections (procedural envmap, keeps CSP 'self')
+  // key light front-left so the clearcoat glint lands on the visible limb
+  const sun = new THREE.DirectionalLight(0xffffff, 2.6);
+  sun.position.set(-3.5, 2.2, 5);
+  scene.add(sun);
+  const fill = new THREE.AmbientLight(0xbfd6ff, 0.7);
+  scene.add(fill);
+
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  {
+    const envScene = new THREE.Scene();
+    envScene.background = new THREE.Color(0x0a0d14);
+    const stripMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    [
+      [0, 7, -3, 9, 2.4],
+      [-7, 3, 4, 5, 1.6],
+      [6, -2, 5, 4, 1.2],
+    ].forEach(([x, y, z, w, h]) => {
+      const strip = new THREE.Mesh(new THREE.PlaneGeometry(w, h), stripMaterial);
+      strip.position.set(x, y, z);
+      strip.lookAt(0, 0, 0);
+      envScene.add(strip);
+    });
+    scene.environment = pmrem.fromScene(envScene, 0.035).texture;
+    scene.environmentIntensity = 0.45;
+    pmrem.dispose();
+  }
 
   // ── Atmosphere (fresnel rim, additive)
   const atmosphereMaterial = new THREE.ShaderMaterial({
@@ -124,19 +212,20 @@ import { COUNTRIES } from "./globe-data.js";
     const positions = [];
     const SEGMENTS = 72;
     const push = (a, b) => positions.push(a.x, a.y, a.z, b.x, b.y, b.z);
+    const GR = R * 1.015; // above terrain relief
     for (let lat = -60; lat <= 60; lat += 30) {
       for (let i = 0; i < SEGMENTS; i += 1) {
         push(
-          latLonToVec3(lat, (i / SEGMENTS) * 360 - 180, R),
-          latLonToVec3(lat, ((i + 1) / SEGMENTS) * 360 - 180, R),
+          latLonToVec3(lat, (i / SEGMENTS) * 360 - 180, GR),
+          latLonToVec3(lat, ((i + 1) / SEGMENTS) * 360 - 180, GR),
         );
       }
     }
     for (let lon = -180; lon < 180; lon += 30) {
       for (let i = 0; i < SEGMENTS; i += 1) {
         push(
-          latLonToVec3((i / SEGMENTS) * 180 - 90, lon, R),
-          latLonToVec3(((i + 1) / SEGMENTS) * 180 - 90, lon, R),
+          latLonToVec3((i / SEGMENTS) * 180 - 90, lon, GR),
+          latLonToVec3(((i + 1) / SEGMENTS) * 180 - 90, lon, GR),
         );
       }
     }
@@ -157,7 +246,7 @@ import { COUNTRIES } from "./globe-data.js";
 
   // ── Country nodes (194 pulsing points, brand color per region)
   const countryVectors = COUNTRIES.map(([, , lat, lon]) =>
-    latLonToVec3(lat, lon, R * 1.004),
+    latLonToVec3(lat, lon, R * 1.015),
   );
   const pointCount = COUNTRIES.length;
   const positions = new Float32Array(pointCount * 3);
@@ -168,7 +257,7 @@ import { COUNTRIES } from "./globe-data.js";
     countryVectors[i].toArray(positions, i * 3);
     (REGION_COLOR[region] || BRAND.blue).toArray(colors, i * 3);
     phases[i] = Math.random() * Math.PI * 2;
-    sizes[i] = 1.5 + Math.random() * 1.4;
+    sizes[i] = 1.0 + Math.random() * 1.0;
   });
   const pointsGeometry = new THREE.BufferGeometry();
   pointsGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
@@ -195,7 +284,7 @@ import { COUNTRIES } from "./globe-data.js";
         vColor = aColor;
         vPulse = 0.65 + 0.35 * sin(uTime * 1.4 + aPhase);
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = aSize * uPx * vPulse * (130.0 / -mv.z);
+        gl_PointSize = aSize * uPx * vPulse * (85.0 / -mv.z);
         gl_Position = projectionMatrix * mv;
       }
     `,
@@ -351,11 +440,13 @@ import { COUNTRIES } from "./globe-data.js";
     const isLight =
       document.documentElement.getAttribute("data-theme") !== "dark";
     theme.isLight = isLight;
-    const bodyBg = getComputedStyle(document.body).backgroundColor;
-    occluderMaterial.color.set(bodyBg).multiplyScalar(isLight ? 0.96 : 1.25);
-    atmosphereMaterial.uniforms.uIntensity.value = isLight ? 0.34 : 0.6;
-    graticuleMaterial.color.set(isLight ? 0x000000 : 0xffffff);
-    graticuleMaterial.opacity = isLight ? 0.11 : 0.05;
+    renderer.toneMappingExposure = isLight ? 1.4 : 1.15;
+    sun.intensity = isLight ? 2.8 : 2.6;
+    fill.intensity = isLight ? 0.95 : 0.7;
+    scene.environmentIntensity = isLight ? 0.9 : 0.55;
+    atmosphereMaterial.uniforms.uIntensity.value = isLight ? 0.3 : 0.6;
+    graticuleMaterial.color.set(0xffffff);
+    graticuleMaterial.opacity = isLight ? 0.1 : 0.06;
     pointsMaterial.uniforms.uDim.value = isLight ? 1 : 0;
     arcs.forEach((arc) => {
       arc.line.material.uniforms.uDim.value = isLight ? 1 : 0;
@@ -402,6 +493,7 @@ import { COUNTRIES } from "./globe-data.js";
     rafId = window.requestAnimationFrame(frame);
     const dt = Math.min(clock.getDelta(), 0.05);
     spinGroup.rotation.y += dt * 0.05;
+    clouds.rotation.y += dt * 0.014;
     parallax.x += (parallax.tx - parallax.x) * 0.04;
     parallax.y += (parallax.ty - parallax.y) * 0.04;
     tiltGroup.rotation.y = parallax.x;
