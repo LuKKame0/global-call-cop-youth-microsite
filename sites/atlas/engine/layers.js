@@ -57,31 +57,46 @@ export class PoliticalLayer {
     this.countries = features
       .filter((f) => f.polygons.length)
       .map((f) => {
-        const path = new Path2D();
-        const bounds = [Infinity, Infinity, -Infinity, -Infinity];
+        // normalize rings once in lon/lat: unwrap antimeridian crossings
+        // (Russia, Fiji) and close pole-spanning rings (Antarctica) by
+        // injecting corner points at the pole — both projections reuse this
+        const rings = [];
         for (const polygon of f.polygons) {
           for (const ring of polygon) {
-            // unwrap longitudes so antimeridian-crossing rings (Russia, Fiji)
-            // stay continuous instead of streaking across the map
             let prevLon = null;
-            ring.forEach(([lon, lat], i) => {
+            let latSum = 0;
+            const pts = ring.map(([lon, lat]) => {
               if (prevLon != null) {
                 while (lon - prevLon > 180) lon -= 360;
                 while (lon - prevLon < -180) lon += 360;
               }
               prevLon = lon;
-              const [x, y] = lonLatToWorld(lon, lat);
-              if (i === 0) path.moveTo(x, y);
-              else path.lineTo(x, y);
-              bounds[0] = Math.min(bounds[0], x);
-              bounds[1] = Math.min(bounds[1], y);
-              bounds[2] = Math.max(bounds[2], x);
-              bounds[3] = Math.max(bounds[3], y);
+              latSum += lat;
+              return [lon, lat];
             });
-            path.closePath();
+            const lons = pts.map((p) => p[0]);
+            if (Math.max(...lons) - Math.min(...lons) > 350) {
+              const pole = latSum / pts.length < 0 ? -89.9 : 89.9;
+              pts.push([pts[pts.length - 1][0], pole], [pts[0][0], pole]);
+            }
+            rings.push(pts);
           }
         }
-        return { id: f.id, name: f.properties.name, meta: meta[f.id], path, bounds };
+        const path = new Path2D();
+        const bounds = [Infinity, Infinity, -Infinity, -Infinity];
+        for (const ring of rings) {
+          ring.forEach(([lon, lat], i) => {
+            const [x, y] = lonLatToWorld(lon, lat);
+            if (i === 0) path.moveTo(x, y);
+            else path.lineTo(x, y);
+            bounds[0] = Math.min(bounds[0], x);
+            bounds[1] = Math.min(bounds[1], y);
+            bounds[2] = Math.max(bounds[2], x);
+            bounds[3] = Math.max(bounds[3], y);
+          });
+          path.closePath();
+        }
+        return { id: f.id, name: f.properties.name, meta: meta[f.id], rings, path, bounds };
       });
     this.byId = new Map(this.countries.map((c) => [c.id, c]));
   }

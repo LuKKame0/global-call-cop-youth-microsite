@@ -9,11 +9,15 @@ Custom-built vector map engine. Zero dependencies, no build step, ~150 KB total
 npx serve sites/atlas        # or any static HTTP server (ES modules need HTTP)
 ```
 
-## What it does (v0.1)
+## What it does (v0.2)
 
-- **Political base** — 177 country polygons (Natural Earth 110m TopoJSON, decoded
-  by our own ~60-line decoder), hover + click-to-select with country intel
-  (ISO codes, region, centroid, sovereignty) joined from `data/country-meta.js`
+- **2D / 3D toggle** — Mercator map or orthographic globe (keyboard F / G),
+  same layers, tools and data in both; view carries over when switching
+
+- **Political base** — 178 polygons (Natural Earth 110m TopoJSON, decoded by
+  our own ~60-line decoder) including Antarctica and polar territories, hover +
+  click-to-select with country intel (ISO codes, region, centroid, sovereignty;
+  territories show their sovereign state) joined from `data/country-meta.js`
 - **Navigation** — drag pan, wheel zoom-to-cursor, pinch zoom, animated `flyTo`
   with logarithmic zoom easing; region buttons in the top bar fly AND segment:
   the region is outlined, everything else dims (`atlas.setRegion("Europe")`,
@@ -35,8 +39,13 @@ engine/
   topojson.js     Minimal TopoJSON decoder (arcs → rings)
   camera.js       center+scale, world↔screen, clamped pan/zoom, animated flyTo
   animator.js     single rAF scheduler — repaints ONLY when dirty or animating
-  layers.js       Graticule · Political · Flows · Markers · Brush
+  layers.js       Graticule · Political · Flows · Markers · Labels · Brush
+  globe.js        3D orthographic renderer: per-pixel raster from an equirect
+                  id-map (palette recolor ≪ remap; half-res while dragging),
+                  1px border detection, hemisphere-culled vector overlays,
+                  O(1) id-map hit-testing
   tools.js        PointerManager: pan/zoom always on; active tool = click intent
+                  (in 3D, drag rotates and wheel zooms the globe)
   data.js         adapters (Static, REST-polling) + joins + color ramps
   atlas.js        facade wiring everything; Atlas.create(canvas, options)
 data/
@@ -80,7 +89,7 @@ source.subscribe((rows) => {
 
 ## Roadmap
 
-- [ ] Orthographic (globe) projection toggle — engine is projection-agnostic
+- [x] Orthographic (globe) projection toggle
 - [ ] Admin-1 boundaries at high zoom (Natural Earth 50m/10m, lazy-loaded)
 - [ ] Label engine (zoom-dependent country labels, collision avoidance)
 - [ ] Timeline scrubber for temporal datasets

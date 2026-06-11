@@ -21,6 +21,8 @@ import {
   LabelLayer,
 } from "./layers.js";
 import { PointerManager } from "./tools.js";
+import { GlobeRenderer } from "./globe.js";
+import { WORLD, lonLatToWorld } from "./projection.js";
 
 export class Atlas {
   static async create(canvas, options) {
@@ -57,6 +59,9 @@ export class Atlas {
       this.labels,
       this.brush,
     ];
+
+    this.mode = "2d"; // "2d" mercator | "3d" orthographic globe
+    this.globe = new GlobeRenderer(this);
 
     this.pointer = new PointerManager(canvas, this);
     this.markerOptions = { color: "#FF460D" };
@@ -104,7 +109,63 @@ export class Atlas {
     return worldToLonLat(wx, wy);
   }
 
-  hitCountry(wx, wy) {
+  // ── projection-agnostic view interface (PointerManager + app use this) ──
+  setMode(mode) {
+    if (mode === this.mode) return;
+    if (mode === "3d") {
+      // carry the current view over: scale ↔ globe radius, center ↔ rotation
+      const [lon, lat] = worldToLonLat(this.camera.cx, this.camera.cy);
+      this.globe.lon0 = lon;
+      this.globe.lat0 = Math.max(-89, Math.min(89, lat));
+      this.globe.radius = Math.max(
+        this.globe.minRadius,
+        Math.min(this.globe.maxRadius, (this.camera.scale * WORLD) / (2 * Math.PI)),
+      );
+      this.globe.endInteraction();
+    } else {
+      const [wx, wy] = lonLatToWorld(this.globe.lon0, this.globe.lat0);
+      this.camera.cx = wx;
+      this.camera.cy = wy;
+      this.camera.scale = Math.max(
+        this.camera.minScale,
+        Math.min(this.camera.maxScale, (this.globe.radius * 2 * Math.PI) / WORLD),
+      );
+    }
+    this.mode = mode;
+    this.animator.invalidate();
+  }
+
+  viewPanBy(dx, dy) {
+    if (this.mode === "3d") this.globe.rotateBy(dx, dy);
+    else this.camera.panBy(dx, dy);
+  }
+
+  viewZoomAt(sx, sy, factor) {
+    if (this.mode === "3d") this.globe.zoomBy(factor);
+    else this.camera.zoomAt(sx, sy, factor);
+  }
+
+  viewEndInteraction() {
+    if (this.mode === "3d") this.globe.endInteraction();
+  }
+
+  // returns world coords or null (3D: cursor off the globe disc)
+  viewScreenToWorld(sx, sy) {
+    if (this.mode === "3d") {
+      const [cx, cy] = this.globe.center();
+      const ll = this.globe.invert(sx, sy, cx, cy);
+      return ll ? lonLatToWorld(ll[0], ll[1]) : null;
+    }
+    return this.camera.screenToWorld(sx, sy);
+  }
+
+  flyTo(view) {
+    if (this.mode === "3d") this.globe.flyTo(view);
+    else this.camera.flyTo(view);
+  }
+
+  hitCountry(wx, wy, sx, sy) {
+    if (this.mode === "3d") return this.globe.hitCountry(sx, sy);
     return this.political.hitTest(this.ctx, this.camera, this.dpr, wx, wy);
   }
 
@@ -127,6 +188,10 @@ export class Atlas {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = this.background;
     ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.mode === "3d") {
+      this.globe.render(ctx, t);
+      return;
+    }
     this.camera.applyTransform(ctx, dpr);
     for (const layer of this.layers) {
       if (layer.visible) layer.draw(ctx, this.camera, t, dpr);

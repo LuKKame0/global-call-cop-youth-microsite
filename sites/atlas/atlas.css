@@ -43,7 +43,23 @@ button { font: inherit; color: inherit; }
 }
 .brand-sub { color: var(--muted); font-size: 10px; letter-spacing: 0.14em; }
 
-.flyto { display: flex; gap: 2px; margin-left: auto; }
+.mode { display: flex; gap: 2px; margin-left: auto; }
+.mode button {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  font-size: 10px;
+}
+.mode button:hover { border-color: var(--accent); color: var(--accent); }
+.mode button.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(55, 171, 250, 0.10);
+}
+
+.flyto { display: flex; gap: 2px; }
 .flyto button {
   background: transparent;
   border: 1px solid var(--line);

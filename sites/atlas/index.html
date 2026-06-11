@@ -15,6 +15,10 @@
         <strong>TGC&nbsp;ATLAS</strong>
         <span class="brand-sub">GEOSPATIAL CONSOLE · v0.1</span>
       </div>
+      <nav class="mode" aria-label="Projection mode">
+        <button data-mode="2d" class="is-active" title="Mercator map">2D</button>
+        <button data-mode="3d" title="Orthographic globe">3D</button>
+      </nav>
       <nav class="flyto" aria-label="Segment region">
         <button data-fly="americas" data-region="Americas">AMERICAS</button>
         <button data-fly="europe" data-region="Europe">EUROPE</button>
@@ -70,7 +74,7 @@
         <span id="status-cursor">— · —</span>
         <span id="status-zoom">Z 0.25</span>
         <span id="status-sel">NO SELECTION</span>
-        <span class="status-right">MERCATOR · NE 110m · 177 POLYGONS</span>
+        <span class="status-right" id="status-proj">MERCATOR · NE 110m · 178 POLYGONS</span>
       </footer>
     </main>
 

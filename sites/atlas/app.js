@@ -9,8 +9,18 @@ const canvas = document.getElementById("map");
 const atlas = await Atlas.create(canvas, {
   topologyUrl: "./data/countries-110m.json",
   meta: COUNTRY_META,
-  exclude: ["010"], // Antarctica distorts into a band under Mercator
 });
+
+// Sovereignty of non-independent polar/overseas territories (NE 110m set)
+const SOVEREIGN_OF = {
+  "010": "ANTARCTIC TREATY (claims suspended)",
+  "304": "DENMARK (Greenland)",
+  "260": "FRANCE (TAAF)",
+  "540": "FRANCE (New Caledonia)",
+  "238": "UNITED KINGDOM (disputed: AR)",
+  "630": "UNITED STATES (Puerto Rico)",
+  "732": "DISPUTED (Western Sahara)",
+};
 
 // ── Demo dataset: simulated coordination index per country ──────────
 const ramp = colorRamp(["#0c1622", "#123a5c", "#1b6ea8", "#37abfa"]);
@@ -74,6 +84,7 @@ function renderIntel(country) {
     ["CENTROID", meta ? `${meta[3]}°, ${meta[4]}°` : "—"],
     ["STATUS", meta && meta[6] ? "SOVEREIGN" : "TERRITORY"],
   ];
+  if (SOVEREIGN_OF[country.id]) rows.push(["UNDER", SOVEREIGN_OF[country.id]]);
   intel.innerHTML =
     `<p class="intel-name">${country.name ?? (meta && meta[0]) ?? "UNKNOWN"}</p>` +
     rows
@@ -94,7 +105,8 @@ atlas.pointer.onSelect = (c) => {
     ? `SEL ${(c.name ?? "").toUpperCase()}`
     : "NO SELECTION";
   if (c && c.meta) {
-    atlas.camera.flyTo({ lon: c.meta[4], lat: c.meta[3], scale: Math.max(atlas.camera.scale, 1.4) });
+    const current = atlas.mode === "3d" ? atlas.globe.eqScale() : atlas.camera.scale;
+    atlas.flyTo({ lon: c.meta[4], lat: c.meta[3], scale: Math.max(current, 1.4) });
   }
 };
 
@@ -166,9 +178,27 @@ flyButtons.forEach((btn) => {
     flyButtons.forEach((b) => b.classList.remove("is-active"));
     btn.classList.add("is-active");
     atlas.setRegion(btn.dataset.region ?? null);
-    atlas.camera.flyTo(VIEWS[btn.dataset.fly]);
+    atlas.flyTo(VIEWS[btn.dataset.fly]);
   });
 });
 
+// ── 2D / 3D projection toggle ────────────────────────────────────────
+const modeButtons = document.querySelectorAll("[data-mode]");
+const statusProj = document.getElementById("status-proj");
+modeButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modeButtons.forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    atlas.setMode(btn.dataset.mode);
+    statusProj.textContent =
+      (btn.dataset.mode === "3d" ? "ORTHOGRAPHIC" : "MERCATOR") +
+      " · NE 110m · 178 POLYGONS";
+  });
+});
+window.addEventListener("keydown", (e) => {
+  if (e.key === "g") document.querySelector('[data-mode="3d"]').click();
+  if (e.key === "f") document.querySelector('[data-mode="2d"]').click();
+});
+
 // initial framing
-atlas.camera.flyTo({ ...VIEWS.world, duration: 1600 });
+atlas.flyTo({ ...VIEWS.world, duration: 1600 });

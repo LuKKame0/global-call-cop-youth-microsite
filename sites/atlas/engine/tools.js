@@ -1,4 +1,4 @@
-// Pointer tooling: pan/zoom always available; the active tool decides what
+﻿// Pointer tooling: pan/zoom always available; the active tool decides what
 // click/drag means (select country, paint brush, drop marker). Pinch-zoom
 // supported via two pointers.
 
@@ -29,7 +29,10 @@ export class PointerManager {
       (e) => {
         e.preventDefault();
         const factor = Math.exp(-e.deltaY * 0.0015);
-        this.atlas.camera.zoomAt(e.offsetX, e.offsetY, factor);
+        this.atlas.viewZoomAt(e.offsetX, e.offsetY, factor);
+        // settle to full-res after the wheel burst (3D raster)
+        clearTimeout(this._wheelTimer);
+        this._wheelTimer = setTimeout(() => this.atlas.viewEndInteraction(), 160);
       },
       { passive: false },
     );
@@ -50,9 +53,10 @@ export class PointerManager {
       return;
     }
     if (this.tool === "brush") {
+      const w = this.atlas.viewScreenToWorld(e.offsetX, e.offsetY);
+      if (!w) return; // off the globe disc
       this.brushing = true;
-      const [wx, wy] = this.atlas.camera.screenToWorld(e.offsetX, e.offsetY);
-      this.atlas.brush.begin(wx, wy, this.brushOptions);
+      this.atlas.brush.begin(w[0], w[1], this.brushOptions);
       this.atlas.animator.invalidate();
     } else {
       this.dragging = true;
@@ -71,7 +75,7 @@ export class PointerManager {
       const dist = this._pinchDistance();
       if (this.pinchDist > 0) {
         const [a, b] = [...this.pointers.values()];
-        this.atlas.camera.zoomAt(
+        this.atlas.viewZoomAt(
           (a[0] + b[0]) / 2,
           (a[1] + b[1]) / 2,
           dist / this.pinchDist,
@@ -82,21 +86,32 @@ export class PointerManager {
     }
 
     if (this.brushing) {
-      const [wx, wy] = this.atlas.camera.screenToWorld(e.offsetX, e.offsetY);
-      this.atlas.brush.extend(wx, wy);
-      this.atlas.animator.invalidate();
+      const w = this.atlas.viewScreenToWorld(e.offsetX, e.offsetY);
+      if (w) {
+        this.atlas.brush.extend(w[0], w[1]);
+        this.atlas.animator.invalidate();
+      }
       return;
     }
 
     if (this.dragging && prev) {
-      this.atlas.camera.panBy(e.offsetX - prev[0], e.offsetY - prev[1]);
+      this.atlas.viewPanBy(e.offsetX - prev[0], e.offsetY - prev[1]);
       return;
     }
 
     // idle hover
-    const [wx, wy] = this.atlas.camera.screenToWorld(e.offsetX, e.offsetY);
+    const w = this.atlas.viewScreenToWorld(e.offsetX, e.offsetY);
+    if (!w) {
+      if (this.atlas.political.hoverId != null) {
+        this.atlas.political.hoverId = null;
+        this.atlas.animator.invalidate();
+        if (this.onHover) this.onHover(null);
+      }
+      return;
+    }
+    const [wx, wy] = w;
     if (this.onCursor) this.onCursor(wx, wy);
-    const hit = this.atlas.hitCountry(wx, wy);
+    const hit = this.atlas.hitCountry(wx, wy, e.offsetX, e.offsetY);
     const hitId = hit ? hit.id : null;
     if (hitId !== this.atlas.political.hoverId) {
       this.atlas.political.hoverId = hitId;
@@ -118,14 +133,17 @@ export class PointerManager {
     const wasDragging = this.dragging;
     this.dragging = false;
     this.setTool(this.tool); // restore cursor
+    this.atlas.viewEndInteraction();
 
     if (wasDragging && !this.moved) {
-      const [wx, wy] = this.atlas.camera.screenToWorld(e.offsetX, e.offsetY);
+      const w = this.atlas.viewScreenToWorld(e.offsetX, e.offsetY);
+      if (!w) return;
+      const [wx, wy] = w;
       if (this.tool === "marker") {
         this.atlas.markersUserAdd(wx, wy);
         return;
       }
-      const hit = this.atlas.hitCountry(wx, wy);
+      const hit = this.atlas.hitCountry(wx, wy, e.offsetX, e.offsetY);
       this.atlas.political.selectedId = hit ? hit.id : null;
       this.atlas.animator.invalidate();
       if (this.onSelect) this.onSelect(hit);
