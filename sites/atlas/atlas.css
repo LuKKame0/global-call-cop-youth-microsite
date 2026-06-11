@@ -53,6 +53,11 @@ button { font: inherit; color: inherit; }
   font-size: 10px;
 }
 .flyto button:hover { border-color: var(--accent); color: var(--accent); }
+.flyto button.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(55, 171, 250, 0.10);
+}
 
 .live { display: flex; align-items: center; gap: 0.45rem; color: var(--muted); font-size: 10px; letter-spacing: 0.14em; }
 .live-dot {

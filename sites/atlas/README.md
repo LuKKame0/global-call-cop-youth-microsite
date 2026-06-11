@@ -15,7 +15,12 @@ npx serve sites/atlas        # or any static HTTP server (ES modules need HTTP)
   by our own ~60-line decoder), hover + click-to-select with country intel
   (ISO codes, region, centroid, sovereignty) joined from `data/country-meta.js`
 - **Navigation** — drag pan, wheel zoom-to-cursor, pinch zoom, animated `flyTo`
-  with logarithmic zoom easing; region presets in the top bar
+  with logarithmic zoom easing; region buttons in the top bar fly AND segment:
+  the region is outlined, everything else dims (`atlas.setRegion("Europe")`,
+  WORLD clears)
+- **Country labels** — zoom-progressive (big countries first), screen-space
+  crisp text with collision avoidance, dims outside the segmented region,
+  toggleable layer
 - **Data visualization** — choropleth (color ramp over any `Map<id, value>`),
   animated flow arcs between coordinates, pulsing geolocated markers with labels
 - **Brush tools** — freehand annotation strokes in world space (survive

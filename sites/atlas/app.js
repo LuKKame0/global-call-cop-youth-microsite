@@ -149,16 +149,25 @@ document.querySelectorAll("[data-layer]").forEach((box) => {
   });
 });
 
-// ── Fly-to navigation ────────────────────────────────────────────────
+// ── Region navigation + segmentation ────────────────────────────────
+// Flying to a region also segments it: the region is outlined and the
+// rest of the map is dimmed. WORLD clears the segment.
 const VIEWS = {
   americas: { lon: -75, lat: 8, scale: 0.55 },
   europe: { lon: 15, lat: 50, scale: 1.1 },
   africa: { lon: 18, lat: 2, scale: 0.7 },
   asia: { lon: 95, lat: 25, scale: 0.6 },
+  oceania: { lon: 140, lat: -22, scale: 0.7 },
   world: { lon: 0, lat: 20, scale: 0.28 },
 };
-document.querySelectorAll("[data-fly]").forEach((btn) => {
-  btn.addEventListener("click", () => atlas.camera.flyTo(VIEWS[btn.dataset.fly]));
+const flyButtons = document.querySelectorAll("[data-fly]");
+flyButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    flyButtons.forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    atlas.setRegion(btn.dataset.region ?? null);
+    atlas.camera.flyTo(VIEWS[btn.dataset.fly]);
+  });
 });
 
 // initial framing

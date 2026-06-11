@@ -18,6 +18,7 @@ import {
   FlowLayer,
   MarkerLayer,
   BrushLayer,
+  LabelLayer,
 } from "./layers.js";
 import { PointerManager } from "./tools.js";
 
@@ -47,7 +48,15 @@ export class Atlas {
     this.flows = new FlowLayer();
     this.markers = new MarkerLayer();
     this.brush = new BrushLayer();
-    this.layers = [this.graticule, this.political, this.flows, this.markers, this.brush];
+    this.labels = new LabelLayer(this.political);
+    this.layers = [
+      this.graticule,
+      this.political,
+      this.flows,
+      this.markers,
+      this.labels,
+      this.brush,
+    ];
 
     this.pointer = new PointerManager(canvas, this);
     this.markerOptions = { color: "#FF460D" };
@@ -99,6 +108,12 @@ export class Atlas {
     return this.political.hitTest(this.ctx, this.camera, this.dpr, wx, wy);
   }
 
+  // segment a region: highlight it, dim the rest; null clears
+  setRegion(region) {
+    this.political.regionFilter = region;
+    this.animator.invalidate();
+  }
+
   _resize() {
     const rect = this.canvas.getBoundingClientRect();
     this.canvas.width = Math.round(rect.width * this.dpr);
@@ -114,7 +129,7 @@ export class Atlas {
     ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.camera.applyTransform(ctx, dpr);
     for (const layer of this.layers) {
-      if (layer.visible) layer.draw(ctx, this.camera, t);
+      if (layer.visible) layer.draw(ctx, this.camera, t, dpr);
     }
   }
 

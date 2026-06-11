@@ -44,9 +44,12 @@ export class PoliticalLayer {
     this.hoverId = null;
     this.selectedId = null;
     this.choropleth = null; // { values: Map<id, 0..1>, ramp: (v) => color }
+    this.regionFilter = null; // e.g. "Americas" — dims everything else
     this.style = {
       fill: "#101820",
       stroke: "rgba(140,180,215,0.35)",
+      dimFill: "#0a0e13",
+      dimStroke: "rgba(140,180,215,0.10)",
       hoverFill: "rgba(55,171,250,0.22)",
       selectedFill: "rgba(55,171,250,0.30)",
       selectedStroke: "#37ABFA",
@@ -83,18 +86,31 @@ export class PoliticalLayer {
     this.byId = new Map(this.countries.map((c) => [c.id, c]));
   }
 
+  inRegion(c) {
+    return !this.regionFilter || (c.meta && c.meta[5] === this.regionFilter);
+  }
+
   draw(ctx, camera) {
     const lw = 1 / camera.scale;
     for (const c of this.countries) {
-      let fill = this.style.fill;
-      if (this.choropleth?.values.has(c.id)) {
+      const active = this.inRegion(c);
+      let fill = active ? this.style.fill : this.style.dimFill;
+      if (active && this.choropleth?.values.has(c.id)) {
         fill = this.choropleth.ramp(this.choropleth.values.get(c.id));
       }
       ctx.fillStyle = fill;
       ctx.fill(c.path);
-      ctx.strokeStyle = this.style.stroke;
+      ctx.strokeStyle = active ? this.style.stroke : this.style.dimStroke;
       ctx.lineWidth = lw;
       ctx.stroke(c.path);
+    }
+    // outline the segmented region as one signal
+    if (this.regionFilter) {
+      ctx.strokeStyle = "rgba(55,171,250,0.55)";
+      ctx.lineWidth = 1.6 / camera.scale;
+      for (const c of this.countries) {
+        if (this.inRegion(c)) ctx.stroke(c.path);
+      }
     }
     if (this.hoverId != null && this.hoverId !== this.selectedId) {
       const c = this.byId.get(this.hoverId);
@@ -268,5 +284,71 @@ export class BrushLayer {
       ctx.stroke();
       ctx.globalAlpha = 1;
     }
+  }
+}
+
+// ── Labels (country names — zoom-progressive, collision-avoiding) ───
+export class LabelLayer {
+  constructor(political) {
+    this.id = "labels";
+    this.visible = true;
+    this.political = political;
+    // importance = projected bounds area; bigger countries label first
+    this.items = political.countries
+      .map((c) => {
+        const [bx0, by0, bx1, by1] = [c.bounds[0], c.bounds[1], c.bounds[2], c.bounds[3]];
+        const [lx, ly] = c.meta
+          ? lonLatToWorld(c.meta[4], c.meta[3])
+          : [(bx0 + bx1) / 2, (by0 + by1) / 2];
+        return {
+          id: c.id,
+          name: (c.name ?? (c.meta ? c.meta[0] : "")).toUpperCase(),
+          x: lx,
+          y: ly,
+          area: (bx1 - bx0) * (by1 - by0),
+        };
+      })
+      .filter((l) => l.name)
+      .sort((a, b) => b.area - a.area);
+  }
+
+  // draws in SCREEN space for crisp, non-scaling text;
+  // restores the camera transform for the layers above it
+  draw(ctx, camera, t, dpr) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.font = "10px ui-monospace, Consolas, monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const placed = [];
+    let shown = 0;
+    for (const l of this.items) {
+      if (shown >= 90) break;
+      // progressive reveal: a country labels once it covers enough pixels
+      if (l.area * camera.scale * camera.scale < 2200) continue;
+      const [sx, sy] = camera.worldToScreen(l.x, l.y);
+      if (sx < 0 || sy < 0 || sx > camera.viewWidth || sy > camera.viewHeight) continue;
+      const w = l.name.length * 6.2 + 8;
+      const rect = [sx - w / 2, sy - 8, sx + w / 2, sy + 8];
+      if (
+        placed.some(
+          (r) => rect[0] < r[2] && rect[2] > r[0] && rect[1] < r[3] && rect[3] > r[1],
+        )
+      ) {
+        continue;
+      }
+      placed.push(rect);
+      shown += 1;
+      const active =
+        !this.political.regionFilter ||
+        (this.political.byId.get(l.id)?.meta?.[5] === this.political.regionFilter);
+      const selected = this.political.selectedId === l.id;
+      ctx.fillStyle = selected
+        ? "rgba(55,171,250,0.95)"
+        : active
+          ? "rgba(205,222,238,0.72)"
+          : "rgba(205,222,238,0.16)";
+      ctx.fillText(l.name, sx, sy);
+    }
+    camera.applyTransform(ctx, dpr);
   }
 }
