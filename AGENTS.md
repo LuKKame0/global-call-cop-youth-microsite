@@ -32,6 +32,8 @@ lib/            Domain logic: auth/, db/ (Drizzle schema), email, content
 middleware.ts   Routing/auth middleware (legacy-host redirects live here)
 sites/marketing/  Static landing — synced to public/marketing/ by scripts/
                   (hero: Three.js globe in globe.js — see sites/marketing/README.md)
+sites/atlas/      TGC ATLAS — custom zero-dependency vector map engine +
+                  geospatial console (see sites/atlas/README.md)
 scripts/        sync-marketing-to-public.mjs (runs on pre-dev/pre-build)
 docs/           ARCHITECTURE.md, DEPLOYMENT.md, STANDARDS.md, BRANDING.md
 ```

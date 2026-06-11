@@ -1,0 +1,83 @@
+# TGC ATLAS — Map Engine & Geospatial Console
+
+Custom-built vector map engine. Zero dependencies, no build step, ~150 KB total
+(105 KB of that is the world topology). Palantir-style tactical aesthetic.
+
+## Run
+
+```bash
+npx serve sites/atlas        # or any static HTTP server (ES modules need HTTP)
+```
+
+## What it does (v0.1)
+
+- **Political base** — 177 country polygons (Natural Earth 110m TopoJSON, decoded
+  by our own ~60-line decoder), hover + click-to-select with country intel
+  (ISO codes, region, centroid, sovereignty) joined from `data/country-meta.js`
+- **Navigation** — drag pan, wheel zoom-to-cursor, pinch zoom, animated `flyTo`
+  with logarithmic zoom easing; region presets in the top bar
+- **Data visualization** — choropleth (color ramp over any `Map<id, value>`),
+  animated flow arcs between coordinates, pulsing geolocated markers with labels
+- **Brush tools** — freehand annotation strokes in world space (survive
+  pan/zoom), 4 brand colors, undo/clear; marker-drop tool; keyboard: V/B/M
+- **Geolocation readout** — live cursor lat/lon + zoom in the status bar
+
+## Architecture
+
+```
+engine/
+  projection.js   Web Mercator ↔ world space (4096-unit square); flow curves
+  topojson.js     Minimal TopoJSON decoder (arcs → rings)
+  camera.js       center+scale, world↔screen, clamped pan/zoom, animated flyTo
+  animator.js     single rAF scheduler — repaints ONLY when dirty or animating
+  layers.js       Graticule · Political · Flows · Markers · Brush
+  tools.js        PointerManager: pan/zoom always on; active tool = click intent
+  data.js         adapters (Static, REST-polling) + joins + color ramps
+  atlas.js        facade wiring everything; Atlas.create(canvas, options)
+data/
+  countries-110m.json   world-atlas@2.0.2 TopoJSON (Natural Earth, public domain)
+  country-meta.js       ccn3 → [name, iso2, iso3, lat, lon, region, independent]
+index.html / atlas.css / app.js   demo console (simulated dataset, labeled)
+```
+
+### Why it's fast
+
+Geometry is projected **once** into world space and baked into `Path2D`
+objects. Each frame is a single canvas transform — no per-frame reprojection.
+The animator stops the rAF loop entirely when nothing animates and nothing is
+dirty (idle CPU ≈ 0). Hit-testing pre-filters by bounding box before exact
+`isPointInPath`. Antimeridian-crossing rings (Russia, Fiji) are unwrapped at
+build time.
+
+## Connecting real data (next phase)
+
+Everything joins by country id (ISO 3166-1 numeric, as string) or `[lon, lat]`:
+
+```js
+import { RestSource, joinByCountry, colorRamp } from "./engine/data.js";
+
+const source = new RestSource("https://api.example.org/indicators", {
+  map: (json) => json.rows,          // → [{ iso2: "AR", value: 0.7 }, ...]
+  pollMs: 30_000,
+});
+source.subscribe((rows) => {
+  const joined = joinByCountry(rows, COUNTRY_META, "iso2");
+  const values = new Map([...joined].map(([id, r]) => [id, r.value]));
+  atlas.political.choropleth = { values, ramp: colorRamp(["#0c1622", "#37abfa"]) };
+  atlas.animator.invalidate();
+});
+```
+
+- **REST** — implemented (`RestSource`, optional polling)
+- **WebSocket** — stub documented in `data.js`; push deltas → `invalidate()`
+- **Oracles / on-chain** — treat the oracle HTTP gateway as a `RestSource`, or
+  read contracts via an RPC provider and normalize to rows keyed by iso2
+
+## Roadmap
+
+- [ ] Orthographic (globe) projection toggle — engine is projection-agnostic
+- [ ] Admin-1 boundaries at high zoom (Natural Earth 50m/10m, lazy-loaded)
+- [ ] Label engine (zoom-dependent country labels, collision avoidance)
+- [ ] Timeline scrubber for temporal datasets
+- [ ] Vector tile support if 10m detail is ever needed
+- [ ] Persist annotations (serialize brush strokes → JSON → DB)

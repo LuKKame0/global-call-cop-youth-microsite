@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TGC ATLAS — Geospatial Intelligence Console</title>
+    <meta name="description" content="Lightweight vector map engine: geolocation, navigation, political layers, data visualization." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect width='10' height='10' fill='%2337ABFA'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./atlas.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <strong>TGC&nbsp;ATLAS</strong>
+        <span class="brand-sub">GEOSPATIAL CONSOLE · v0.1</span>
+      </div>
+      <nav class="flyto" aria-label="Fly to region">
+        <button data-fly="americas">AMERICAS</button>
+        <button data-fly="europe">EUROPE</button>
+        <button data-fly="africa">AFRICA</button>
+        <button data-fly="asia">ASIA</button>
+        <button data-fly="world">WORLD</button>
+      </nav>
+      <span class="live"><span class="live-dot"></span>SIMULATED FEED</span>
+    </header>
+
+    <main class="stage">
+      <canvas id="map" aria-label="World map"></canvas>
+
+      <aside class="rail" aria-label="Tools">
+        <button class="tool is-active" data-tool="select" title="Select / Pan (V)">◎</button>
+        <button class="tool" data-tool="brush" title="Brush annotate (B)">✎</button>
+        <button class="tool" data-tool="marker" title="Drop marker (M)">▾</button>
+        <hr />
+        <button class="tool" data-action="undo" title="Undo stroke">⌫</button>
+        <button class="tool" data-action="clear" title="Clear annotations">✕</button>
+        <div class="swatches">
+          <button class="swatch is-active" data-color="#FF91FE" style="--c:#FF91FE"></button>
+          <button class="swatch" data-color="#37ABFA" style="--c:#37ABFA"></button>
+          <button class="swatch" data-color="#61C879" style="--c:#61C879"></button>
+          <button class="swatch" data-color="#FF460D" style="--c:#FF460D"></button>
+        </div>
+      </aside>
+
+      <aside class="panel" aria-label="Intelligence panel">
+        <h2 class="panel-title">INTEL</h2>
+        <div class="intel" id="intel">
+          <p class="muted">Hover a country. Click to lock.<br />Scroll to zoom · drag to pan.</p>
+        </div>
+        <h2 class="panel-title">LAYERS</h2>
+        <ul class="layers">
+          <li><label><input type="checkbox" data-layer="political" checked /> Political base</label></li>
+          <li><label><input type="checkbox" data-layer="choropleth" checked /> Coordination index</label></li>
+          <li><label><input type="checkbox" data-layer="flows" checked /> Coordination flows</label></li>
+          <li><label><input type="checkbox" data-layer="markers" checked /> Operations</label></li>
+          <li><label><input type="checkbox" data-layer="graticule" checked /> Graticule</label></li>
+          <li><label><input type="checkbox" data-layer="brush" checked /> Annotations</label></li>
+        </ul>
+        <h2 class="panel-title">DATA</h2>
+        <p class="muted small">
+          Demo dataset is deterministic-simulated. Engine joins any source by
+          ISO code via <code>engine/data.js</code> (REST · WS · oracle).
+        </p>
+      </aside>
+
+      <footer class="status">
+        <span id="status-cursor">— · —</span>
+        <span id="status-zoom">Z 0.25</span>
+        <span id="status-sel">NO SELECTION</span>
+        <span class="status-right">MERCATOR · NE 110m · 177 POLYGONS</span>
+      </footer>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
