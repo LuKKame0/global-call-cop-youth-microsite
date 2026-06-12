@@ -16,6 +16,7 @@ export class Renderer {
   constructor(canvas, field) {
     this.canvas = canvas;
     this.field = field;
+    this._colorCache = {};
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     this.renderer.setClearColor(0x05070b, 1);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -36,6 +37,16 @@ export class Renderer {
     this._buildBodies();
     this.selected = null;
     this._proj = new THREE.Vector3();
+  }
+
+  // resolve a domain color from the field's corpus, falling back to the
+  // built-in noosphere palette — lets FileSpace reuse this renderer
+  _domainColor(key) {
+    if (this._colorCache[key]) return this._colorCache[key];
+    const hex = this.field.domains?.[key]?.color;
+    const c = hex ? new THREE.Color(hex) : DOMAIN_COLOR[key] ?? new THREE.Color(0xffffff);
+    this._colorCache[key] = c;
+    return c;
   }
 
   // ── Ambient starfield — depth + dream haze, procedurally placed ─────
@@ -73,7 +84,7 @@ export class Renderer {
     const group = new THREE.Group();
     this.nebulaMat = [];
     for (const [key, w] of Object.entries(this.field.wells)) {
-      const c = DOMAIN_COLOR[key] ?? new THREE.Color(0xffffff);
+      const c = this._domainColor(key);
       const mat = new THREE.ShaderMaterial({
         transparent: true,
         depthWrite: false,
@@ -118,7 +129,7 @@ export class Renderer {
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(14, 14.3, 64),
         new THREE.MeshBasicMaterial({
-          color: DOMAIN_COLOR[key] ?? 0xffffff,
+          color: this._domainColor(key),
           transparent: true,
           opacity: 0.12,
           side: THREE.DoubleSide,
@@ -139,7 +150,7 @@ export class Renderer {
     const col = new Float32Array(n * 3);
     const aux = new Float32Array(n * 3); // size, energy, temperature
     bodies.forEach((b, i) => {
-      const c = DOMAIN_COLOR[b.domain] ?? new THREE.Color(0xffffff);
+      const c = this._domainColor(b.domain);
       col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
       aux[i * 3] = 14 + b.mass * 46;
       aux[i * 3 + 1] = b.energy;
@@ -188,7 +199,7 @@ export class Renderer {
     this.edgePos = new Float32Array(edges.length * 6);
     const col = new Float32Array(edges.length * 6);
     edges.forEach((e, i) => {
-      const c = (DOMAIN_COLOR[e.a.domain] ?? new THREE.Color(0xffffff)).clone();
+      const c = this._domainColor(e.a.domain).clone();
       for (let k = 0; k < 2; k += 1) {
         col[i * 6 + k * 3] = c.r;
         col[i * 6 + k * 3 + 1] = c.g;

@@ -26,6 +26,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   background: var(--lc, #fff); box-shadow: 0 0 6px var(--lc, #fff);
 }
 .lbl-body.sel { color: #fff; font-weight: 600; }
+.lbl-dir { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; }
+.lbl-dir::before { width: 7px; height: 7px; margin-top: -3.5px; }
 .lbl-domain {
   font-size: 10px; letter-spacing: 0.28em; font-weight: 600;
   color: var(--lc, #fff); opacity: 0.5;
@@ -81,5 +83,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .forge-prompt input { width: 320px; background: rgba(0,0,0,0.4); border: 1px solid var(--line); color: var(--text); font: inherit; padding: 0.5rem; outline: none; }
 .forge-prompt input:focus { border-color: var(--accent); }
 .forge-hint { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; }
+
+/* filespace: mount gate + breadcrumb */
+.mount-gate { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, rgba(20,40,70,0.5), rgba(5,7,11,0.96)); backdrop-filter: blur(4px); }
+.gate-card { text-align: center; max-width: 380px; padding: 2rem; border: 1px solid var(--line); background: var(--panel); }
+.gate-card h1 { letter-spacing: 0.3em; font-size: 22px; margin: 0 0 1rem; color: var(--accent); }
+.gate-card p { color: var(--muted); line-height: 1.6; font-size: 12px; }
+.gate-open { margin: 1.2rem 0 0.6rem; padding: 0.7rem 1.4rem; background: rgba(55,171,250,0.12); border: 1px solid var(--accent); color: var(--accent); letter-spacing: 0.16em; }
+.gate-open:hover { background: rgba(55,171,250,0.22); }
+.gate-hint { font-size: 10px !important; letter-spacing: 0.08em; }
+
+.breadcrumb { display: flex; align-items: center; gap: 0.3rem; margin-left: 1.5rem; flex: 1; overflow: hidden; }
+.crumb { color: var(--muted); cursor: pointer; white-space: nowrap; font-size: 11px; }
+.crumb:hover { color: var(--accent); }
+.crumb.here { color: var(--text); }
+.crumb-sep { color: rgba(120,160,210,0.3); }
 
 @media (max-width: 720px) { .hud-legend, .laws { display: none; } .hud-inspector { width: calc(100% - 2rem); } }

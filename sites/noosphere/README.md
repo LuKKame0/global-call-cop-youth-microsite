@@ -18,6 +18,28 @@ a plastic surface for thought, with a HUD of data-art and AI microservices
 npx serve sites/noosphere      # ES modules need HTTP, not file://
 ```
 
+- `index.html` — the idea-universe (corpus of documents/ideas)
+- `filespace.html` — **FILESPACE: fly through a real folder tree in 3D**
+
+## FILESPACE — 3D file navigator
+
+Navigate a real directory tree as a 3D constellation. Click **OPEN A FOLDER**,
+grant read permission, and the chosen folder is read locally in your browser —
+**nothing is uploaded, no backend** (File System Access API; Chrome/Edge).
+
+- The current directory is the anchor core; its children orbit it — folders on
+  an inner ring (large, blue), files on an outer ring (colored by type:
+  doc/data/code/media/archive)
+- **Double-click a folder** (or select → ENTER FOLDER) to fly inside; the field
+  rebuilds with that folder's contents
+- **Breadcrumb** at the top + **↑ UP** to ascend; click any crumb to jump
+- Select a file → the inspector previews its head (text files) and shows size/type
+
+`engine/filesystem.js` (lazy DirNode reader) + `engine/filespace.js` (level →
+field) + `filespace-app.js`. Reuses the same Renderer, nebulae, labels and
+calm physics as the idea-universe — the first concrete step of the
+"intermediate layer over the OS".
+
 Drag = orbit · wheel = zoom · click a body = inspect. Tools (V/N/L):
 **NAV** navigate · **FORGE** create an idea-body (AI proposes its domain) ·
 **LINK** bind two bodies.

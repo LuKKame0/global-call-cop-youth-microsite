@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FILESPACE — navigate your folders in 3D</title>
+    <meta name="description" content="Fly through a real directory tree in 3D. Sovereign, local, no backend." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%2337ABFA'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./noosphere.css" />
+  </head>
+  <body>
+    <canvas id="field"></canvas>
+    <div id="labels" class="label-layer"></div>
+
+    <header class="hud-top">
+      <div class="sigil">
+        <span class="sigil-dot"></span>
+        <strong>FILESPACE</strong>
+        <span class="sigil-sub">3D FILE NAVIGATOR</span>
+      </div>
+      <nav class="breadcrumb" id="breadcrumb"></nav>
+      <a class="ai-pulse" href="./index.html" style="text-decoration:none">✶ UNIVERSE</a>
+      <button class="ai-pulse" id="up-btn" hidden>↑ UP</button>
+    </header>
+
+    <div class="mount-gate" id="gate">
+      <div class="gate-card">
+        <h1>FILESPACE</h1>
+        <p>Fly through a real folder tree in 3D. The folder is read locally in
+          your browser — nothing is uploaded, no backend.</p>
+        <button class="gate-open" id="open-btn">◉ OPEN A FOLDER</button>
+        <p class="gate-hint" id="gate-hint">Chrome or Edge required (File System Access API).</p>
+      </div>
+    </div>
+
+    <aside class="hud-legend" id="legend"></aside>
+
+    <aside class="hud-inspector" id="inspector" hidden>
+      <button class="insp-close" id="insp-close">✕</button>
+      <span class="insp-domain" id="insp-domain"></span>
+      <h2 class="insp-title" id="insp-title"></h2>
+      <div class="insp-props" id="insp-props"></div>
+      <button class="insp-synth" id="enter-btn" hidden>⤓ ENTER FOLDER</button>
+      <pre class="insp-out" id="insp-out" hidden></pre>
+    </aside>
+
+    <footer class="hud-bottom">
+      <span id="b-cursor">open a folder to begin</span>
+      <span class="hud-right" id="counts"></span>
+    </footer>
+
+    <script type="module" src="./filespace-app.js"></script>
+  </body>
+</html>
