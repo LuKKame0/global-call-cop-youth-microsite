@@ -4,8 +4,9 @@
 
 import * as THREE from "./vendor/three.module.min.js";
 import { Renderer } from "./engine/renderer.js";
-import { supported, pickRoot, readPreview } from "./engine/filesystem.js";
+import { supported, pickRoot, readDocument, fmtSize } from "./engine/filesystem.js";
 import { levelCorpus, buildLevelField } from "./engine/filespace.js";
+import { renderPreview } from "./engine/preview.js";
 
 const el = (id) => document.getElementById(id);
 const canvas = el("field");
@@ -62,6 +63,7 @@ async function navigateTo(dirNode, { initial = false } = {}) {
   el("counts").textContent = `${dirs} folders · ${entries.length - dirs} files`;
   el("b-cursor").textContent = "drag orbit · wheel zoom · click folder to enter";
   el("inspector").hidden = true;
+  closePreview();
 }
 
 // rebuild renderer scene objects for a new level
@@ -154,18 +156,39 @@ async function inspect(b) {
   ].map(([k, v]) => `<div class="prop"><div class="pk">${k}</div><div class="pv">${v}</div></div>`).join("");
   const out = el("insp-out");
   const enter = el("enter-btn");
+  out.hidden = true;
   if (b.isDir) {
     enter.hidden = false;
-    out.hidden = true;
     enter.onclick = () => navigateTo(current.childDir(b._entry));
   } else {
     enter.hidden = true;
-    out.hidden = false;
-    out.textContent = "◍ reading…";
-    out.textContent = await readPreview(b._entry.handle);
+    // selecting a document opens the full preview panel
+    openPreview(b);
   }
 }
 el("insp-close").addEventListener("click", () => { el("inspector").hidden = true; renderer.selected = null; });
+
+// ── Document preview panel ───────────────────────────────────────────
+let previewCleanup = null;
+async function openPreview(b) {
+  const panel = el("preview");
+  const content = el("pv-content");
+  panel.hidden = false;
+  el("pv-name").textContent = b.title;
+  el("pv-kind").textContent = (domains[b.domain]?.label ?? "FILE").toUpperCase();
+  content.innerHTML = '<div class="pv-note">◍ reading…</div>';
+  if (previewCleanup) { previewCleanup(); previewCleanup = null; }
+  const doc = await readDocument(b._entry);
+  // user may have selected another file while reading
+  if (renderer.selected !== b) { if (doc.url) URL.revokeObjectURL(doc.url); return; }
+  previewCleanup = renderPreview(content, doc, b.title);
+}
+function closePreview() {
+  el("preview").hidden = true;
+  if (previewCleanup) { previewCleanup(); previewCleanup = null; }
+}
+el("pv-close").addEventListener("click", closePreview);
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") closePreview(); });
 
 // ── Pointer: orbit + pick + double-click to enter ───────────────────
 let dragging = false, moved = false, last = [0, 0], lastClick = 0;

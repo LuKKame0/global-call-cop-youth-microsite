@@ -33,7 +33,11 @@ grant read permission, and the chosen folder is read locally in your browser —
 - **Double-click a folder** (or select → ENTER FOLDER) to fly inside; the field
   rebuilds with that folder's contents
 - **Breadcrumb** at the top + **↑ UP** to ascend; click any crumb to jump
-- Select a file → the inspector previews its head (text files) and shows size/type
+- **Select a document → a full preview panel opens** (right side): Markdown is
+  rendered formatted (headings, lists, code, quotes, links), source code and
+  text shown monospace, **images** and **PDFs** displayed inline; binaries get a
+  type/size note. Markdown is escaped before rendering (no HTML injection).
+  Esc or ✕ closes. Files are read locally; image/PDF object URLs are revoked on close.
 
 `engine/filesystem.js` (lazy DirNode reader) + `engine/filespace.js` (level →
 field) + `filespace-app.js`. Reuses the same Renderer, nebulae, labels and
