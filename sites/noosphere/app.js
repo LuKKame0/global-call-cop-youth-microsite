@@ -27,6 +27,58 @@ const mKe = el("m-ke"), mEntropy = el("m-entropy"), mBodies = el("m-bodies"), mD
 const inspector = el("inspector");
 const bCursor = el("b-cursor");
 
+// ── Label layer: domain titles + body names projected over the canvas ─
+const labelLayer = el("labels");
+const domainColor = (k) => corpus.domains[k]?.color ?? "#ffffff";
+
+const domainLabels = Object.entries(corpus.domains).map(([key, d]) => {
+  const node = document.createElement("div");
+  node.className = "lbl lbl-domain";
+  node.style.setProperty("--lc", d.color);
+  node.textContent = d.label;
+  labelLayer.appendChild(node);
+  return { key, node, well: field.wells[key] };
+});
+
+const bodyLabels = field.bodies.map((b) => {
+  const node = document.createElement("div");
+  node.className = "lbl lbl-body";
+  node.style.setProperty("--lc", domainColor(b.domain));
+  node.textContent = b.title ?? b.id;
+  labelLayer.appendChild(node);
+  return { body: b, node };
+});
+
+function refreshLabelNode(entry) {
+  // called after forge: a new body needs a label node
+  const node = document.createElement("div");
+  node.className = "lbl lbl-body";
+  node.style.setProperty("--lc", domainColor(entry.domain));
+  node.textContent = entry.title ?? entry.id;
+  labelLayer.appendChild(node);
+  bodyLabels.push({ body: entry, node });
+}
+
+function updateLabels() {
+  for (const dl of domainLabels) {
+    const p = renderer.project(dl.well.x, dl.well.y + 18, dl.well.z);
+    if (!p.visible) { dl.node.style.opacity = "0"; continue; }
+    dl.node.style.transform = `translate(-50%,-50%) translate(${p.x}px,${p.y}px)`;
+    dl.node.style.opacity = "0.5";
+  }
+  // distance-of-field fade: near labels crisp, far ones dissolve (dreamlike)
+  for (const bl of bodyLabels) {
+    const b = bl.body;
+    const p = renderer.project(b.x, b.y, b.z);
+    if (!p.visible || domainOff.has(b.domain)) { bl.node.style.opacity = "0"; continue; }
+    const sel = renderer.selected === b;
+    bl.node.classList.toggle("sel", sel);
+    const fade = Math.max(0.12, Math.min(1, (220 - p.dist) / 120));
+    bl.node.style.opacity = String(sel ? 1 : fade);
+    bl.node.style.transform = `translate(-50%,-50%) translate(${p.x + 9}px,${p.y}px)`;
+  }
+}
+
 // ── Legend (domains, toggleable) ─────────────────────────────────────
 const legend = el("legend");
 const domainOff = new Set();
@@ -115,6 +167,7 @@ forgeInput.addEventListener("keydown", async (e) => {
     if (other !== body && other.domain === label) field.linkBodies(id, other.id, 0.45);
   }
   rebuild();
+  refreshLabelNode(body);
   showInspector(body);
 });
 
@@ -132,7 +185,7 @@ canvas.addEventListener("pointermove", (e) => {
   if (dragging) {
     const dx = e.offsetX - last[0], dy = e.offsetY - last[1];
     if (Math.abs(dx) + Math.abs(dy) > 3) moved = true;
-    if (tool === "navigate") renderer.orbitBy(dx * 0.005, -dy * 0.005);
+    if (tool === "navigate") renderer.orbitBy(dx * 0.003, -dy * 0.003);
     last = [e.offsetX, e.offsetY];
   } else {
     const hit = renderer.screenToRayHit(e.offsetX, e.offsetY);
@@ -192,6 +245,7 @@ function frame() {
   const ke = field.step(dt);
   settle = ke < 0.002 ? Math.min(settle + dt, 2) : 0;
   renderer.render(clock.elapsedTime);
+  updateLabels();
   mKe.textContent = ke.toFixed(3);
   mEntropy.textContent = field.systemEntropy.toFixed(2);
   mBodies.textContent = String(field.bodies.length);

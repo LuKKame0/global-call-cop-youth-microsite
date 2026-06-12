@@ -25,13 +25,91 @@ export class Renderer {
     this.camera = new THREE.PerspectiveCamera(55, 1, 0.1, 600);
     this.camera.position.set(0, 0, 110);
 
+    // start looking at the field almost head-on (gentle tilt) → no vertigo
     this.target = new THREE.Vector3(0, 0, 0);
-    this.orbit = { az: 0, el: 0.25, dist: 110, azT: 0, elT: 0.25, distT: 110 };
+    this.orbit = { az: 0, el: 0.12, dist: 132, azT: 0, elT: 0.12, distT: 132 };
 
+    this._buildStarfield();
+    this._buildNebulae();
     this._buildWells();
     this._buildEdges();
     this._buildBodies();
     this.selected = null;
+    this._proj = new THREE.Vector3();
+  }
+
+  // ── Ambient starfield — depth + dream haze, procedurally placed ─────
+  _buildStarfield() {
+    const N = 1400;
+    const pos = new Float32Array(N * 3);
+    const col = new Float32Array(N * 3);
+    for (let i = 0; i < N; i += 1) {
+      // shell around the field so it surrounds without crowding
+      const r = 180 + Math.random() * 260;
+      const a = Math.random() * Math.PI * 2;
+      const e = (Math.random() - 0.5) * Math.PI;
+      pos[i * 3] = Math.cos(a) * Math.cos(e) * r;
+      pos[i * 3 + 1] = Math.sin(e) * r;
+      pos[i * 3 + 2] = Math.sin(a) * Math.cos(e) * r;
+      const t = 0.3 + Math.random() * 0.7;
+      col[i * 3] = t * 0.6; col[i * 3 + 1] = t * 0.7; col[i * 3 + 2] = t;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    const stars = new THREE.Points(
+      g,
+      new THREE.PointsMaterial({ size: 1.1, vertexColors: true, transparent: true, opacity: 0.5, depthWrite: false }),
+    );
+    stars.frustumCulled = false;
+    this.scene.add(stars);
+    this.starfield = stars;
+  }
+
+  // ── Domain nebulae — generative procedural clouds (noise shader) ────
+  // Each domain gets a soft volumetric haze billboard at its well; this is
+  // the "dream / data-art generativo" layer that makes regions legible.
+  _buildNebulae() {
+    const group = new THREE.Group();
+    this.nebulaMat = [];
+    for (const [key, w] of Object.entries(this.field.wells)) {
+      const c = DOMAIN_COLOR[key] ?? new THREE.Color(0xffffff);
+      const mat = new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        uniforms: { uTime: { value: 0 }, uColor: { value: c.clone() }, uSeed: { value: Math.random() * 10 } },
+        vertexShader: /* glsl */ `
+          varying vec2 vUv;
+          void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+        fragmentShader: /* glsl */ `
+          precision highp float;
+          varying vec2 vUv; uniform float uTime; uniform vec3 uColor; uniform float uSeed;
+          // value-noise fbm — cheap procedural cloud
+          float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+          float noise(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.0-2.0*f);
+            return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y); }
+          float fbm(vec2 p){ float v=0.0,a=0.5; for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.0; a*=0.5; } return v; }
+          void main(){
+            vec2 uv=(vUv-0.5)*2.0;
+            float r=length(uv);
+            if(r>1.0) discard;
+            vec2 q=uv*2.2+vec2(uSeed);
+            float n=fbm(q+vec2(uTime*0.04,uTime*0.03));
+            n=fbm(q+n*1.5);
+            float edge=smoothstep(1.0,0.1,r);
+            float cloud=pow(n,1.6)*edge;
+            gl_FragColor=vec4(uColor*cloud*1.6, cloud*0.5*edge);
+          }`,
+      });
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(56, 56), mat);
+      mesh.position.set(w.x, w.y, w.z - 2);
+      mesh.userData.well = w;
+      group.add(mesh);
+      this.nebulaMat.push({ mat, mesh });
+    }
+    this.scene.add(group);
+    this.nebulaGroup = group;
   }
 
   _buildWells() {
@@ -121,7 +199,7 @@ export class Renderer {
     geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
     this.edgeLines = new THREE.LineSegments(
       geo,
-      new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending }),
+      new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.32, blending: THREE.AdditiveBlending }),
     );
     this.edgeLines.frustumCulled = false;
     this.scene.add(this.edgeLines);
@@ -129,7 +207,8 @@ export class Renderer {
 
   orbitBy(dAz, dEl) {
     this.orbit.azT += dAz;
-    this.orbit.elT = Math.max(-1.4, Math.min(1.4, this.orbit.elT + dEl));
+    // clamp tilt to a comfortable band — never flip under/over the field
+    this.orbit.elT = Math.max(-0.85, Math.min(0.95, this.orbit.elT + dEl));
   }
   zoomBy(f) {
     this.orbit.distT = Math.max(24, Math.min(360, this.orbit.distT * f));
@@ -189,7 +268,28 @@ export class Renderer {
     this.edgeLines.geometry.attributes.position.needsUpdate = true;
     this.wellGroup.children.forEach((r) => r.lookAt(this.camera.position));
 
+    // nebulae: face camera + animate noise
+    for (const { mat, mesh } of this.nebulaMat) {
+      mesh.quaternion.copy(this.camera.quaternion);
+      mat.uniforms.uTime.value = t;
+    }
+    this.starfield.rotation.y = t * 0.005;
+
     this.bodyMat.uniforms.uTime.value = t;
     this.renderer.render(this.scene, this.camera);
+  }
+
+  // project a world point → screen px + camera distance (for DOM labels)
+  project(x, y, z) {
+    this._proj.set(x, y, z);
+    const dist = this._proj.distanceTo(this.camera.position);
+    this._proj.project(this.camera);
+    const rect = this.canvas.getBoundingClientRect();
+    return {
+      x: (this._proj.x * 0.5 + 0.5) * rect.width,
+      y: (-this._proj.y * 0.5 + 0.5) * rect.height,
+      visible: this._proj.z < 1,
+      dist, // world-space distance to camera, for distance fade
+    };
   }
 }

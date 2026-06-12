@@ -46,6 +46,20 @@ Named forces:
 This vocabulary is the seed of the "leyes cuasi-físicas / termodinámicas"
 nomenclature — extend it as the inter-agent code language grows.
 
+## Legibility & data-art (v0.1.1)
+
+The field is read as a **map of dream-regions**, not a drifting point cloud:
+
+- **Domain nebulae** — each domain is a procedural fbm-noise cloud (generative
+  shader, animated) anchored at its well: legible color-coded regions
+- **Always-on labels** — domain titles act as cardinal markers; every body
+  shows its name as a projected DOM label with distance-of-field fade (near
+  crisp, far dissolving — the dreamlike depth)
+- **Calm physics** — heavier viscosity + tighter domain cohesion + golden-angle
+  seeding so constellations hold shape; clamped orbit tilt so navigation never
+  induces vertigo
+- **Ambient starfield** — procedural shell for depth and haze
+
 ## Architecture
 
 ```

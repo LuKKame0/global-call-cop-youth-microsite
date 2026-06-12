@@ -20,25 +20,33 @@ export class Field {
     this.domains = corpus.domains;
     this.domainKeys = Object.keys(corpus.domains);
 
-    // domain attractor wells arranged on a ring (LEY III)
+    // domain wells = cardinal constellations on a gently-domed plane (LEY III).
+    // Mostly flat (small z) so the space reads like a map of dream-regions
+    // rather than a disorienting 3D cloud.
     this.wells = {};
     this.domainKeys.forEach((key, i) => {
-      const a = (i / this.domainKeys.length) * TWO_PI;
+      const a = (i / this.domainKeys.length) * TWO_PI - Math.PI / 2;
       this.wells[key] = {
-        x: Math.cos(a) * radius * 0.62,
-        y: Math.sin(a) * radius * 0.62,
-        z: 0,
+        x: Math.cos(a) * radius * 0.66,
+        y: Math.sin(a) * radius * 0.66,
+        z: Math.sin(a * 2) * 4, // subtle dome, keeps depth cues without chaos
+        angle: a,
       };
     });
 
-    this.bodies = corpus.bodies.map((b, i) => {
-      const a = (i / corpus.bodies.length) * TWO_PI;
+    // bodies seeded in a tight disc around their well (deterministic spread,
+    // so each domain reads as a constellation, not a scatter)
+    const perDomain = {};
+    this.bodies = corpus.bodies.map((b) => {
       const w = this.wells[b.domain] ?? { x: 0, y: 0, z: 0 };
+      const k = (perDomain[b.domain] = (perDomain[b.domain] ?? 0) + 1);
+      const a = k * 2.3999; // golden-angle phyllotaxis around the well
+      const r = 3 + Math.sqrt(k) * 3.2;
       return {
         ...b,
-        x: w.x + Math.cos(a) * 8 + (Math.random() - 0.5) * 4,
-        y: w.y + Math.sin(a) * 8 + (Math.random() - 0.5) * 4,
-        z: (Math.random() - 0.5) * 12,
+        x: w.x + Math.cos(a) * r,
+        y: w.y + Math.sin(a) * r,
+        z: w.z + Math.sin(a * 1.7) * 2,
         vx: 0,
         vy: 0,
         vz: 0,
@@ -93,7 +101,9 @@ export class Field {
         let dy = a.y - b.y;
         let dz = a.z - b.z;
         let d2 = dx * dx + dy * dy + dz * dz + 0.01;
-        const rep = (6 / d2) * (1 + (a.entropy + b.entropy) * 0.5);
+        // softer, shorter-range repulsion → bodies settle into legible spacing
+        if (d2 > 400) continue;
+        const rep = (4 / d2) * (1 + (a.entropy + b.entropy) * 0.4);
         const inv = 1 / Math.sqrt(d2);
         dx *= inv; dy *= inv; dz *= inv;
         a.vx += dx * rep * k; a.vy += dy * rep * k; a.vz += dz * rep * k;
@@ -119,14 +129,15 @@ export class Field {
       if (!a.pinned) {
         const w = this.wells[a.domain];
         if (w) {
-          // cold (settled) bodies fall harder into their well; hot ones wander
-          const pull = 0.04 * (1.2 - a.temperature);
+          // stronger cohesion so constellations hold their shape
+          const pull = 0.08 * (1.2 - a.temperature * 0.6);
           a.vx += (w.x - a.x) * pull * k;
           a.vy += (w.y - a.y) * pull * k;
           a.vz += (w.z - a.z) * pull * k;
         }
-        const damp = 1 - (0.9 + a.temperature * 0.4) * k;
-        a.vx *= damp; a.vy *= damp; a.vz *= damp;
+        // heavier viscosity → calm, dream-like drift instead of jitter
+        const damp = 1 - (1.8 + a.temperature * 0.3) * k;
+        a.vx *= Math.max(0, damp); a.vy *= Math.max(0, damp); a.vz *= Math.max(0, damp);
         a.x += a.vx * k * 8; a.y += a.vy * k * 8; a.z += a.vz * k * 8;
       }
       ke += a.vx * a.vx + a.vy * a.vy + a.vz * a.vz;
