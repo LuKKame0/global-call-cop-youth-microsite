@@ -41,3 +41,6 @@ next-env.d.ts
 
 # local agent config
 .claude/settings.local.json
+
+# noosphere: real ingested corpus stays local (may derive from private docs)
+sites/noosphere/data/corpus.json

@@ -1,0 +1,65 @@
+:root {
+  --bg: #05070b;
+  --panel: rgba(8, 13, 20, 0.82);
+  --line: rgba(120, 160, 210, 0.16);
+  --text: #d4e2f0;
+  --muted: #65788c;
+  --accent: #37abfa;
+  --mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 12px/1.5 var(--mono); overflow: hidden; }
+button { font: inherit; color: inherit; cursor: pointer; }
+#field { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+
+/* glass HUD chrome */
+.hud-top, .hud-bottom { position: fixed; left: 0; right: 0; display: flex; align-items: center; gap: 1.5rem; padding: 0 1rem; z-index: 5; backdrop-filter: blur(6px); }
+.hud-top { top: 0; height: 48px; background: linear-gradient(180deg, rgba(5,7,11,0.9), transparent); }
+.hud-bottom { bottom: 0; height: 38px; background: linear-gradient(0deg, rgba(5,7,11,0.9), transparent); color: var(--muted); }
+.hud-right { margin-left: auto; display: flex; gap: 4px; }
+
+.sigil { display: flex; align-items: center; gap: 0.6rem; letter-spacing: 0.12em; }
+.sigil-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); animation: breathe 3s infinite; }
+@keyframes breathe { 50% { opacity: 0.4; transform: scale(0.8); } }
+.sigil-sub { color: var(--muted); font-size: 9px; letter-spacing: 0.18em; }
+
+.laws { display: flex; gap: 1.1rem; margin-left: auto; }
+.law { display: flex; align-items: baseline; gap: 0.35rem; color: var(--muted); }
+.law i { font-style: italic; color: var(--accent); }
+.law b { color: var(--text); font-weight: 600; min-width: 2.5em; }
+
+.ai-pulse { background: rgba(55,171,250,0.08); border: 1px solid var(--line); padding: 0.3rem 0.7rem; letter-spacing: 0.12em; font-size: 10px; color: var(--accent); }
+
+/* legend */
+.hud-legend { position: fixed; left: 1rem; top: 64px; z-index: 5; display: flex; flex-direction: column; gap: 4px; padding: 0.6rem 0.7rem; background: var(--panel); border: 1px solid var(--line); }
+.leg-row { display: flex; align-items: center; gap: 0.5rem; font-size: 10px; cursor: pointer; opacity: 0.85; }
+.leg-row:hover { opacity: 1; }
+.leg-row.off { opacity: 0.3; }
+.leg-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+/* inspector */
+.hud-inspector { position: fixed; right: 1rem; top: 64px; width: 270px; z-index: 6; padding: 0.9rem; background: var(--panel); border: 1px solid var(--line); }
+.insp-close { position: absolute; top: 0.5rem; right: 0.6rem; background: none; border: 0; color: var(--muted); }
+.insp-domain { font-size: 9px; letter-spacing: 0.16em; color: var(--accent); border: 1px solid rgba(55,171,250,0.4); padding: 1px 6px; }
+.insp-title { margin: 0.6rem 0 0.7rem; font-size: 14px; line-height: 1.35; }
+.insp-props { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 0.8rem; margin-bottom: 0.7rem; }
+.prop { border-left: 2px solid var(--line); padding-left: 0.5rem; }
+.prop .pk { font-size: 9px; letter-spacing: 0.1em; color: var(--muted); }
+.prop .pv { font-size: 13px; color: var(--text); }
+.prop .bar { height: 3px; margin-top: 3px; background: rgba(120,160,210,0.15); }
+.prop .bar i { display: block; height: 100%; background: var(--accent); }
+.insp-terms { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0.8rem; }
+.term { font-size: 10px; padding: 1px 6px; border: 1px solid var(--line); color: var(--muted); }
+.insp-synth { width: 100%; background: rgba(55,171,250,0.1); border: 1px solid rgba(55,171,250,0.4); padding: 0.45rem; letter-spacing: 0.12em; color: var(--accent); }
+.insp-synth:hover { background: rgba(55,171,250,0.18); }
+.insp-out { margin: 0.7rem 0 0; padding: 0.6rem; background: rgba(0,0,0,0.3); border: 1px solid var(--line); font-size: 11px; line-height: 1.55; color: #9fb8cc; white-space: pre-wrap; }
+
+.mini { background: transparent; border: 1px solid var(--line); padding: 0.3rem 0.6rem; font-size: 10px; letter-spacing: 0.1em; color: var(--muted); }
+.mini:hover, .mini.is-active { color: var(--accent); border-color: var(--accent); }
+
+.forge-prompt { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 8; background: var(--panel); border: 1px solid var(--accent); padding: 0.8rem; display: flex; flex-direction: column; gap: 0.4rem; box-shadow: 0 0 40px rgba(55,171,250,0.2); }
+.forge-prompt input { width: 320px; background: rgba(0,0,0,0.4); border: 1px solid var(--line); color: var(--text); font: inherit; padding: 0.5rem; outline: none; }
+.forge-prompt input:focus { border-color: var(--accent); }
+.forge-hint { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; }
+
+@media (max-width: 720px) { .hud-legend, .laws { display: none; } .hud-inspector { width: calc(100% - 2rem); } }

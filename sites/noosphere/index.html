@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NOOSPHERE — Lucas / Sensei generative universe</title>
+    <meta name="description" content="A navigable generative universe of ideas governed by quasi-physical laws." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='4' fill='%2337ABFA'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./noosphere.css" />
+  </head>
+  <body>
+    <canvas id="field"></canvas>
+
+    <header class="hud-top">
+      <div class="sigil">
+        <span class="sigil-dot"></span>
+        <strong>NOOSPHERE</strong>
+        <span class="sigil-sub">SENSEI SUBSTRATE · v0.1</span>
+      </div>
+      <div class="laws" id="laws">
+        <span class="law" title="kinetic energy of the field"><i>E_k</i><b id="m-ke">0.00</b></span>
+        <span class="law" title="system entropy"><i>S</i><b id="m-entropy">0.00</b></span>
+        <span class="law" title="bodies in the field"><i>N</i><b id="m-bodies">0</b></span>
+        <span class="law" title="active domains"><i>Δ</i><b id="m-domains">0</b></span>
+      </div>
+      <button class="ai-pulse" id="ai-status">NIM · MOCK ◍</button>
+    </header>
+
+    <aside class="hud-legend" id="legend"></aside>
+
+    <aside class="hud-inspector" id="inspector" hidden>
+      <button class="insp-close" id="insp-close">✕</button>
+      <span class="insp-domain" id="insp-domain"></span>
+      <h2 class="insp-title" id="insp-title"></h2>
+      <div class="insp-props" id="insp-props"></div>
+      <div class="insp-terms" id="insp-terms"></div>
+      <button class="insp-synth" id="insp-synth">⟐ SYNTHESIZE (NIM)</button>
+      <pre class="insp-out" id="insp-out" hidden></pre>
+    </aside>
+
+    <footer class="hud-bottom">
+      <span id="b-cursor">drag orbit · wheel zoom · click body</span>
+      <span class="hud-right">
+        <button class="mini" data-tool="navigate" title="Navigate (V)">◎ NAV</button>
+        <button class="mini" data-tool="forge" title="Forge a new idea-body (N)">✦ FORGE</button>
+        <button class="mini" data-tool="link" title="Link two bodies (L)">⌥ LINK</button>
+      </span>
+    </footer>
+
+    <div class="forge-prompt" id="forge-prompt" hidden>
+      <input id="forge-input" placeholder="name a new idea-body…" autocomplete="off" />
+      <span class="forge-hint">enter to forge · esc to cancel</span>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
