@@ -1,10 +1,14 @@
 import type { CoreDictionary } from "@/lib/i18n/core-dictionary";
 import type { Dictionary, PageDictionary } from "@/lib/i18n/types";
+import { pagesEn } from "@/lib/i18n/pages/en";
 
 const coreDefaults: Partial<CoreDictionary> = {
   nav: {
     buildTheFuture: "Build the Future",
     onMyWay: "On My Way",
+    directory: "Directory",
+    advocacy: "Advocacy",
+    team: "Team",
   } as CoreDictionary["nav"],
   common: {
     backToHome: "Back to home",
@@ -23,5 +27,12 @@ export function normalizeCore(core: CoreDictionary): CoreDictionary {
 }
 
 export function mergeDictionary(core: CoreDictionary, pages: PageDictionary): Dictionary {
-  return { ...normalizeCore(core), ...pages };
+  return {
+    ...normalizeCore(core),
+    ...pages,
+    // Fall back to EN for new pages if locale hasn't been translated yet
+    directory: pages.directory ?? pagesEn.directory,
+    advocacy: pages.advocacy ?? pagesEn.advocacy,
+    team: pages.team ?? pagesEn.team,
+  } as Dictionary;
 }

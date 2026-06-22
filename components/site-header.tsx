@@ -41,12 +41,12 @@ export function SiteHeader() {
 
   const links: NavLink[] = [
     { href: homeHref, label: nav.about, Icon: IconGlobe },
-    { href: `${homeHref}#network`, label: nav.network, Icon: IconGlobe },
+    { href: localizedLandingHref(locale, "directory"), label: nav.directory, Icon: IconGlobe },
     { href: localizedHref(locale, "activities"), label: nav.activities, Icon: IconDoc },
     { href: localizedHref(locale, "z-cop"), label: nav.zCop, Icon: IconArrow },
-    { href: localizedLandingHref(locale, "mesa"), label: "MESA", Icon: IconGlobe },
+    { href: localizedLandingHref(locale, "advocacy"), label: nav.advocacy, Icon: IconDoc },
     { href: localizedHref(locale, "join"), label: nav.join, Icon: IconArrow },
-    { href: localizedLandingHref(locale, "faq"), label: nav.faq, Icon: IconDoc },
+    { href: localizedLandingHref(locale, "team"), label: nav.team, Icon: IconGlobe },
     {
       href: localizedLandingHref(locale, "insights"),
       label: nav.startFramework,

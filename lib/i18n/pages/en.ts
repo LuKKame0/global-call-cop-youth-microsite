@@ -489,4 +489,94 @@ export const pagesEn: PageDictionary = {
       "Organisations, hubs, and emerging leaders can engage with The Global Call and its partners — including MESA — on the road to Z-COP 2026.",
     partnerCta: "Become a partner",
   },
+  directory: {
+    metaTitle: "Youth Leader Directory",
+    metaDescription:
+      "Browse national focal points and youth leaders from across The Global Call network — organised by country.",
+    eyebrow: "The Network",
+    title: "Youth leader directory",
+    subtitle:
+      "National focal points and youth leaders registered across 170+ countries. Powered by The Global Call coordination layer.",
+    searchPlaceholder: "Search by name or country…",
+    filterAll: "All regions",
+    emptyState: "No entries match your search.",
+    countryLabel: "Country",
+    cityLabel: "City",
+    linkedinLabel: "LinkedIn",
+    loadingLabel: "Loading directory…",
+    errorLabel: "Could not load directory. Please try again.",
+  },
+  advocacy: {
+    metaTitle: "Advocacy Resources",
+    metaDescription:
+      "Download the advocacy and media packages from The Global Call — materials to amplify youth policy implementation.",
+    eyebrow: "Resources",
+    title: "Advocacy toolkit",
+    subtitle:
+      "Materials to amplify youth policy implementation in your country. Download, adapt, and share.",
+    packagesTitle: "Available packages",
+    packages: [
+      {
+        title: "Advocacy Package",
+        description:
+          "Talking points, policy briefs, and action frameworks to support youth-led advocacy at local, national, and international levels.",
+        tag: "PDF · Advocacy",
+      },
+      {
+        title: "Media Package",
+        description:
+          "Brand assets, messaging guidelines, social media templates, and visual content for campaigns aligned with The Global Call.",
+        tag: "ZIP · Media",
+      },
+      {
+        title: "National Policy Booklet",
+        description:
+          "Country-level implementation guide linking Z-COP themes to national youth policy priorities and SDG targets.",
+        tag: "PDF · Policy",
+      },
+    ],
+    downloadCta: "Download",
+    comingSoonTag: "Coming soon",
+    requestCta: "Request early access",
+    requestDescription:
+      "Packages are being finalised. Request early access and we will send them directly.",
+  },
+  team: {
+    metaTitle: "Our Team",
+    metaDescription:
+      "The Global Call executive team, regional coordinators, and the philosophy behind the network.",
+    eyebrow: "The people",
+    title: "Our team",
+    subtitle:
+      "A global coordination team committed to turning youth policy ambition into implemented reality.",
+    executiveTitle: "Executive team",
+    coordinatorsTitle: "Regional coordinators",
+    philosophyTitle: "Our philosophy",
+    philosophyBody:
+      "The Global Call is built on the belief that the people closest to the problems are best placed to solve them. Our team does not represent youth — it works alongside youth structures, focal points, and allies to create the coordination infrastructure that lets local action travel to global rooms. We are operators, not spokespersons.",
+    members: [
+      {
+        name: "— Placeholder —",
+        role: "Executive Director",
+        bio: "Content to be added.",
+      },
+      {
+        name: "— Placeholder —",
+        role: "Head of Operations",
+        bio: "Content to be added.",
+      },
+      {
+        name: "— Placeholder —",
+        role: "Head of Partnerships",
+        bio: "Content to be added.",
+      },
+    ],
+    coordinators: [
+      { name: "— Placeholder —", role: "Americas Region", region: "Americas" },
+      { name: "— Placeholder —", role: "Africa Region", region: "Africa" },
+      { name: "— Placeholder —", role: "Europe Region", region: "Europe" },
+      { name: "— Placeholder —", role: "Asia-Pacific Region", region: "Asia-Pacific" },
+      { name: "— Placeholder —", role: "MENA Region", region: "MENA" },
+    ],
+  },
 };

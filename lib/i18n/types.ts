@@ -52,6 +52,46 @@ export type StepCopy = {
   description: string;
 };
 
+export type ProgrammeBlock = {
+  name: string;
+  role: string;
+  description: string;
+};
+
+export type ThemeDay = {
+  day: string;
+  theme: string;
+  scale: string;
+  focus: string;
+};
+
+export type DailySession = {
+  time: string;
+  session: string;
+  note: string;
+};
+
+export type DirectoryMember = {
+  id: string;
+  name: string;
+  country: string;
+  city?: string;
+  linkedin?: string;
+};
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  region?: string;
+  bio?: string;
+};
+
+export type AdvocacyPackage = {
+  title: string;
+  description: string;
+  tag: string;
+};
+
 export type PageDictionary = {
   home: {
     metaTitle: string;
@@ -182,25 +222,48 @@ export type PageDictionary = {
     partnerDescription: string;
     partnerCta: string;
   };
-};
-
-export type ProgrammeBlock = {
-  name: string;
-  role: string;
-  description: string;
-};
-
-export type ThemeDay = {
-  day: string;
-  theme: string;
-  scale: string;
-  focus: string;
-};
-
-export type DailySession = {
-  time: string;
-  session: string;
-  note: string;
+  // New pages — optional so existing locale files don't break; EN defaults applied in mergeDictionary
+  directory?: {
+    metaTitle: string;
+    metaDescription: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    filterAll: string;
+    emptyState: string;
+    countryLabel: string;
+    cityLabel: string;
+    linkedinLabel: string;
+    loadingLabel: string;
+    errorLabel: string;
+  };
+  advocacy?: {
+    metaTitle: string;
+    metaDescription: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    packagesTitle: string;
+    packages: AdvocacyPackage[];
+    downloadCta: string;
+    comingSoonTag: string;
+    requestCta: string;
+    requestDescription: string;
+  };
+  team?: {
+    metaTitle: string;
+    metaDescription: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    executiveTitle: string;
+    coordinatorsTitle: string;
+    philosophyTitle: string;
+    philosophyBody: string;
+    members: TeamMember[];
+    coordinators: TeamMember[];
+  };
 };
 
 export type Dictionary = PageDictionary & {
@@ -219,6 +282,9 @@ export type Dictionary = PageDictionary & {
     home: string;
     buildTheFuture: string;
     onMyWay: string;
+    directory: string;
+    advocacy: string;
+    team: string;
   };
   language: {
     label: string;

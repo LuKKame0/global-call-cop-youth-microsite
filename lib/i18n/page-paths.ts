@@ -54,6 +54,9 @@ export const LOCALIZED_LANDING_SLUGS = [
   "build-the-future",
   "on-my-way",
   "mesa",
+  "directory",
+  "advocacy",
+  "team",
 ] as const;
 
 export type LocalizedLandingSlug = (typeof LOCALIZED_LANDING_SLUGS)[number];
@@ -87,4 +90,7 @@ export const BARE_LANDING_REDIRECTS: Record<string, LocalizedLandingSlug | "home
   "/activities": "activities",
   "/sandbox/on-my-way": "on-my-way",
   "/mesa": "mesa",
+  "/directory": "directory",
+  "/advocacy": "advocacy",
+  "/team": "team",
 };

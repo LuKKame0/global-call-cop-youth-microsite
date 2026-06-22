@@ -19,6 +19,9 @@ export const enCore = {
     home: "Home",
     buildTheFuture: "Build the Future",
     onMyWay: "On My Way",
+    directory: "Directory",
+    advocacy: "Advocacy",
+    team: "Team",
   },
   language: {
     label: "Language",
