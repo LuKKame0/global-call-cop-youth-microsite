@@ -1,0 +1,28 @@
+{
+  "country": "Example Country",
+  "youth_structure": "Example Youth Network",
+  "name": "Smoke Test User [SMOKE TEST]",
+  "email": "smoke-test@example.com",
+  "themes": {
+    "self": {
+      "personal_barriers": "Smoke test — validating email pipeline post-deploy.",
+      "leadership_identity": "Smoke test — leadership becomes legible when youth see structures that translate participation into policy mandates.",
+      "challenges_resilience": "Smoke test — resilience rises with peer infrastructure and concrete pathways."
+    },
+    "community": {
+      "team_mobilising": "Smoke test — youth groups mobilise through universities and digital networks.",
+      "local_codesign": "Smoke test — strongest results emerge when youth councils co-design with municipal officials.",
+      "knowledge_sharing": "Smoke test — peer-learning loops between councils remain uneven."
+    },
+    "institutions": {
+      "education_local_government": "Smoke test — clearer youth roles in school governance and municipal planning.",
+      "sector_engagement": "Smoke test — climate, science-tech, and labour involve different ministries.",
+      "global_branch": "Smoke test — national structures need a stronger bridge to UN youth processes."
+    },
+    "systems": {
+      "policy_transformation": "Smoke test — stronger youth funds and clearer institutional mandates.",
+      "cultural_narratives": "Smoke test — youth need seats with response duties from institutions.",
+      "digital_infrastructure": "Smoke test — shared national platform for reporting and coordination."
+    }
+  }
+}

@@ -1,0 +1,5 @@
+node_modules
+.next
+coverage
+data/backups
+package-lock.json
