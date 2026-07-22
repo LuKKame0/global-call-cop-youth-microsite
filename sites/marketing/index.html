@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Global Call — Global Coordination for Youth, Policy, and Impact</title>
+    <meta
+      name="description"
+      content="The Global Call is a global coordination platform connecting youth, institutions, and allies to turn commitments into implemented policy."
+    />
+    <meta name="theme-color" content="#f7f7f8" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Global Call" />
+    <meta
+      property="og:description"
+      content="A global call. Many voices. A better future. The diplomatic infrastructure for the next generation."
+    />
+    <meta property="og:site_name" content="The Global Call" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Global Call" />
+    <meta
+      name="twitter:description"
+      content="Global coordination infrastructure for youth policy, implementation, and multilateral action."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/globalcall.png" type="image/png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("tgc-theme");
+          document.documentElement.setAttribute(
+            "data-theme",
+            theme === "dark" ? "dark" : "light",
+          );
+        } catch (error) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="#top" aria-label="The Global Call home">
+          <img src="./assets/globalcall.png" alt="The Global Call logo" width="44" height="44" />
+          <div class="brand-copy">
+            <strong>The Global Call</strong>
+            <span>Global Coordination</span>
+          </div>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#problem">Problem</a>
+          <a href="#platform">Platform</a>
+          <a href="#framework">Framework</a>
+          <a href="#network">Network</a>
+          <a href="#impact">Impact</a>
+          <a href="#join">Join</a>
+        </nav>
+
+        <div class="header-controls">
+          <label class="theme-switch" aria-label="Toggle dark mode">
+            <span class="theme-switch-label">Light</span>
+            <input type="checkbox" class="theme-switch-input" data-theme-toggle />
+            <span class="theme-switch-track" aria-hidden="true">
+              <span class="theme-switch-thumb"></span>
+            </span>
+            <span class="theme-switch-label">Dark</span>
+          </label>
+
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            data-menu-toggle
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="mobile-nav" aria-label="Mobile" data-mobile-nav>
+      <a href="#problem">Problem</a>
+      <a href="#platform">Platform</a>
+      <a href="#framework">Framework</a>
+      <a href="#network">Network</a>
+      <a href="#impact">Impact</a>
+      <a href="#join">Join</a>
+    </nav>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-glow" aria-hidden="true"></div>
+
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Art Direction 2026</p>
+            <h1 class="hero-title" id="hero-title">
+              The diplomatic infrastructure
+              <span class="dim">for the</span>
+              next generation.
+            </h1>
+            <p class="hero-subtitle">
+              The Global Call connects youth, communities, institutions, and allies into one
+              coordination layer — turning global commitments into implemented policy, credible
+              action, and collective intelligence.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" data-open-modal="modal-apply">
+                Join the Movement
+              </button>
+              <a
+                class="btn btn-secondary"
+                href="/insights"
+              >
+                Become a National Focal Point
+              </a>
+              <a
+                class="btn btn-accent"
+                href="/insights"
+              >
+                Explore the Framework
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-metrics">
+            <article class="metric-card glass reveal" data-accent="blue">
+              <p class="label">Live coordination</p>
+              <p class="value">127+</p>
+              <p class="detail">Active nodes across regions, hubs, and implementation partners.</p>
+            </article>
+            <article class="metric-card glass reveal" data-accent="green">
+              <p class="label">Policy signal</p>
+              <p class="value">4 layers</p>
+              <p class="detail">From individual agency to systems change — structured for synthesis.</p>
+            </article>
+            <article class="metric-card glass reveal" data-accent="pink">
+              <p class="label">Operational flow</p>
+              <p class="value">Web → Data → Action</p>
+              <p class="detail">Submissions become records, review pipelines, and implementation signals.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-problem" id="problem" aria-labelledby="problem-title">
+        <div class="container split-grid">
+          <div class="reveal">
+            <p class="eyebrow">The Problem</p>
+            <h2 class="section-title" id="problem-title">
+              Global ambition is abundant. Coordination is not.
+            </h2>
+            <p class="section-lead">
+              Youth voice, institutional capacity, and multilateral urgency rarely move in sync.
+              The result is fragmentation: strong declarations, weak implementation, and systems
+              that cannot absorb the speed of a new generation.
+            </p>
+            <ul class="problem-list">
+              <li>
+                <strong>Youth disconnected from policy making</strong>
+                <span>
+                  Participation exists, but rarely translates into durable institutional leverage
+                  or implementation pathways young people can trust.
+                </span>
+              </li>
+              <li>
+                <strong>Institutional silos</strong>
+                <span>
+                  Academia, governments, civil society, and multilateral bodies operate on
+                  different timelines, vocabularies, and accountability models.
+                </span>
+              </li>
+              <li>
+                <strong>Implementation lag</strong>
+                <span>
+                  Conferences produce momentum. What fails is the infrastructure that turns
+                  consensus into coordinated action after the room clears.
+                </span>
+              </li>
+              <li>
+                <strong>Data without direction</strong>
+                <span>
+                  Signals are everywhere — reports, panels, pilots, pledges — but not in a form
+                  that can travel, compare, or compound across borders.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="visual-panel glass reveal" aria-hidden="true">
+            <svg viewBox="0 0 420 320" role="img" aria-label="Fragmented network visualization">
+              <g class="links">
+                <line class="link" x1="70" y1="80" x2="180" y2="140" />
+                <line class="link" x1="180" y1="140" x2="320" y2="90" />
+                <line class="link" x1="90" y1="240" x2="210" y2="210" />
+                <line class="link" x1="210" y1="210" x2="330" y2="250" />
+              </g>
+              <circle class="node" cx="70" cy="80" r="8" />
+              <circle class="node" cx="180" cy="140" r="8" />
+              <circle class="node" cx="320" cy="90" r="8" />
+              <circle class="node" cx="90" cy="240" r="8" />
+              <circle class="node" cx="210" cy="210" r="8" />
+              <circle class="node" cx="330" cy="250" r="8" />
+              <circle class="node" cx="250" cy="170" r="6" opacity="0.45" />
+              <circle class="node" cx="140" cy="190" r="6" opacity="0.45" />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-solution" id="platform" aria-labelledby="platform-title">
+        <div class="container split-grid">
+          <div class="visual-panel glass reveal" aria-hidden="true">
+            <svg viewBox="0 0 420 320" role="img" aria-label="Connected network visualization">
+              <g class="links">
+                <line class="link is-active" x1="210" y1="160" x2="90" y2="90" />
+                <line class="link is-active" x1="210" y1="160" x2="330" y2="90" />
+                <line class="link is-active" x1="210" y1="160" x2="90" y2="240" />
+                <line class="link is-active" x1="210" y1="160" x2="330" y2="240" />
+                <line class="link is-active" x1="90" y1="90" x2="330" y2="90" />
+                <line class="link is-active" x1="90" y1="240" x2="330" y2="240" />
+              </g>
+              <circle class="node is-active" cx="210" cy="160" r="12" />
+              <circle class="node is-active" cx="90" cy="90" r="8" />
+              <circle class="node is-active" cx="330" cy="90" r="8" />
+              <circle class="node is-active" cx="90" cy="240" r="8" />
+              <circle class="node is-active" cx="330" cy="240" r="8" />
+            </svg>
+          </div>
+
+          <div class="reveal">
+            <p class="eyebrow">The Global Call</p>
+            <h2 class="section-title" id="platform-title">
+              From isolated platforms to coordinated intelligence.
+            </h2>
+            <p class="section-lead">
+              The Global Call is not another campaign site. It is movement infrastructure: a
+              governance layer, knowledge network, and diplomatic digital system designed for youth
+              policy implementation at planetary scale.
+            </p>
+            <ul class="solution-list">
+              <li>
+                <strong>Connect</strong>
+                <span>
+                  People, communities, and institutions across regions — with shared language,
+                  shared structure, and shared accountability.
+                </span>
+              </li>
+              <li>
+                <strong>Inspire</strong>
+                <span>
+                  Collective action that is visible, credible, and repeatable — not symbolic
+                  participation.
+                </span>
+              </li>
+              <li>
+                <strong>Amplify</strong>
+                <span>
+                  Youth voices and diverse perspectives into formats institutions can actually use.
+                </span>
+              </li>
+              <li>
+                <strong>Transform</strong>
+                <span>
+                  Policies, systems, and implementation pathways for a sustainable, equitable
+                  future.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-framework" id="framework" aria-labelledby="framework-title">
+        <div class="container">
+          <div class="reveal">
+            <p class="eyebrow">Framework</p>
+            <h2 class="section-title" id="framework-title">
+              One operating system. Multiple domains of action.
+            </h2>
+            <p class="section-lead">
+              The Global Call framework translates local reality into global legibility — across
+              governance, diplomacy, innovation, education, climate, and youth leadership.
+            </p>
+          </div>
+
+          <div class="framework-grid">
+            <article class="framework-card glass reveal" style="--accent: var(--blue)">
+              <span class="tag">COP / Global Agenda</span>
+              <h3>Governance</h3>
+              <p>
+                Align national frameworks with multilateral priorities through structured
+                submission, review, and synthesis-ready outputs.
+              </p>
+            </article>
+            <article class="framework-card glass reveal" style="--accent: var(--green)">
+              <span class="tag">Advocacy / Impact</span>
+              <h3>Implementation</h3>
+              <p>
+                Move from declaration to delivery with operational signals youth structures can
+                own, measure, and iterate.
+              </p>
+            </article>
+            <article class="framework-card glass reveal" style="--accent: var(--pink)">
+              <span class="tag">Action / Diversity</span>
+              <h3>Youth Leadership</h3>
+              <p>
+                Build agency first — then collective action, institutional leverage, and systemic
+                durability across four implementation layers.
+              </p>
+            </article>
+            <article class="framework-card glass reveal" style="--accent: var(--orange)">
+              <span class="tag">Partnerships / Alliances</span>
+              <h3>Diplomacy &amp; Alliances</h3>
+              <p>
+                Coordinate governments, multilateral bodies, academia, industry, and civil society
+                into one trusted coordination graph.
+              </p>
+            </article>
+            <article class="framework-card glass reveal" style="--accent: var(--blue)">
+              <span class="tag">Innovation</span>
+              <h3>AI &amp; Technology</h3>
+              <p>
+                Use intelligent systems to structure knowledge, accelerate review, and preserve
+                context across languages, regions, and sectors.
+              </p>
+            </article>
+            <article class="framework-card glass reveal" style="--accent: var(--green)">
+              <span class="tag">Education</span>
+              <h3>Learning Networks</h3>
+              <p>
+                Turn field experience into shared curriculum, peer infrastructure, and repeatable
+                civic capacity building.
+              </p>
+            </article>
+            <article class="framework-card glass reveal" style="--accent: var(--pink)">
+              <span class="tag">Climate</span>
+              <h3>Planetary Action</h3>
+              <p>
+                Connect youth climate implementation to the institutions, budgets, and policy
+                levers that determine whether action scales.
+              </p>
+            </article>
+            <article class="framework-card glass reveal" style="--accent: var(--orange)">
+              <span class="tag">Live product</span>
+              <h3>Youth Policy Framework</h3>
+              <p>
+                The COP Youth Policy Implementation platform is live — a national focal point
+                workflow for structured country submissions.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-network" id="network" aria-labelledby="network-title">
+        <div class="container">
+          <div class="reveal">
+            <p class="eyebrow">Global Network</p>
+            <h2 class="section-title" id="network-title">
+              A living map of coordination.
+            </h2>
+            <p class="section-lead">
+              Regions, hubs, partners, and national focal points — connected through one global
+              interface designed for legitimacy, clarity, and scale.
+            </p>
+          </div>
+
+          <div class="network-map glass reveal">
+            <svg viewBox="0 0 960 420" role="img" aria-label="Global network map">
+              <path
+                class="map-path"
+                d="M120 210c40-70 120-95 200-70s150 95 220 80 170-55 240-10 120 95 160 70"
+                fill="none"
+                stroke-width="2"
+              />
+              <g class="region-node" data-region="americas" tabindex="0" style="--region-color: #37ABFA">
+                <circle class="region-dot" cx="220" cy="230" r="10" />
+                <text class="region-label" x="220" y="255">Americas</text>
+              </g>
+              <g class="region-node" data-region="europe" tabindex="0" style="--region-color: #61C879">
+                <circle class="region-dot" cx="500" cy="150" r="10" />
+                <text class="region-label" x="500" y="175">Europe</text>
+              </g>
+              <g class="region-node" data-region="africa" tabindex="0" style="--region-color: #FF91FE">
+                <circle class="region-dot" cx="520" cy="250" r="10" />
+                <text class="region-label" x="520" y="275">Africa</text>
+              </g>
+              <g class="region-node" data-region="mena" tabindex="0" style="--region-color: #FF460D">
+                <circle class="region-dot" cx="590" cy="210" r="10" />
+                <text class="region-label" x="590" y="235">MENA</text>
+              </g>
+              <g class="region-node" data-region="asia" tabindex="0" style="--region-color: #37ABFA">
+                <circle class="region-dot" cx="720" cy="190" r="10" />
+                <text class="region-label" x="720" y="215">Asia-Pacific</text>
+              </g>
+              <g class="region-node is-active" data-region="global" tabindex="0" style="--region-color: #FFFFFF">
+                <circle class="region-dot" cx="480" cy="210" r="14" />
+                <text class="region-label" x="480" y="240">Global Layer</text>
+              </g>
+            </svg>
+            <div class="network-detail" data-network-detail>
+              <strong>Global coordination layer</strong>
+              <p>
+                The Global Call synchronizes fragmented signals into one operational network for
+                policy, diplomacy, and youth implementation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-impact" id="impact" aria-labelledby="impact-title">
+        <div class="container">
+          <div class="reveal">
+            <p class="eyebrow">Impact Engine</p>
+            <h2 class="section-title" id="impact-title">
+              How the framework moves from signal to system change.
+            </h2>
+            <p class="section-lead">
+              The Global Call operates like a policy operating system — absorbing inputs from across
+              sectors and returning coordinated outputs institutions can act on.
+            </p>
+          </div>
+
+          <div class="impact-flow">
+            <article class="impact-step reveal" style="--step-color: var(--pink)">
+              <span class="index">01</span>
+              <div>
+                <h3>Youth &amp; communities</h3>
+                <p>
+                  Local experience enters the system through structured narratives, national focal
+                  points, and credible country-level frameworks.
+                </p>
+              </div>
+            </article>
+            <article class="impact-step reveal" style="--step-color: var(--green)">
+              <span class="index">02</span>
+              <div>
+                <h3>Civil society &amp; academia</h3>
+                <p>
+                  Evidence, peer learning, and field knowledge refine the signal — adding depth,
+                  context, and implementation realism.
+                </p>
+              </div>
+            </article>
+            <article class="impact-step reveal" style="--step-color: var(--blue)">
+              <span class="index">03</span>
+              <div>
+                <h3>Governments &amp; institutions</h3>
+                <p>
+                  Named asks, sectoral entry points, and institutional leverage translate youth
+                  priorities into actionable policy interfaces.
+                </p>
+              </div>
+            </article>
+            <article class="impact-step reveal" style="--step-color: var(--orange)">
+              <span class="index">04</span>
+              <div>
+                <h3>Multilateral &amp; alliance nodes</h3>
+                <p>
+                  Regional bodies, UN channels, and strategic partners amplify national signals into
+                  global coordination without flattening local truth.
+                </p>
+              </div>
+            </article>
+            <article class="impact-step reveal" style="--step-color: var(--blue)">
+              <span class="index">05</span>
+              <div>
+                <h3>Structured outputs</h3>
+                <p>
+                  Submissions become normalized records, operational registers, and synthesis-ready
+                  knowledge chunks for downstream action.
+                </p>
+              </div>
+            </article>
+            <article class="impact-step reveal" style="--step-color: var(--green)">
+              <span class="index">06</span>
+              <div>
+                <h3>Implementation feedback</h3>
+                <p>
+                  The loop closes when coordinated action returns measurable impact — informing the
+                  next cycle of global policy design.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section" id="join" aria-labelledby="cta-title">
+        <div class="container">
+          <div class="cta-panel glass reveal">
+            <p class="eyebrow">Call to Action</p>
+            <h2 class="cta-title" id="cta-title">
+              This is the moment to build the infrastructure history will need.
+            </h2>
+            <p class="cta-copy">
+              A global call. Many voices. A better future. Join the movement, partner with the
+              network, or enter as a national focal point — and help turn global coordination into
+              implemented reality.
+            </p>
+            <div class="cta-actions">
+              <button class="btn btn-primary" type="button" data-open-modal="modal-apply">
+                Apply to Join
+              </button>
+              <button class="btn btn-secondary" type="button" data-open-modal="modal-partner">
+                Partner With Us
+              </button>
+              <a class="btn btn-accent" href="/buildthefuture">
+                Build the Future
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="modal-apply" data-modal aria-hidden="true" role="dialog" aria-labelledby="modal-apply-title">
+      <button class="modal-backdrop" type="button" data-close-modal aria-label="Close dialog"></button>
+      <div class="modal-panel glass">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+        <p class="eyebrow">Apply to Join</p>
+        <h2 class="modal-title" id="modal-apply-title">Enter the global coordination layer</h2>
+        <p class="modal-copy">
+          Submit your profile to join The Global Call network. We review every application and
+          respond with a personalized onboarding path.
+        </p>
+        <form class="form-grid two-col" data-landing-form data-endpoint="/api/apply">
+          <div class="form-field">
+            <label for="apply-name">Full name</label>
+            <input id="apply-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="form-field">
+            <label for="apply-email">Email</label>
+            <input id="apply-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="form-field">
+            <label for="apply-organization">Organization</label>
+            <input id="apply-organization" name="organization" type="text" required />
+          </div>
+          <div class="form-field">
+            <label for="apply-role">Role</label>
+            <input id="apply-role" name="role" type="text" placeholder="Youth leader, policy lead, coordinator…" required />
+          </div>
+          <div class="form-field">
+            <label for="apply-country">Country</label>
+            <input id="apply-country" name="country" type="text" autocomplete="country-name" required />
+          </div>
+          <div class="form-field" style="grid-column: 1 / -1">
+            <label for="apply-intent">Why do you want to join?</label>
+            <textarea id="apply-intent" name="intent" required placeholder="Describe your mission, context, and what you want to build inside the network."></textarea>
+          </div>
+          <div style="grid-column: 1 / -1">
+            <button class="btn btn-primary" type="submit">Submit application</button>
+            <p class="form-status" data-form-status aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-partner" data-modal aria-hidden="true" role="dialog" aria-labelledby="modal-partner-title">
+      <button class="modal-backdrop" type="button" data-close-modal aria-label="Close dialog"></button>
+      <div class="modal-panel modal-panel-wide glass">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+        <p class="eyebrow">Strategic Partnerships</p>
+        <h2 class="modal-title" id="modal-partner-title">Partner with the coordination infrastructure</h2>
+        <div class="partner-layout">
+          <div>
+            <p class="modal-copy">
+              The Global Call partners with universities, NGOs, coalitions, think tanks, and
+              multilateral bodies to convert fragmented initiatives into one operational
+              coordination layer.
+            </p>
+            <div class="partner-infographic" aria-label="Partnership network metrics">
+              <article class="stat-card" data-accent="blue">
+                <p class="value">142+</p>
+                <p class="label">Countries represented across active coordination nodes</p>
+              </article>
+              <article class="stat-card" data-accent="green">
+                <p class="value">312</p>
+                <p class="label">Organizations connected to implementation pipelines</p>
+              </article>
+              <article class="stat-card" data-accent="pink">
+                <p class="value">1,248</p>
+                <p class="label">Stakeholders inside the global network graph</p>
+              </article>
+              <article class="stat-card" data-accent="orange">
+                <p class="value">6</p>
+                <p class="label">Regional hubs coordinating policy and field action</p>
+              </article>
+            </div>
+            <div class="partner-flow">
+              <div class="partner-flow-step">
+                <span class="index">01</span>
+                <div>
+                  <strong>Align on mission</strong>
+                  <span>Define the institutional scope, geography, and implementation domain.</span>
+                </div>
+              </div>
+              <div class="partner-flow-step">
+                <span class="index">02</span>
+                <div>
+                  <strong>Connect to the network</strong>
+                  <span>Integrate your organization into the shared coordination graph.</span>
+                </div>
+              </div>
+              <div class="partner-flow-step">
+                <span class="index">03</span>
+                <div>
+                  <strong>Deploy joint action</strong>
+                  <span>Move from symbolic collaboration to operational intelligence and delivery.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form class="form-grid" data-landing-form data-endpoint="/api/partner">
+            <div class="form-field">
+              <label for="partner-name">Full name</label>
+              <input id="partner-name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="form-field">
+              <label for="partner-email">Email</label>
+              <input id="partner-email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="form-field">
+              <label for="partner-organization">Organization</label>
+              <input id="partner-organization" name="organization" type="text" required />
+            </div>
+            <div class="form-field">
+              <label for="partner-type">Partnership type</label>
+              <select id="partner-type" name="partnershipType" required>
+                <option value="">Select partnership type</option>
+                <option value="University / Research">University / Research</option>
+                <option value="NGO / Civil society">NGO / Civil society</option>
+                <option value="Multilateral body">Multilateral body</option>
+                <option value="Government / Public sector">Government / Public sector</option>
+                <option value="Private sector / Industry">Private sector / Industry</option>
+                <option value="Coalition / Think tank">Coalition / Think tank</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="partner-message">Partnership proposal</label>
+              <textarea id="partner-message" name="message" required placeholder="Describe the partnership scope, expected outcomes, and timeline."></textarea>
+            </div>
+            <div>
+              <button class="btn btn-primary" type="submit">Send partnership inquiry</button>
+              <p class="form-status" data-form-status aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p><strong>The Global Call</strong></p>
+          <p>Our call is global. Our action is local.</p>
+        </div>
+        <div class="footer-links">
+          <a href="/buildthefuture">Build the Future</a>
+          <a href="/insights">Youth Framework</a>
+          <a href="/faq">FAQ</a>
+          <a href="mailto:hello@theglobalcall.org">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./theme.js" defer></script>
+    <script src="./forms.js" defer></script>
+    <script src="./main.js" defer></script>
+  </body>
+</html>

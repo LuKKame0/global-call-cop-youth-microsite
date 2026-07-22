@@ -1,6 +1,22 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { SubmissionWizard } from "@/components/submission-wizard";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { loadDictionary } from "@/lib/i18n/dictionary-loaders";
+import { LocaleProvider } from "@/lib/i18n/context";
+
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/en",
+}));
+
+const renderWizard = async () => {
+  const dictionary = await loadDictionary(DEFAULT_LOCALE);
+  return render(
+    <LocaleProvider locale={DEFAULT_LOCALE} dictionary={dictionary}>
+      <SubmissionWizard />
+    </LocaleProvider>,
+  );
+};
 
 const fillBasicInfo = () => {
   fireEvent.change(screen.getByTestId("country-input"), {
@@ -38,7 +54,7 @@ describe("SubmissionWizard", () => {
   });
 
   it("blocks progression until the current step is valid", async () => {
-    render(<SubmissionWizard />);
+    await renderWizard();
 
     fireEvent.click(screen.getByRole("button", { name: /continue/i }));
 
@@ -63,7 +79,7 @@ describe("SubmissionWizard", () => {
       }),
     );
 
-    render(<SubmissionWizard />);
+    await renderWizard();
 
     await waitFor(() => {
       expect(screen.getByDisplayValue("Kenya")).toBeInTheDocument();
@@ -71,7 +87,7 @@ describe("SubmissionWizard", () => {
   });
 
   it("saves draft progress while the user types", async () => {
-    render(<SubmissionWizard />);
+    await renderWizard();
     fillBasicInfo();
 
     await waitFor(() => {
@@ -109,7 +125,7 @@ describe("SubmissionWizard", () => {
         ),
       );
 
-    render(<SubmissionWizard />);
+    await renderWizard();
 
     fillBasicInfo();
     fireEvent.click(screen.getByRole("button", { name: /continue/i }));

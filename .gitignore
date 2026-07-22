@@ -27,6 +27,10 @@
 .DS_Store
 *.pem
 
+# stray repo backups (never versioned or linted)
+*-backup/
+*-backup.zip
+
 # debug
 npm-debug.log*
 yarn-debug.log*

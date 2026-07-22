@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Build the Future — The Global Call</title>
+    <meta
+      name="description"
+      content="Enter the global coordination layer. Build the infrastructure the next generation will inherit."
+    />
+    <meta name="theme-color" content="#f7f7f8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/globalcall.png" type="image/png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./build-the-future.css" />
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("tgc-theme");
+          document.documentElement.setAttribute(
+            "data-theme",
+            theme === "dark" ? "dark" : "light",
+          );
+        } catch (error) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+  <body class="btf-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="btf-header">
+      <div class="container">
+        <a class="btf-back" href="/">← The Global Call</a>
+        <div class="header-controls">
+          <label class="theme-switch" aria-label="Toggle dark mode">
+            <span class="theme-switch-label">Light</span>
+            <input type="checkbox" class="theme-switch-input" data-theme-toggle />
+            <span class="theme-switch-track" aria-hidden="true">
+              <span class="theme-switch-thumb"></span>
+            </span>
+            <span class="theme-switch-label">Dark</span>
+          </label>
+          <span class="btf-kicker"><span class="pulse" aria-hidden="true"></span> Coordination layer live</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="btf-hero" aria-labelledby="btf-title">
+        <canvas class="btf-hero-canvas" id="btf-canvas" aria-hidden="true"></canvas>
+        <div class="btf-hero-gridlines" aria-hidden="true"></div>
+        <div class="btf-hero-glow" aria-hidden="true"></div>
+
+        <div class="container btf-hero-inner">
+          <div class="reveal">
+            <p class="eyebrow">The infrastructure layer for global coordination</p>
+            <h1 class="btf-title" id="btf-title">
+              Build the coordination infrastructure the next generation will inherit.
+            </h1>
+            <p class="btf-subtitle">
+              A sovereign global framework connecting youth leaders, institutions, organizations,
+              and implementation networks into one operational layer.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" data-scroll-target="#enter" data-preset-role="National Lead">
+                Apply as National Lead
+              </button>
+              <button class="btn btn-secondary" type="button" data-scroll-target="#enter">
+                Join the Network
+              </button>
+              <a class="btn btn-accent" href="/?modal=partner">
+                Become a Strategic Partner
+              </a>
+            </div>
+          </div>
+
+          <div class="btf-metrics reveal">
+            <article class="btf-metric glass">
+              <p class="num" style="color: var(--blue)">142</p>
+              <p class="lbl">Countries inside the coordination graph</p>
+            </article>
+            <article class="btf-metric glass">
+              <p class="num" style="color: var(--green)">1,248</p>
+              <p class="lbl">Stakeholders connected to active nodes</p>
+            </article>
+            <article class="btf-metric glass">
+              <p class="num" style="color: var(--pink)">312</p>
+              <p class="lbl">Organizations linked to implementation flows</p>
+            </article>
+            <article class="btf-metric glass">
+              <p class="num" style="color: var(--orange)">6</p>
+              <p class="lbl">Regional hubs coordinating field action</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-problem" id="problem" aria-labelledby="problem-title">
+        <div class="container reveal">
+          <p class="eyebrow">Intelligence Briefing</p>
+          <h2 class="section-title" id="problem-title">The world is connected. Coordination is not.</h2>
+          <div class="brief-grid">
+            <article class="brief-card glass">
+              <strong>Global coordination is fragmented.</strong>
+              <span>Initiatives multiply faster than the infrastructure required to align them.</span>
+            </article>
+            <article class="brief-card glass">
+              <strong>Youth policy lacks operational infrastructure.</strong>
+              <span>Voice exists. Implementation pathways often do not.</span>
+            </article>
+            <article class="brief-card glass">
+              <strong>Institutions operate without shared intelligence.</strong>
+              <span>Every actor sees part of the system. No one sees the whole graph.</span>
+            </article>
+            <article class="brief-card glass">
+              <strong>Most initiatives die at implementation.</strong>
+              <span>Momentum fades when coordination ends at the closing session.</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-solution" id="building" aria-labelledby="building-title">
+        <div class="container reveal">
+          <p class="eyebrow">What We Are Building</p>
+          <h2 class="section-title" id="building-title">A coordination operating system.</h2>
+          <p class="section-lead">
+            Not a platform. An infrastructure layer where signals become intelligence, and
+            intelligence becomes implemented action.
+          </p>
+          <div class="layer-grid">
+            <article class="layer-card glass" style="--layer-color: var(--blue)">
+              <p class="tag">Layer 01</p>
+              <h3>Intelligence</h3>
+              <p>Structured knowledge from the field, readable across regions and institutions.</p>
+            </article>
+            <article class="layer-card glass" style="--layer-color: var(--green)">
+              <p class="tag">Layer 02</p>
+              <h3>Network</h3>
+              <p>Stakeholders, hubs, and focal points mapped as a living coordination graph.</p>
+            </article>
+            <article class="layer-card glass" style="--layer-color: var(--pink)">
+              <p class="tag">Layer 03</p>
+              <h3>Framework</h3>
+              <p>Implementation pathways that travel from local reality to global synthesis.</p>
+            </article>
+            <article class="layer-card glass" style="--layer-color: var(--orange)">
+              <p class="tag">Layer 04</p>
+              <h3>Institutions</h3>
+              <p>Diplomatic and policy interfaces that turn youth priorities into institutional asks.</p>
+            </article>
+            <article class="layer-card glass" style="--layer-color: var(--blue)">
+              <p class="tag">Layer 05</p>
+              <h3>Geospatial</h3>
+              <p>Regional visibility into where coordination is active, dense, or emerging.</p>
+            </article>
+            <article class="layer-card glass" style="--layer-color: var(--green)">
+              <p class="tag">Layer 06</p>
+              <h3>Reporting</h3>
+              <p>AI-augmented summaries and multilingual outputs institutions can act on.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-network" id="map" aria-labelledby="map-title">
+        <div class="container reveal">
+          <p class="eyebrow">Global Coordination Map</p>
+          <h2 class="section-title" id="map-title">See yourself inside the system.</h2>
+          <div class="network-map glass">
+            <svg viewBox="0 0 960 420" role="img" aria-label="Global coordination map">
+              <path class="map-path" d="M120 210 C220 120, 340 120, 420 180 S700 120, 820 190" fill="none" stroke-width="2" />
+              <g class="region-node" data-map-node="na" tabindex="0" style="--region-color:#37ABFA">
+                <circle class="region-dot" cx="210" cy="170" r="10" />
+                <text class="region-label" x="210" y="195">North America</text>
+              </g>
+              <g class="region-node" data-map-node="sa" tabindex="0" style="--region-color:#FF91FE">
+                <circle class="region-dot" cx="280" cy="280" r="10" />
+                <text class="region-label" x="280" y="305">South America</text>
+              </g>
+              <g class="region-node" data-map-node="eu" tabindex="0" style="--region-color:#61C879">
+                <circle class="region-dot" cx="500" cy="150" r="10" />
+                <text class="region-label" x="500" y="175">Europe</text>
+              </g>
+              <g class="region-node" data-map-node="af" tabindex="0" style="--region-color:#FF460D">
+                <circle class="region-dot" cx="540" cy="250" r="10" />
+                <text class="region-label" x="540" y="275">Africa</text>
+              </g>
+              <g class="region-node is-active" data-map-node="as" tabindex="0" style="--region-color:#37ABFA">
+                <circle class="region-dot" cx="730" cy="190" r="12" />
+                <text class="region-label" x="730" y="215">Asia-Pacific</text>
+              </g>
+              <g class="region-node" data-map-node="oc" tabindex="0" style="--region-color:#61C879">
+                <circle class="region-dot" cx="820" cy="300" r="10" />
+                <text class="region-label" x="820" y="325">Oceania</text>
+              </g>
+            </svg>
+            <p class="network-detail" data-map-detail>
+              Asia-Pacific — innovation, education, and climate implementation pathways in active sync.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-framework" id="roles" aria-labelledby="roles-title">
+        <div class="container reveal">
+          <p class="eyebrow">Choose Your Role</p>
+          <h2 class="section-title" id="roles-title">The system adapts to how you enter it.</h2>
+          <div class="role-grid">
+            <article class="role-card glass" data-set-role="National Lead">
+              <h3>National Lead</h3>
+              <p>Own the country signal. Translate local implementation into global legibility.</p>
+              <ul>
+                <li>Lead national framework submissions</li>
+                <li>Coordinate focal points and field partners</li>
+                <li>Represent your country in synthesis cycles</li>
+              </ul>
+            </article>
+            <article class="role-card glass" data-set-role="Regional Coordinator">
+              <h3>Regional Coordinator</h3>
+              <p>Connect hubs, align cross-border action, and maintain regional intelligence flow.</p>
+              <ul>
+                <li>Manage regional node visibility</li>
+                <li>Bridge institutions across borders</li>
+                <li>Accelerate implementation density</li>
+              </ul>
+            </article>
+            <article class="role-card glass" data-set-role="Partner Organization">
+              <h3>Partner Organization</h3>
+              <p>Bring organizational capacity into the coordination graph as an active node.</p>
+              <ul>
+                <li>Co-design implementation pathways</li>
+                <li>Deploy joint field programs</li>
+                <li>Share operational intelligence</li>
+              </ul>
+            </article>
+            <article class="role-card glass" data-set-role="Institutional Ally">
+              <h3>Institutional Ally</h3>
+              <p>Open institutional interfaces for youth priorities to become policy leverage.</p>
+              <ul>
+                <li>Provide sectoral entry points</li>
+                <li>Enable credible institutional follow-through</li>
+                <li>Support multilateral alignment</li>
+              </ul>
+            </article>
+            <article class="role-card glass" data-set-role="Research & Policy Network">
+              <h3>Research &amp; Policy Network</h3>
+              <p>Convert field knowledge into evidence, analysis, and synthesis-ready intelligence.</p>
+              <ul>
+                <li>Publish structured insights</li>
+                <li>Validate implementation signals</li>
+                <li>Feed the intelligence layer</li>
+              </ul>
+            </article>
+            <article class="role-card glass" data-set-role="Youth Implementation Lead">
+              <h3>Youth Implementation Lead</h3>
+              <p>Enter through the live youth policy framework and operational submission flow.</p>
+              <ul>
+                <li>Draft national implementation frameworks</li>
+                <li>Activate the four-layer model</li>
+                <li>Connect local action to global synthesis</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-impact" id="ai" aria-labelledby="ai-title">
+        <div class="container reveal">
+          <p class="eyebrow">AI Coordination Layer</p>
+          <h2 class="section-title" id="ai-title">
+            Transform submissions into actionable institutional intelligence.
+          </h2>
+          <div class="ai-panel glass">
+            <p class="section-lead" style="margin-top:0">
+              Capabilities, not models. The coordination layer turns raw field input into outputs
+              institutions can review, compare, and act upon.
+            </p>
+            <div class="ai-flow">
+              <div class="ai-step"><span class="chip">Ingest</span><span>Structured submissions and field narratives</span><span>→</span></div>
+              <div class="ai-step"><span class="chip">Normalize</span><span>Policy-ready records and thematic chunks</span><span>→</span></div>
+              <div class="ai-step"><span class="chip">Summarize</span><span>Multilingual institutional briefings</span><span>→</span></div>
+              <div class="ai-step"><span class="chip">Route</span><span>Regional hubs, partners, and decision interfaces</span><span>→</span></div>
+              <div class="ai-step"><span class="chip">Act</span><span>Implementation feedback into the next coordination cycle</span><span>●</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="partners" aria-labelledby="partners-title">
+        <div class="container reveal">
+          <p class="eyebrow">Institutional Partners</p>
+          <h2 class="section-title" id="partners-title">Legitimacy is built in public.</h2>
+          <div class="partner-grid">
+            <div class="partner-logo glass">Universities</div>
+            <div class="partner-logo glass">NGOs</div>
+            <div class="partner-logo glass">Coalitions</div>
+            <div class="partner-logo glass">Think Tanks</div>
+            <div class="partner-logo glass">Multilateral Bodies</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-section" id="enter" aria-labelledby="enter-title">
+        <div class="container">
+          <div class="btf-enter glass reveal">
+            <p class="eyebrow">Build The Future</p>
+            <h2 class="btf-enter-title" id="enter-title">
+              History does not wait for coordination. It rewards those who build it.
+            </h2>
+            <p class="btf-enter-copy">
+              Enter the global coordination layer. This is not an application form — it is a signal
+              that you are ready to participate in what comes next.
+            </p>
+            <div class="btf-form-wrap">
+              <form class="form-grid" data-landing-form data-endpoint="/api/coordination">
+                <div class="form-field">
+                  <label for="coordination-name">Name</label>
+                  <input id="coordination-name" name="name" type="text" autocomplete="name" required />
+                </div>
+                <div class="form-field">
+                  <label for="coordination-email">Email (optional)</label>
+                  <input id="coordination-email" name="email" type="email" autocomplete="email" />
+                </div>
+                <div class="form-field">
+                  <label for="coordination-organization">Organization</label>
+                  <input id="coordination-organization" name="organization" type="text" required />
+                </div>
+                <div class="form-field">
+                  <label for="coordination-role">Role</label>
+                  <input id="coordination-role" name="role" type="text" placeholder="National Lead, Regional Coordinator…" required />
+                </div>
+                <div class="form-field">
+                  <label for="coordination-country">Country</label>
+                  <input id="coordination-country" name="country" type="text" autocomplete="country-name" required />
+                </div>
+                <div class="form-field">
+                  <label for="coordination-intent">Intent</label>
+                  <input id="coordination-intent" name="intent" type="text" placeholder="Join network, lead country node, partner on implementation…" required />
+                </div>
+                <div>
+                  <button class="btn btn-primary" type="submit">Enter the global coordination layer</button>
+                  <p class="form-status" data-form-status aria-live="polite"></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p><strong>The Global Call</strong></p>
+          <p>This has already started.</p>
+        </div>
+        <div class="footer-links">
+          <a href="/">Main landing</a>
+          <a href="/insights">Youth Framework</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./theme.js" defer></script>
+    <script src="./forms.js" defer></script>
+    <script src="./build-the-future.js" defer></script>
+  </body>
+</html>
