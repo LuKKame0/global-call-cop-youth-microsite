@@ -180,6 +180,117 @@ export const sw = {
     partnerDescription:
       "Omba mkutano wako wa uandikishaji wa awali. Viungo vya kitaifa, mashirika ya vijana, na vyombo vya serikali kila kimoja kina majukumu yaliyofafanuliwa kabla, wakati, na baada ya Z-COP.",
     partnerEmailCta: "Omba uandikishaji wa awali",
+    rsvpEmail: "rsvp@z-cop.org",
+    nationalActionPlanEyebrow: "Ombi",
+    nationalActionPlanTitle: "Jitolee kwa Mpango wa Kitaifa wa Utekelezaji",
+    nationalActionPlanDescription:
+      "Mpango wa Kitaifa wa Utekelezaji ni uti wa mgongo wa programu ya Z-COP — huandaliwa kabla ya mkutano, hukaguliwa na kuthibitishwa na wawakilishi wakuu wakati wa siku mbili, kisha hufanyiwa masasisho baadaye kama kumbukumbu ya utekelezaji ya nchi.",
+    nationalActionPlanCta: "Jiandikishe kwa Z-COP 2026",
+    scheduleEyebrow: "Ratiba",
+    scheduleTitle: "Ratiba ya Z-COP 2026",
+    scheduleDescription:
+      "Agosti 31 – Septemba 1, 2026. The Global Call huratibiwa kwa saa 7:00 asubuhi kwa wakati wa San Francisco katika vitovu vyote vya kitaifa kila siku.",
+    scheduleDays: [
+      {
+        day: "Siku ya 1",
+        dateLabel: "Agosti 31",
+        note: "Global Call iliratibiwa kwa saa 7:00 asubuhi kwa wakati wa San Francisco katika vitovu vyote vya kitaifa.",
+        sessions: [
+          {
+            time: "8:30–10:00",
+            session: "Kifungua Kinywa & Karibu / Vikao vya Sera hadi Programu I: Maarifa ya Uongozi",
+            note: "Karibu; mapitio ya data ya Global Call; uwasilishaji wa mapendekezo ya muhtasari wa sera za vijana yaliyowasilishwa; nadharia na msukumo kutoka mifano iliyofanikiwa.",
+          },
+          {
+            time: "11:00–11:45",
+            session: "Mkutano wa Kikanda (Simu ya Uratibu)",
+            note: "Simu inayounganisha kitovu na vitovu vingine vya kitaifa/kimataifa kwa uratibu, msukumo, na mapitio ya pamoja.",
+          },
+          {
+            time: "11:45–12:30",
+            session: "Kutoka Sera hadi Shughuli",
+            note: "Warsha inayotafsiri sera za mpango wa utekelezaji kuwa shughuli halisi za kimaeneo.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Mapumziko / Chakula cha Mchana",
+            note: "",
+          },
+          {
+            time: "13:15–14:15",
+            session: "Warsha za Mada za On My Way (Utekelezaji wa Programu)",
+            note: "Warsha ya vitendo ya utekelezaji ndani ya nchi, na shughuli inayofaa kimaeneo kwa kila nchi.",
+          },
+          {
+            time: "14:15–15:00",
+            session: "Kikao cha Tafakari na Maoni",
+            note: "Vijana hutafakari kuhusu kilichofanya kazi na kisichofanya kazi; mapitio ya matokeo ya Awamu ya 1 (OMW na MESA).",
+          },
+          {
+            time: "15:00–15:45",
+            session: "Uchoraji wa Wadau na Uchambuzi wa Mapengo",
+            note: "Uchoraji wa awali wa wadau na mapengo ya kuziba kwa kila mradi; muhtasari wa rasimu ya mpango wa mawasiliano wa siku 21 baada ya COP.",
+          },
+          {
+            time: "15:45–17:15",
+            session: "Masasisho ya Mpango wa Utekelezaji na Maoni",
+            note: "Kiungo cha mawasiliano na wawakilishi wakuu ili kupatanisha tofauti na kujibu maswali; fursa ya kuwasilisha maombi kupitia fomu ya uwasilishaji wa kitabu cha shughuli. Mpango wa utekelezaji hukaguliwa usiku na toleo lililosasishwa hushirikiwa asubuhi iliyofuata.",
+          },
+        ],
+      },
+      {
+        day: "Siku ya 2",
+        dateLabel: "Septemba 1",
+        note: "Global Call iliratibiwa kwa saa 7:00 asubuhi kwa wakati wa San Francisco katika vitovu vyote vya kitaifa.",
+        sessions: [
+          {
+            time: "08:30–09:30",
+            session: "Msukumo na Mtazamo wa Siku",
+            note: "Uwasilishaji wa mpango wa utekelezaji (ukijumuisha maoni ya usiku) na programu za rasimu.",
+          },
+          {
+            time: "09:30–10:15",
+            session: "Warsha ya Utekelezaji wa OMW na Maarifa ya MESA",
+            note: "Kubainisha wadau wa sera za kimaeneo wanaoweza kusaidia kutekeleza mabadiliko ya sera.",
+          },
+          {
+            time: "10:15–11:00",
+            session: "Warsha ya Utekelezaji II: Ufadhili",
+            note: "Kubainisha vyanzo vya ufadhili, kuwasilisha programu, kupata uungwaji mkono wa wadau.",
+          },
+          {
+            time: "11:00–12:00",
+            session: "Vikao vya Sera hadi Programu II: Uchoraji na Ratiba",
+            note: "Kuoanisha sera na utekelezaji (vikao vidogo 2-3); matokeo: kalenda ya hatua za utekelezaji na ufadhili.",
+          },
+          {
+            time: "12:00–12:30",
+            session: "Usambazaji wa Mipango ya Utekelezaji na Rasimu ya Mpango wa Uanzishaji wa Siku 21",
+            note: "Kiungo cha mawasiliano na wawakilishi wakuu ili kupatanisha tofauti na kujibu maswali.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Mapumziko / Chakula cha Mchana",
+            note: "",
+          },
+          {
+            time: "13:15–15:15",
+            session: "Mapitio na Umiliki wa Mpango wa Kitaifa wa Utekelezaji",
+            note: "Mapitio ya mwisho na nyongeza kwa mpango wa kitaifa wa utekelezaji ukijumuisha matokeo ya siku mbili.",
+          },
+          {
+            time: "15:15–16:00",
+            session: "Mpango wa Utekelezaji wa OMW (Uanzishaji wa Siku 21) na Uchoraji wa Wadau",
+            note: "Majadiliano na marekebisho ya mpango wa siku 21 na uchoraji wa wadau.",
+          },
+          {
+            time: "16:00–16:30",
+            session: "Kikao cha Kufunga",
+            note: "Maneno na tafakari za kufunga.",
+          },
+        ],
+      },
+    ],
     themes: [
       {
         day: "Siku 0 · Agosti 30",

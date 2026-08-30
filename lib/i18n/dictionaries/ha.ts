@@ -180,6 +180,117 @@ export const ha = {
     partnerDescription:
       "Nemi taron shigar da farko. Masu mahimmanci na ƙasa, ƙungiyoyin matasa, da jikin gwamnati kowannensu yana da ayyuka da aka fayyace kafin, yayin, da bayan Z-COP.",
     partnerEmailCta: "Nemi shigar da farko",
+    rsvpEmail: "rsvp@z-cop.org",
+    nationalActionPlanEyebrow: "Bukatar",
+    nationalActionPlanTitle: "Ka Yi Alkawari ga Tsarin Aiki na Ƙasa",
+    nationalActionPlanDescription:
+      "Tsarin Aiki na Ƙasa shine kashin bayan shirin Z-COP — an tsara shi kafin taron, kuma masu haɗin gwiwa suke bitar da tabbatar da shi a cikin kwanaki biyu, sannan ana sabunta shi bayan haka a matsayin bayanan aiwatarwa na ƙasar.",
+    nationalActionPlanCta: "Yi Rijista don Z-COP 2026",
+    scheduleEyebrow: "Shiri",
+    scheduleTitle: "Jadawalin Z-COP 2026",
+    scheduleDescription:
+      "Agusta 31 – Satumba 1, 2026. The Global Call yana daidaitawa da ƙarfe 7:00 na safe agogon San Francisco a duk cibiyoyin ƙasa kowace rana.",
+    scheduleDays: [
+      {
+        day: "Rana 1",
+        dateLabel: "Agusta 31",
+        note: "An daidaita Global Call da ƙarfe 7:00 na safe agogon San Francisco a duk cibiyoyin ƙasa.",
+        sessions: [
+          {
+            time: "8:30–10:00",
+            session: "Karin Kumallo & Maraba / Zaman Manufa zuwa Shirye-shirye I: Fahimtar Jagoranci",
+            note: "Maraba; nazarin bayanan Global Call; gabatar da shawarwarin takaitaccen manufofin matasa da aka gabatar; ka'ida da wahayi daga misalan da suka yi nasara.",
+          },
+          {
+            time: "11:00–11:45",
+            session: "Taron Yanki (Kiran Haɗin Kai)",
+            note: "Kira mai haɗa cibiyar da sauran cibiyoyin ƙasa/duniya don haɗin kai, wahayi, da bita tare.",
+          },
+          {
+            time: "11:45–12:30",
+            session: "Daga Manufa zuwa Ayyuka",
+            note: "Bita da ke fassara manufofin tsarin aiki zuwa ayyuka na zahiri a fagen aiki.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Hutu / Abincin Rana",
+            note: "",
+          },
+          {
+            time: "13:15–14:15",
+            session: "Bita na Batutuwa na On My Way (Aiwatar da Shirin)",
+            note: "Bita mai amfani na aiwatarwa a cikin ƙasa, tare da aiki mai dacewa da yanki ga kowace ƙasa.",
+          },
+          {
+            time: "14:15–15:00",
+            session: "Zaman Tunani da Ra'ayi",
+            note: "Matasa suna tunani kan abin da ya yi aiki da abin da bai yi ba; nazarin sakamakon Mataki na 1 (OMW da MESA).",
+          },
+          {
+            time: "15:00–15:45",
+            session: "Taswirar Masu Ruwa da Tsaki & Nazarin Gibi",
+            note: "Taswira ta farko ta masu ruwa da tsaki da gibin da za a cike ga kowane aiki; zayyana tsarin wayar da kai na kwanaki 21 bayan COP.",
+          },
+          {
+            time: "15:45–17:15",
+            session: "Sabunta Tsarin Aiki & Ra'ayi",
+            note: "Wurin haɗi da masu haɗin gwiwa domin warware bambance-bambance da amsa tambayoyi; damar aika buƙatu ta hanyar fom ɗin ƙaddamar da littafin ayyuka. Ana bitar tsarin aiki cikin dare kuma ana raba sabon salo washegari da safe.",
+          },
+        ],
+      },
+      {
+        day: "Rana 2",
+        dateLabel: "Satumba 1",
+        note: "An daidaita Global Call da ƙarfe 7:00 na safe agogon San Francisco a duk cibiyoyin ƙasa.",
+        sessions: [
+          {
+            time: "08:30–09:30",
+            session: "Wahayi & Kallon Rana",
+            note: "Gabatar da tsarin aiki (tare da haɗa ra'ayin dare) da shirye-shiryen zayyanawa.",
+          },
+          {
+            time: "09:30–10:15",
+            session: "Bita na Aiwatar da OMW tare da Fahimtar MESA",
+            note: "Gano masu ruwa da tsaki na manufofin gida da za su iya taimakawa aiwatar da canjin manufa.",
+          },
+          {
+            time: "10:15–11:00",
+            session: "Bita na Aiwatarwa II: Kudade",
+            note: "Gano hanyoyin samun kuɗi, gabatar da shirye-shirye, samun goyon bayan masu ruwa da tsaki.",
+          },
+          {
+            time: "11:00–12:00",
+            session: "Zaman Manufa zuwa Shirye-shirye II: Taswira & Jadawali",
+            note: "Haɗa manufofi da aiwatarwa (zaman ƙananan ƙungiyoyi 2-3); sakamako: jadawalin matakan aiwatarwa da kudade.",
+          },
+          {
+            time: "12:00–12:30",
+            session: "Rarraba Tsare-tsaren Aiki & Zayyana Tsarin Kunnawa na Kwanaki 21",
+            note: "Wurin haɗi da masu haɗin gwiwa domin warware bambance-bambance da amsa tambayoyi.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Hutu / Abincin Rana",
+            note: "",
+          },
+          {
+            time: "13:15–15:15",
+            session: "Bita da Mallakar Tsarin Aiki na Ƙasa",
+            note: "Bita ta ƙarshe da ƙarin abubuwa ga tsarin aiki na ƙasa da suka haɗa da sakamakon kwanaki biyu.",
+          },
+          {
+            time: "15:15–16:00",
+            session: "Tsarin Aiki na OMW (Kunna Kwanaki 21) & Taswirar Masu Ruwa da Tsaki",
+            note: "Tattaunawa da bita na tsarin kwanaki 21 da taswirar masu ruwa da tsaki.",
+          },
+          {
+            time: "16:00–16:30",
+            session: "Zaman Rufewa",
+            note: "Kalmomin rufewa da tunani.",
+          },
+        ],
+      },
+    ],
     themes: [
       {
         day: "Rana 0 · 30 Agusta",

@@ -9,7 +9,7 @@ export const pagesZhTW: PageDictionary = {
     heroTitle: "外交基礎設施",
     heroTitleDim: "為下一代而建。",
     heroSubtitle:
-      "The Global Call 將青年、社區、機構與盟友連接為同一協調層——將全球承諾轉化為可實施的政策、可信的行動與集體智慧。",
+      "透過青年主導的集體同步行動，將全球與本地承諾轉化為現實。",
     heroCtaJoin: "加入運動",
     heroCtaFocalPoint: "成為國家聯絡點",
     heroCtaFramework: "探索框架",

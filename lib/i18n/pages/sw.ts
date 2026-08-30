@@ -9,7 +9,7 @@ export const pagesSw: PageDictionary = {
     heroTitle: "Miundombinu ya kidiplomasia",
     heroTitleDim: "kwa kizazi kinachofuata.",
     heroSubtitle:
-      "The Global Call inaunganisha vijana, jamii, taasisi, na washirika katika safu moja ya uratibu — kubadilisha ahadi za kimataifa kuwa sera zilizotekelezwa, hatua za kuaminika, na akili ya pamoja.",
+      "Kubadilisha ahadi za kimataifa na za ndani kuwa uhalisia, kupitia juhudi za pamoja na zilizoratibiwa kwa wakati mmoja zinazoongozwa na vijana.",
     heroCtaJoin: "Jiunge na harakati",
     heroCtaFocalPoint: "Kuwa kiungo cha kitaifa",
     heroCtaFramework: "Chunguza mfumo",

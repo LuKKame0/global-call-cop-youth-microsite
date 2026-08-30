@@ -533,6 +533,109 @@
 
 ---
 
+---
+
+## Sprint 5 — Content Refresh + Aislamiento de Formularios (27 julio 2026)
+
+**Objetivo:** Aplicar el pedido de cambios de contenido de Victoire Mandonnaud (Founder/Executive Director, The Global Call) recibido por WhatsApp el 26/07/2026, y separar los formularios de submission de la navegación pública para facilitar su iteración en sandbox.
+
+**Contexto:** Victoire pidió simplificar la navegación pública (sacar accesos que generaban fricción o quedaron obsoletos), actualizar el copy institucional (About, advocacías), refrescar el roster de equipo/board, y reescribir la agenda de Z-COP 2026 en base a un concept note interno. En paralelo, Lucas pidió que los formularios tuvieran landing propia para trabajarlos en sandbox sin afectar el sitio público.
+
+### Step 1 — Navegación: remoción de accesos
+
+**Qué se hizo:**
+- `components/site-header.tsx`: sacados del nav principal los links a Directory, Our Activities, Join, y Start Framework. Nav pública queda en: About, Z-COP, Advocacy, Team.
+- `components/site-footer.tsx`: sacado el CTA "Start Framework"; queda solo "Review FAQ". Import de `IconArrow` removido por quedar sin uso.
+
+**Por qué:** Pedido explícito de Victoire. Sobre "join the movement / directory" hubo ambigüedad en su mensaje (pidió sacarlo pero después sugirió mantenerlo condicionalmente si conectaba a directory) — se resolvió sacando ambos de la nav, siguiendo su instrucción explícita inicial y su propia aclaración de que "está bien si no se puede".
+
+**Impacto:** Las rutas `/join`, `/insights` (framework), `/directory` y `/activities` siguen existiendo y funcionando (accesibles por URL directa), pero ya no están linkeadas desde la navegación pública.
+
+---
+
+### Step 2 — Copy institucional: About y Advocacías
+
+**Qué se hizo:**
+- `lib/i18n/pages/en.ts` (`home.heroSubtitle`): About actualizado al texto exacto pedido: *"Transforming global and local commitments into realities, through collective and synchronous youth-led effort."* Traducido a los 14 idiomas restantes.
+- `components/localized/advocacy-page.tsx` + `lib/i18n/pages/en.ts` (`advocacy.advocacies`): lista reducida a exactamente 2 ítems — "United Nations Youth Delegate Programme" y "UN Youth Overwrite". Se agregó botón "Download our Advocacy Toolkits".
+
+**Por qué:** Pedido explícito de Victoire, copy pasado literal por WhatsApp.
+
+**Impacto:** El botón de descarga de toolkits apunta a `href="#"` (placeholder) — **pendiente, ver abajo**.
+
+---
+
+### Step 3 — Equipo y Board
+
+**Qué se hizo:**
+- `lib/i18n/types.ts`: nuevo tipo `BoardMember` y campos `team.staff` / `team.board`.
+- `lib/i18n/pages/en.ts`: cargado roster de 5 miembros de staff (Ioana-Daria Popescu, Ilonah Rakotonanahary, Homaira Sharifi, Uyai-Abasi Edem, Victoire Mandonnaud) con rol, país y email.
+- Board cargado en el orden exacto pedido por Victoire — Paola Pozo (Bolivia) → Jana Seal (USA) → Fatoumata Jawara (Gambia) → Adam de Picot (Australia).
+- `components/localized/team-page.tsx` reescrito con secciones Staff/Board separadas y nuevo componente `BoardCard`.
+
+**Por qué:** Pedido explícito de Victoire, con énfasis particular en el orden del board ("Paola Jana Fatouma Adam, for the order").
+
+**Impacto:** Team/Board son contenido English-only por diseño de este codebase (fallback a `pagesEn` vía `lib/i18n/merge-dictionary.ts`) — no requirió traducción por locale.
+
+---
+
+### Step 4 — Página Z-COP: agenda, RSVP y ask de National Action Plan
+
+**Qué se hizo:**
+- `lib/i18n/dictionaries/en.ts` (`zCop`): agregado `rsvpEmail: "rsvp@z-cop.org"` (reemplaza el contacto anterior en esa acción específica; los emails de contactos individuales del Z-COP Team no se tocaron).
+- Reescrita la agenda: `scheduleDays` con la grilla completa Day 1 (31 agosto) / Day 2 (1 septiembre) según el concept note interno de Z-COP 2026, incluyendo la sincronización de Global Call a las 7:00 AM hora San Francisco en ambos días.
+- Agregada sección/CTA de ask por el **National Action Plan** (deliverable eje del programa Z-COP).
+- Se mantuvieron sin cambios las "three platforms" (The Global Call, MESA Institute, On My Way).
+- No existía una sección de "framework" en esta página específica — confirmado por grep, no había nada que remover ahí.
+- `components/localized/z-cop-page.tsx`: ya no importa `SANDBOX_CONTACT`; RSVP/mailto ahora usa `copy.rsvpEmail`. Tabla única de daily-cycle reemplazada por render por día.
+- Mismos campos traducidos e insertados en los 14 idiomas restantes (verificado por grep en los 15 diccionarios).
+
+**Por qué:** Pedido explícito de Victoire, agenda tomada literal del concept note "Z-COP 2026" que compartió.
+
+**Impacto:** Página Z-COP alineada al concept note oficial. Nota de fecha: el concept note es internamente inconsistente (dice "August 31th – September 1st" en el título pero también "Day 1 (September 1) and Day 2 (September 2)" en el cuerpo) — se resolvió el conflicto usando **31 de agosto = Day 1, 1 de septiembre = Day 2**, consistente con el rango de fechas del título. **Pendiente confirmar con Victoire si esta interpretación es correcta.**
+
+---
+
+### Step 5 — Aislamiento de formularios en sandbox
+
+**Qué se hizo:**
+- `app/sandbox/join/page.tsx` (nuevo): renderiza `JoinPageContent` (el mismo componente de formulario en producción) de forma standalone.
+- `app/sandbox/framework/page.tsx` (nuevo): renderiza `FrameworkPage` (formulario "Start Framework") standalone.
+- `lib/sandbox/content.ts`: agregadas ambas entradas a `SANDBOX_LANDINGS` para que aparezcan listadas en `/sandbox`.
+
+**Por qué:** Al sacar Join y Start Framework de la nav pública (Step 1), esos formularios quedaban huérfanos. `app/sandbox/*` ya está registrado en `lib/i18n/page-paths.ts` como `AppShellRoutePrefix`, lo que hace que `SiteChrome` renderice esas rutas **sin** header/footer del sitio — aislamiento real, no solo cosmético. Se reutilizan los componentes de formulario reales (no mocks), para que cualquier cambio en sandbox sea directamente el mismo componente que corre en producción.
+
+**Impacto:** `/sandbox/join` y `/sandbox/framework` permiten iterar sobre los formularios reales sin chrome del sitio ni necesidad de navegar el microsite público. Typecheck limpio (`npx tsc --noEmit`).
+
+---
+
+## Pendientes / Acción requerida de Victoire
+
+| Pendiente | Detalle | Bloqueante |
+|---|---|---|
+| **Toolkit de Advocacy** | Botón "Download our Advocacy Toolkits" apunta a `href="#"` (placeholder). Falta el archivo o URL real. | Sí, antes de publicar esa sección |
+| **Confirmar fechas Z-COP Day 1/Day 2** | Concept note es ambiguo entre "31 ago–1 sep" (título) y "Day 1 = 1 sep, Day 2 = 2 sep" (cuerpo). Se implementó 31 ago = Day 1 / 1 sep = Day 2. | Sí, riesgo de fecha incorrecta en agenda pública |
+| **Revisión nativa de traducciones** | Cambios propagados a los 15 idiomas con confianza alta en es/fr/de/it/pt/ru/tr. Ar, he, fa, ha, sw, zh-CN, zh-TW son traducción best-effort (términos institucionales como "focal points", "stakeholder mapping", "activity book" y la descripción larga del National Action Plan). zh-CN/zh-TW son conversión de script desde la misma traducción base, no localización regional independiente. | No bloqueante, pero recomendado antes de difusión amplia en esos mercados |
+| **"Join the movement" / Directory** | Se sacaron ambos de la nav por instrucción explícita. Si Victoire quiere reintroducir un link condicional "Join the movement → Directory", falta definir dónde (¿footer? ¿home?). | No bloqueante |
+
+---
+
+### Step 6 — Preview local de sandbox (28 julio 2026)
+
+**Qué se hizo:**
+- Se levantó el dev server (`npm run dev`) para que Lucas pudiera previsualizar `/sandbox`, `/sandbox/join` y `/sandbox/framework` antes de dar por cerrado el Step 5.
+- Se detectó que el middleware de Auth.js tiraba `MissingSecret` en cada request porque `.env.local` no tenía `AUTH_SECRET` definido — esto es preexistente, no introducido por los cambios de este sprint.
+- Con confirmación explícita de Lucas, se agregó un `AUTH_SECRET` generado aleatoriamente (32 bytes, base64) a `.env.local`, solo para uso en desarrollo local.
+- Se reinició el dev server (hubo que matar un proceso viejo que seguía corriendo en el puerto 3000) y se verificó `200 OK` en las tres rutas de sandbox.
+
+**Por qué:** Sin `AUTH_SECRET`, el middleware bloquea/loguea error en cada navegación en dev, lo que hacía inutilizable el preview local.
+
+**Impacto:** Las tres rutas de sandbox quedaron confirmadas funcionando en `http://localhost:3000` para revisión visual. El `AUTH_SECRET` es solo de desarrollo — **no reemplaza** el que debe setearse en Vercel para producción (ver checklist de "Estado Actual" más abajo, que ya lo contemplaba como pendiente productivo).
+
+**Nota:** este hallazgo saca de la lista de pendientes cualquier duda sobre si `/sandbox/join` y `/sandbox/framework` renderizan correctamente — quedó verificado. Los 4 pendientes de la tabla de arriba (toolkit, fechas Z-COP, revisión de traducciones, decisión sobre "Join the movement") siguen abiertos sin cambios.
+
+---
+
 ## Estado Actual
 
 **Tag: FUNCTIONAL → PRODUCTION-READY**

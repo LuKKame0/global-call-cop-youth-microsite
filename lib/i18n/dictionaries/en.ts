@@ -148,12 +148,12 @@ export const enCore = {
   zCop: {
     metaTitle: "Z-COP",
     metaDescription:
-      "Z-COP 2026 — five-day youth policy implementation summit, August 30 to September 3.",
+      "Z-COP 2026 — youth policy implementation summit, August 31 to September 1.",
     eyebrow: "Conference of Youth Policy Implementation",
     title: "Z-COP",
     heroDescription:
       "A five-day annual summit to assess needs, design implementation paths, prepare organisations, and practise the delivery pipeline — built on respect, coordination, and the belief that the people closest to the problems are best placed to solve them.",
-    dates: "August 30 – September 3, 2026",
+    dates: "August 31 – September 1, 2026",
     heroTag: "Coordinated at national level, amplified globally",
     problemEyebrow: "The problem",
     problemTitle: "Institutions fail to deliver. Talent is misallocated. Crises amplify.",
@@ -189,6 +189,117 @@ export const enCore = {
     partnerDescription:
       "Ask for your onboarding meeting. National focal points, youth organisations, and government bodies each have defined roles before, during, and after the Z-COP.",
     partnerEmailCta: "Request onboarding",
+    rsvpEmail: "rsvp@z-cop.org",
+    nationalActionPlanEyebrow: "The ask",
+    nationalActionPlanTitle: "Commit to a National Action Plan",
+    nationalActionPlanDescription:
+      "The National Action Plan is the spine of the Z-COP programme — drafted before the summit, reviewed and confirmed by focal points during the two days, and updated afterward as the country's implementation record.",
+    nationalActionPlanCta: "RSVP for Z-COP 2026",
+    scheduleEyebrow: "Programme",
+    scheduleTitle: "Z-COP 2026 schedule",
+    scheduleDescription:
+      "August 31 – September 1, 2026. The Global Call synchronises at 7:00 AM San Francisco time across all national hubs each day.",
+    scheduleDays: [
+      {
+        day: "Day 1",
+        dateLabel: "August 31",
+        note: "Global Call synchronized at 7:00 AM San Francisco time across all national hubs.",
+        sessions: [
+          {
+            time: "8:30–10:00",
+            session: "Breakfast & Welcome / Policy to Programming Sessions I: Leadership Insights",
+            note: "Welcome; review of Global Call data; presentation of submitted youth policy brief proposals; theory and inspiration from successful examples.",
+          },
+          {
+            time: "11:00–11:45",
+            session: "Regional Gathering (Coordination Call)",
+            note: "Call connecting the hub with other national/global hubs for coordination, inspiration, shared review.",
+          },
+          {
+            time: "11:45–12:30",
+            session: "From Policy to Activities",
+            note: "Workshop translating action-plan policies into concrete on-the-ground activities.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Break / Lunch",
+            note: "",
+          },
+          {
+            time: "13:15–14:15",
+            session: "Thematic On My Way Workshops (Programme Implementation)",
+            note: "Hands-on in-country implementation workshop, locally relevant activity per country.",
+          },
+          {
+            time: "14:15–15:00",
+            session: "Reflection & Feedback Session",
+            note: "Youth reflect on what worked and did not; review Phase 1 outcomes (OMW & MESA).",
+          },
+          {
+            time: "15:00–15:45",
+            session: "Stakeholder Mapping & Gap Analysis",
+            note: "Initial mapping of stakeholders and gaps to fill per project; draft outline of the 21-day post-COP outreach plan.",
+          },
+          {
+            time: "15:45–17:15",
+            session: "Action Plan Update & Feedback",
+            note: "Touchpoint with focal points to reconcile discrepancies and answer questions; opportunity to submit requests via the activity-book submission form. The action plan is reviewed overnight and an updated version is shared the next morning.",
+          },
+        ],
+      },
+      {
+        day: "Day 2",
+        dateLabel: "September 1",
+        note: "Global Call synchronized at 7:00 AM San Francisco time across all national hubs.",
+        sessions: [
+          {
+            time: "08:30–09:30",
+            session: "Inspiration & Outlook for the Day",
+            note: "Presentation of the action plan (incorporating overnight feedback) and draft programmes.",
+          },
+          {
+            time: "09:30–10:15",
+            session: "OMW Implementation Workshop with MESA Insights",
+            note: "Identification of local policy stakeholders who can help implement policy change.",
+          },
+          {
+            time: "10:15–11:00",
+            session: "Implementation Workshop II: Funding",
+            note: "Identifying funding sources, pitching programmes, securing stakeholder buy-in.",
+          },
+          {
+            time: "11:00–12:00",
+            session: "Policy to Programming Sessions II: Mapping & Timelines",
+            note: "Mapping policies to implementation (2-3 breakout sessions); output: a calendar of implementation and funding milestones.",
+          },
+          {
+            time: "12:00–12:30",
+            session: "Distribution of Action Plans & Draft 21-Day Activation Plan",
+            note: "Touchpoint with focal points to reconcile discrepancies and answer questions.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Break / Lunch",
+            note: "",
+          },
+          {
+            time: "13:15–15:15",
+            session: "National Action Plan Review & Ownership",
+            note: "Final review and additions to the national action plan incorporating the two-day outcomes.",
+          },
+          {
+            time: "15:15–16:00",
+            session: "OMW Action Plan (21-Day Activation) & Stakeholder Mapping",
+            note: "Discussion and revision of the 21-day plan and stakeholder mapping.",
+          },
+          {
+            time: "16:00–16:30",
+            session: "Closing Session",
+            note: "Closing remarks and reflections.",
+          },
+        ],
+      },
+    ],
     themes: [
       {
         day: "Day 0 · Aug 30",

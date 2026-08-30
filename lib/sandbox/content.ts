@@ -1,5 +1,21 @@
 export const SANDBOX_LANDINGS = [
   {
+    slug: "join",
+    title: "Join",
+    subtitle: "National Focal Point Form",
+    description: "Live join-as-national-focal-point submission form, isolated for standalone iteration.",
+    accent: "var(--brand-pink)",
+    dates: "Form · Live component",
+  },
+  {
+    slug: "framework",
+    title: "Framework",
+    subtitle: "Start Framework Form",
+    description: "Live national policy implementation framework submission form, isolated for standalone iteration.",
+    accent: "var(--brand-blue)",
+    dates: "Form · Live component",
+  },
+  {
     slug: "on-my-way",
     title: "On My Way",
     subtitle: "The Action Layer",

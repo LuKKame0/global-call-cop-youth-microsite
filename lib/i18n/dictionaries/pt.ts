@@ -180,6 +180,117 @@ export const pt = {
     partnerDescription:
       "Solicite a sua reunião de integração. Pontos focais nacionais, organizações juvenis e entidades governamentais têm papéis definidos antes, durante e depois do Z-COP.",
     partnerEmailCta: "Solicitar integração",
+    rsvpEmail: "rsvp@z-cop.org",
+    nationalActionPlanEyebrow: "O pedido",
+    nationalActionPlanTitle: "Comprometa-se com um Plano de Ação Nacional",
+    nationalActionPlanDescription:
+      "O Plano de Ação Nacional é a espinha dorsal do programa Z-COP — redigido antes da cúpula, revisto e confirmado pelos pontos focais durante os dois dias, e atualizado posteriormente como o registo de implementação do país.",
+    nationalActionPlanCta: "Confirme presença na Z-COP 2026",
+    scheduleEyebrow: "Programa",
+    scheduleTitle: "Cronograma da Z-COP 2026",
+    scheduleDescription:
+      "31 de agosto – 1 de setembro de 2026. The Global Call sincroniza-se às 7h00 (horário de São Francisco) em todos os núcleos nacionais, todos os dias.",
+    scheduleDays: [
+      {
+        day: "Dia 1",
+        dateLabel: "31 de agosto",
+        note: "Global Call sincronizado às 7h00 (horário de São Francisco) em todos os núcleos nacionais.",
+        sessions: [
+          {
+            time: "8:30–10:00",
+            session: "Pequeno-almoço e boas-vindas / Sessões de Política para Programação I: Perspetivas de Liderança",
+            note: "Boas-vindas; revisão dos dados do Global Call; apresentação das propostas de policy brief juvenis submetidas; teoria e inspiração a partir de exemplos bem-sucedidos.",
+          },
+          {
+            time: "11:00–11:45",
+            session: "Encontro regional (chamada de coordenação)",
+            note: "Chamada que liga o núcleo a outros núcleos nacionais/globais para coordenação, inspiração e revisão partilhada.",
+          },
+          {
+            time: "11:45–12:30",
+            session: "Da política às atividades",
+            note: "Workshop que traduz as políticas do plano de ação em atividades concretas no terreno.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Pausa / Almoço",
+            note: "",
+          },
+          {
+            time: "13:15–14:15",
+            session: "Workshops temáticos On My Way (implementação de programas)",
+            note: "Workshop prático de implementação no país, com uma atividade localmente relevante por país.",
+          },
+          {
+            time: "14:15–15:00",
+            session: "Sessão de reflexão e feedback",
+            note: "Os jovens refletem sobre o que funcionou e o que não funcionou; revisão dos resultados da Fase 1 (OMW e MESA).",
+          },
+          {
+            time: "15:00–15:45",
+            session: "Mapeamento de partes interessadas e análise de lacunas",
+            note: "Mapeamento inicial de partes interessadas e lacunas a preencher por projeto; esboço do plano de divulgação de 21 dias pós-COP.",
+          },
+          {
+            time: "15:45–17:15",
+            session: "Atualização do plano de ação e feedback",
+            note: "Ponto de contacto com os pontos focais para resolver discrepâncias e responder a perguntas; oportunidade de submeter pedidos através do formulário do livro de atividades. O plano de ação é revisto durante a noite e uma versão atualizada é partilhada na manhã seguinte.",
+          },
+        ],
+      },
+      {
+        day: "Dia 2",
+        dateLabel: "1 de setembro",
+        note: "Global Call sincronizado às 7h00 (horário de São Francisco) em todos os núcleos nacionais.",
+        sessions: [
+          {
+            time: "08:30–09:30",
+            session: "Inspiração e perspetivas do dia",
+            note: "Apresentação do plano de ação (incorporando o feedback noturno) e dos programas preliminares.",
+          },
+          {
+            time: "09:30–10:15",
+            session: "Workshop de implementação OMW com perspetivas da MESA",
+            note: "Identificação de partes interessadas de política local que podem ajudar a implementar a mudança de política.",
+          },
+          {
+            time: "10:15–11:00",
+            session: "Workshop de implementação II: Financiamento",
+            note: "Identificação de fontes de financiamento, apresentação de programas, obtenção do apoio das partes interessadas.",
+          },
+          {
+            time: "11:00–12:00",
+            session: "Sessões de Política para Programação II: Mapeamento e cronogramas",
+            note: "Mapeamento de políticas para implementação (2-3 sessões em grupo); resultado: um calendário de marcos de implementação e financiamento.",
+          },
+          {
+            time: "12:00–12:30",
+            session: "Distribuição dos planos de ação e esboço do plano de ativação de 21 dias",
+            note: "Ponto de contacto com os pontos focais para resolver discrepâncias e responder a perguntas.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Pausa / Almoço",
+            note: "",
+          },
+          {
+            time: "13:15–15:15",
+            session: "Revisão e apropriação do Plano de Ação Nacional",
+            note: "Revisão final e adições ao plano de ação nacional, incorporando os resultados dos dois dias.",
+          },
+          {
+            time: "15:15–16:00",
+            session: "Plano de ação OMW (ativação de 21 dias) e mapeamento de partes interessadas",
+            note: "Discussão e revisão do plano de 21 dias e do mapeamento de partes interessadas.",
+          },
+          {
+            time: "16:00–16:30",
+            session: "Sessão de encerramento",
+            note: "Palavras e reflexões de encerramento.",
+          },
+        ],
+      },
+    ],
     themes: [
       {
         day: "Dia 0 · 30 ago",

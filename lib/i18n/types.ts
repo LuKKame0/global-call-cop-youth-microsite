@@ -84,12 +84,22 @@ export type TeamMember = {
   role: string;
   region?: string;
   bio?: string;
+  country?: string;
+  email?: string;
 };
 
 export type AdvocacyPackage = {
   title: string;
   description: string;
   tag: string;
+};
+
+export type AdvocacyItem = string;
+
+export type BoardMember = {
+  name: string;
+  country: string;
+  role: string;
 };
 
 export type PageDictionary = {
@@ -246,10 +256,13 @@ export type PageDictionary = {
     subtitle: string;
     packagesTitle: string;
     packages: AdvocacyPackage[];
+    advocacies: AdvocacyItem[];
     downloadCta: string;
     comingSoonTag: string;
     requestCta: string;
     requestDescription: string;
+    toolkitCta: string;
+    toolkitNote: string;
   };
   team?: {
     metaTitle: string;
@@ -257,12 +270,16 @@ export type PageDictionary = {
     eyebrow: string;
     title: string;
     subtitle: string;
+    staffTitle: string;
+    boardTitle: string;
     executiveTitle: string;
     coordinatorsTitle: string;
     philosophyTitle: string;
     philosophyBody: string;
     members: TeamMember[];
     coordinators: TeamMember[];
+    staff: TeamMember[];
+    board: BoardMember[];
   };
 };
 
@@ -400,5 +417,19 @@ export type Dictionary = PageDictionary & {
     themes: ThemeDay[];
     dailyCycle: DailySession[];
     pipeline: ProgrammeBlock[];
+    rsvpEmail: string;
+    nationalActionPlanEyebrow: string;
+    nationalActionPlanTitle: string;
+    nationalActionPlanDescription: string;
+    nationalActionPlanCta: string;
+    scheduleEyebrow: string;
+    scheduleTitle: string;
+    scheduleDescription: string;
+    scheduleDays: {
+      day: string;
+      dateLabel: string;
+      note: string;
+      sessions: DailySession[];
+    }[];
   };
 };

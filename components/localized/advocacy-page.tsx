@@ -22,23 +22,20 @@ export function AdvocacyPageContent() {
 
       <section className="mx-auto max-w-7xl px-3 pb-8 sm:px-5">
         <p className="text-xs uppercase tracking-[0.24em] text-[var(--text-faint)]">{copy.packagesTitle}</p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {copy.packages.map((pkg) => (
-            <article key={pkg.title} className="glass-panel p-6 flex flex-col gap-3">
-              <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--brand-blue)] border border-[rgba(55,171,250,0.3)] rounded-full px-3 py-0.5 self-start">
-                {pkg.tag}
-              </span>
+        <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+          {copy.advocacies.map((item) => (
+            <li key={item} className="glass-panel p-6">
               <h2 className="font-display text-xl uppercase tracking-[0.04em] text-[var(--text-primary)]">
-                {pkg.title}
+                {item}
               </h2>
-              <p className="text-sm leading-7 text-[var(--text-muted)] flex-1">{pkg.description}</p>
-              <div className="mt-2">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[var(--glass-border)] px-4 py-2 text-xs uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                  {copy.comingSoonTag}
-                </span>
-              </div>
-            </article>
+            </li>
           ))}
+        </ul>
+        <div className="mt-6">
+          <a href="#" className="glass-button-primary inline-flex">
+            {copy.toolkitCta}
+          </a>
+          <p className="mt-2 text-xs text-[var(--text-faint)]">{copy.toolkitNote}</p>
         </div>
       </section>
 

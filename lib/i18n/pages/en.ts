@@ -9,7 +9,7 @@ export const pagesEn: PageDictionary = {
     heroTitle: "The diplomatic infrastructure",
     heroTitleDim: "for the next generation.",
     heroSubtitle:
-      "The Global Call connects youth, communities, institutions, and allies into one coordination layer — turning global commitments into implemented policy, credible action, and collective intelligence.",
+      "Transforming global and local commitments into realities, through collective and synchronous youth-led effort.",
     heroCtaJoin: "Join the movement",
     heroCtaFocalPoint: "Become a national focal point",
     heroCtaFramework: "Explore the framework",
@@ -514,7 +514,7 @@ export const pagesEn: PageDictionary = {
     title: "Advocacy toolkit",
     subtitle:
       "Materials to amplify youth policy implementation in your country. Download, adapt, and share.",
-    packagesTitle: "Available packages",
+    packagesTitle: "Our advocacies",
     packages: [
       {
         title: "Advocacy Package",
@@ -535,11 +535,14 @@ export const pagesEn: PageDictionary = {
         tag: "PDF · Policy",
       },
     ],
+    advocacies: ["United Nations Youth Delegate Programme", "UN Youth Overwrite"],
     downloadCta: "Download",
     comingSoonTag: "Coming soon",
     requestCta: "Request early access",
     requestDescription:
       "Packages are being finalised. Request early access and we will send them directly.",
+    toolkitCta: "Download our Advocacy Toolkits",
+    toolkitNote: "Toolkit files to be supplied — placeholder link.",
   },
   team: {
     metaTitle: "Our Team",
@@ -549,34 +552,56 @@ export const pagesEn: PageDictionary = {
     title: "Our team",
     subtitle:
       "A global coordination team committed to turning youth policy ambition into implemented reality.",
+    staffTitle: "Staff",
+    boardTitle: "Board",
     executiveTitle: "Executive team",
     coordinatorsTitle: "Regional coordinators",
     philosophyTitle: "Our philosophy",
     philosophyBody:
       "The Global Call is built on the belief that the people closest to the problems are best placed to solve them. Our team does not represent youth — it works alongside youth structures, focal points, and allies to create the coordination infrastructure that lets local action travel to global rooms. We are operators, not spokespersons.",
-    members: [
+    members: [],
+    coordinators: [],
+    staff: [
       {
-        name: "— Placeholder —",
-        role: "Executive Director",
-        bio: "Content to be added.",
+        name: "Ioana-Daria Popescu",
+        country: "Romania",
+        role: "Communications Lead",
+        email: "ioana@theglobalcall.org",
       },
       {
-        name: "— Placeholder —",
-        role: "Head of Operations",
-        bio: "Content to be added.",
+        name: "Ilonah Rakotonanahary",
+        country: "France",
+        role: "Executive Assistant to Executive Director and Operations Lead",
+        email: "ilonah@onmyway-app.com",
       },
       {
-        name: "— Placeholder —",
-        role: "Head of Partnerships",
-        bio: "Content to be added.",
+        name: "Homaira Sharifi",
+        country: "Afghanistan",
+        role: "Government and Partnerships Lead",
+        email: "homaira@theglobalcall.org",
+      },
+      {
+        name: "Uyai-Abasi Edem",
+        country: "Canada",
+        role: "Focal Points Coordinator",
+        email: "uyai-abasi@theglobalcall.org",
+      },
+      {
+        name: "Victoire Mandonnaud",
+        country: "France",
+        role: "Founder and Executive Director",
+        email: "victoire@onmyway-app.com",
       },
     ],
-    coordinators: [
-      { name: "— Placeholder —", role: "Americas Region", region: "Americas" },
-      { name: "— Placeholder —", role: "Africa Region", region: "Africa" },
-      { name: "— Placeholder —", role: "Europe Region", region: "Europe" },
-      { name: "— Placeholder —", role: "Asia-Pacific Region", region: "Asia-Pacific" },
-      { name: "— Placeholder —", role: "MENA Region", region: "MENA" },
+    board: [
+      { name: "Paola Pozo", country: "Bolivia", role: "United Nations" },
+      { name: "Jana Seal", country: "United States of America", role: "Z-COP Lead and PhD Candidate" },
+      { name: "Fatoumata Jawara", country: "The Gambia", role: "CEO Maa Foundation for Women" },
+      {
+        name: "Adam de Picot",
+        country: "Australia",
+        role: "Executive Director, MESA Institute for Global Impact",
+      },
     ],
   },
 };
