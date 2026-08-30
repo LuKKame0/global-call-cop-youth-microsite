@@ -16,6 +16,7 @@ export const tr = {
     home: "Ana sayfa",
     buildTheFuture: "Geleceği inşa et",
     onMyWay: "On My Way",
+    directory: "Dizin",
   },
   language: {
     label: "Dil",

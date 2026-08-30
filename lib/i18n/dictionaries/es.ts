@@ -16,6 +16,7 @@ export const es = {
     home: "Inicio",
     buildTheFuture: "Construir el futuro",
     onMyWay: "On My Way",
+    directory: "Directorio",
   },
   language: {
     label: "Idioma",

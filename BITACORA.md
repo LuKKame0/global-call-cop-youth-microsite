@@ -636,6 +636,61 @@
 
 ---
 
+### Step 7 — Commit del backlog acumulado + QA profundo (30 agosto 2026)
+
+**Qué se hizo (commit `acb6059`):**
+- Se commiteó todo el trabajo que estaba staged y sin cerrar: `app/sandbox/framework/page.tsx` y `app/sandbox/join/page.tsx` (Step 5), actualizaciones de i18n en los 15 idiomas (dictionaries + pages), `components/localized/advocacy-page.tsx`, `team-page.tsx`, `z-cop-page.tsx`, `site-footer.tsx`, `site-header.tsx`.
+- Se revisó y commiteó `branding/` (BRANDING.md + 2 logos PNG) — guía de marca oficial de The Global Call, contenido real, no draft.
+- Se revisó y commiteó `landing/README.md` — nota puente que redirige a `sites/marketing/index.html` como fuente real del sitio de marketing (theglobalcall.org), separado de este microsite Next.js.
+- Se agregó `/docs/index.bleve/` a `.gitignore` (índice de búsqueda generado, no debe versionarse).
+- **Se dejaron sin tocar, deliberadamente:** `Prototipe_concept (1/2).jpeg`, `globalcall.png`, `globalcall_icon.png`, `index.html.html` en la raíz del repo — son assets sueltos sin contexto claro de si son finales o drafts descartables. Quedan untracked hasta que Lucas confirme qué hacer con ellos.
+
+**QA ejecutado post-commit:**
+- `npm run typecheck` → limpio, 0 errores.
+- `npm run test` (vitest) → 29/29 tests, 10/10 archivos, sin fallos.
+- `npm run build` (Next.js 16 + Turbopack) → compila OK, 39 rutas generadas correctamente (estáticas + dinámicas), sin errores de build.
+- `npm run lint` → **12 errores + 9 warnings preexistentes**, ninguno introducido por este commit. Son todos en archivos no tocados en este sprint:
+  - `@typescript-eslint/no-explicit-any` (8 ocurrencias) en `app/(dashboard)/layout.tsx`, `app/api/export/route.ts`, `app/api/organizations/[orgId]/invite/route.ts`, `app/api/reports/pdf/route.ts`, `app/api/reports/route.ts`, `app/api/search/route.ts`, `lib/ai/nim.ts`, `lib/auth/config.ts`, `lib/db/index.ts`.
+  - `react-hooks/set-state-in-effect` (2 ocurrencias) en `components/dashboard/record-detail-modal.tsx` y `components/theme-toggle.tsx` — setState síncrono dentro de un efecto, patrón desalentado por React pero no crítico funcionalmente.
+  - `@next/next/no-assign-module-variable` en `lib/i18n/dictionary-loaders.ts` — reasignación de la variable `module`, next lo flaggea por convención.
+  - Resto: variables/imports sin usar (`warning`, no bloqueante).
+
+**Impacto:** Todo el trabajo pendiente quedó versionado y verificado — build de producción confirmado sano. La deuda de lint es preexistente y no bloquea deploy, pero queda documentada para un sprint de limpieza dedicado.
+
+**No se hizo deploy a Vercel** — el commit vive en `cop-youth-platform`, pendiente de que Lucas decida cuándo mergear/deployar.
+
+---
+
+### Step 8 — Rediseño tipográfico + primitivos UI compartidos (30 agosto 2026)
+
+**Contexto:** Lucas pidió llevar el sitio hacia un registro de "lujo y sofisticación multilateral" (ONU/OCDE/WEF) en tipografía y terminaciones, y simplificar la lógica para reducir caminos/redundancia. El relevamiento previo detectó un conflicto directo: `branding/BRANDING.md` pide Inter Bold/ExtraBold (headlines) + Inter Regular/Medium (cuerpo), pero el código usaba Bebas Neue (condensada, mayúsculas forzadas, un solo peso — voz de festival/campaña juvenil) + DM Sans.
+
+**Qué se hizo:**
+- `app/layout.tsx`: reemplazado `Bebas_Neue` + `DM_Sans` por un único `Inter` (pesos 400/500/600/700/800), manteniendo las variables `--font-body`/`--font-display` para no romper referencias existentes.
+- `app/globals.css`: `--font-display` ahora resuelve a `--font-body` (ambos Inter); `.font-display` pasa de heredar el look de Bebas a `font-weight:800; letter-spacing:-0.01em` (Inter ExtraBold, tracking ajustado en vez de expandido).
+- Nuevo `components/ui/`: `page-hero.tsx`, `section-block.tsx` (antes vivía solo local a `home-page.tsx`), `info-card.tsx`, `stat-card.tsx`, `cta-row.tsx`, `page-glow.tsx` — consolidan los patrones de hero/sección/tarjeta/CTA/glow que cada página localizada reimplementaba a mano.
+- `components/localized/home-page.tsx`: migrado por completo a los nuevos primitivos, como referencia de implementación para el resto de las páginas localizadas (z-cop, advocacy, team, activities, directory, mesa, on-my-way, build-the-future) — **pendiente migrar esas 8**, ver tabla de pendientes.
+- Quitado `uppercase` forzado de H1/H2 largos (quedan en su capitalización natural); los eyebrows/badges mantienen `uppercase` + tracking amplio (ese patrón sí lee institucional).
+- `components/nav-dropdown.tsx` (nuevo): unifica las dos implementaciones separadas que tenía el dropdown "Acerca de" (popover desktop + acordeón mobile, cada uno con su propio estado `aboutOpen`/`mobileAboutOpen`) en un solo componente parametrizado por `layout: "popover" | "accordion"`, una sola fuente de verdad de apertura/cierre. `site-header.tsx` se simplificó para consumirlo.
+
+**Por qué:** Bebas Neue en cada H1/H2/H3/stat (101 usos en 24 archivos) era la palanca de mayor impacto visual del pedido de Lucas — cambiarla por Inter, alineada a la guía de marca oficial, es el cambio de mayor apalancamiento posible en una sola pasada. La extracción de primitivos ataca la redundancia real detectada: 9 páginas reimplementando el mismo hero/sección/tarjeta/CTA en vez de compartir un componente.
+
+**QA:** `tsc --noEmit` limpio, `npm run lint` sin errores nuevos (mismo baseline de 12 errores/9 warnings preexistentes), `npm run test` 29/29, `npm run build` compila y genera las 39 rutas sin error.
+
+**No se hizo deploy** — commit local pendiente en `cop-youth-platform`.
+
+---
+
+## Pendientes — Rediseño (acción requerida / próximos pasos)
+
+| Pendiente | Detalle | Bloqueante |
+|---|---|---|
+| **Migrar 8 páginas restantes a `components/ui/*`** | `z-cop-page.tsx`, `advocacy-page.tsx`, `team-page.tsx`, `activities-page.tsx`, `directory-page.tsx`, `mesa-page.tsx`, `on-my-way-page.tsx`, `build-the-future-page.tsx` siguen con el hero/sección/tarjeta reimplementados a mano (funcionan, pero no comparten los primitivos nuevos todavía). `team-page.tsx` además tiene `MemberCard`/`BoardCard` casi duplicados, candidatos a unificar. | No — el sitio compila y funciona, es deuda de consistencia visual/mantenimiento, no un bug |
+| **Retoque de intensidad "glass"** | El plan preveía bajar blur/opacidad/glow de `.glass-panel`/`.glass-panel-strong` hacia algo más plano (BRANDING.md pide "grayscale como base, color como acento"). No se tocó todavía — el cambio de fuente ya es un salto grande y se priorizó verificarlo sólido antes de tocar superficies. | No |
+| **Deuda de light-mode overrides** | `app/globals.css` líneas ~590-631 tienen ~40 overrides manuales de clases `.text-white/NN` → color oscuro en modo claro — señal de que varios componentes se escribieron "dark-mode-first" con clases literales en vez de tokens semánticos. Se detectó en el relevamiento, no se tocó (fuera de alcance de este pase). Candidato a sprint dedicado de temas. | No |
+
+---
+
 ## Estado Actual
 
 **Tag: FUNCTIONAL → PRODUCTION-READY**

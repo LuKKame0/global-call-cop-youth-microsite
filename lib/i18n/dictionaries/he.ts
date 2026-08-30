@@ -16,6 +16,7 @@ export const he = {
     home: "דף הבית",
     buildTheFuture: "לבנות את העתיד",
     onMyWay: "On My Way",
+    directory: "מדריך",
   },
   language: {
     label: "שפה",

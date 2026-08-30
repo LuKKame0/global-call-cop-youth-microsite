@@ -86,6 +86,7 @@ export type TeamMember = {
   bio?: string;
   country?: string;
   email?: string;
+  photo?: string;
 };
 
 export type AdvocacyPackage = {
@@ -100,6 +101,7 @@ export type BoardMember = {
   name: string;
   country: string;
   role: string;
+  photo?: string;
 };
 
 export type PageDictionary = {

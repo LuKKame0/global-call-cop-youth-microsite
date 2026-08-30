@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { HeaderLocaleControls } from "@/components/header-locale-controls";
 import { IconArrow, IconDoc, IconGlobe } from "@/components/icons";
+import { NavDropdown } from "@/components/nav-dropdown";
 import { localizedHref } from "@/lib/i18n/config";
 import { useCurrentLocale, useDictionary } from "@/lib/i18n/context";
 import { localizedLandingHref } from "@/lib/i18n/page-paths";
@@ -16,6 +17,7 @@ type NavLink = {
   label: string;
   Icon: typeof IconGlobe;
   highlight?: boolean;
+  children?: NavLink[];
 };
 
 function navLinkClassName(isActive: boolean, highlight?: boolean) {
@@ -40,7 +42,15 @@ export function SiteHeader() {
   const homeHref = localizedLandingHref(locale, "home");
 
   const links: NavLink[] = [
-    { href: homeHref, label: nav.about, Icon: IconGlobe },
+    {
+      href: homeHref,
+      label: nav.about,
+      Icon: IconGlobe,
+      children: [
+        { href: localizedLandingHref(locale, "directory"), label: nav.directory, Icon: IconGlobe },
+        { href: localizedLandingHref(locale, "activities"), label: nav.activities, Icon: IconGlobe },
+      ],
+    },
     { href: localizedHref(locale, "z-cop"), label: nav.zCop, Icon: IconArrow },
     { href: localizedLandingHref(locale, "advocacy"), label: nav.advocacy, Icon: IconDoc },
     { href: localizedLandingHref(locale, "team"), label: nav.team, Icon: IconGlobe },
@@ -65,6 +75,11 @@ export function SiteHeader() {
     return pathname === base || pathname.startsWith(`${base}/`);
   }
 
+  function isNavActive(link: NavLink): boolean {
+    if (isLinkActive(link.href)) return true;
+    return Boolean(link.children?.some((child) => isLinkActive(child.href)));
+  }
+
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">
       <div className="site-header-shell mx-auto max-w-7xl rounded-[1.7rem] border px-3 py-3 backdrop-blur-xl sm:px-4 sm:py-4">
@@ -84,7 +99,7 @@ export function SiteHeader() {
               <p className="truncate text-[10px] uppercase tracking-[0.18em] text-[var(--text-faint)] sm:text-[11px] sm:tracking-[0.22em]">
                 {dictionary.meta.brand}
               </p>
-              <p className="font-display text-lg uppercase tracking-[0.06em] text-[var(--text-primary)] sm:text-xl lg:text-2xl lg:tracking-[0.08em]">
+              <p className="font-display text-lg text-[var(--text-primary)] sm:text-xl lg:text-2xl">
                 {dictionary.meta.tagline}
               </p>
             </div>
@@ -117,21 +132,31 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <nav
-          aria-label="Primary"
-          className="site-header-nav-row hidden lg:block"
-        >
+        <nav aria-label="Primary" className="site-header-nav-row hidden lg:block">
           <div className="site-header-nav-track">
-            {links.map(({ href, label, Icon, highlight }) => (
-              <Link
-                key={href}
-                href={href}
-                className={navLinkClassName(isLinkActive(href), highlight)}
-              >
-                <Icon className="h-3.5 w-3.5 opacity-80" />
-                {label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const { href, label, Icon, highlight, children } = link;
+              if (!children) {
+                return (
+                  <Link key={href} href={href} className={navLinkClassName(isLinkActive(href), highlight)}>
+                    <Icon className="h-3.5 w-3.5 opacity-80" />
+                    {label}
+                  </Link>
+                );
+              }
+
+              return (
+                <NavDropdown
+                  key={href}
+                  label={label}
+                  Icon={Icon}
+                  items={children}
+                  triggerClassName={navLinkClassName(isNavActive(link), highlight)}
+                  isLinkActive={isLinkActive}
+                  layout="popover"
+                />
+              );
+            })}
           </div>
         </nav>
 
@@ -143,18 +168,35 @@ export function SiteHeader() {
         >
           <div className="min-h-0 overflow-hidden">
             <div className="site-header-mobile-nav flex flex-col gap-2 pt-3">
-              {links.map(({ href, label, Icon, highlight }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={[navLinkClassName(isLinkActive(href), highlight), "w-full justify-center"].join(
-                    " ",
-                  )}
-                >
-                  <Icon className="h-4 w-4 opacity-80" />
-                  {label}
-                </Link>
-              ))}
+              {links.map((link) => {
+                const { href, label, Icon, highlight, children } = link;
+                if (!children) {
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      className={[navLinkClassName(isLinkActive(href), highlight), "w-full justify-center"].join(
+                        " ",
+                      )}
+                    >
+                      <Icon className="h-4 w-4 opacity-80" />
+                      {label}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <NavDropdown
+                    key={href}
+                    label={label}
+                    Icon={Icon}
+                    items={children}
+                    triggerClassName={navLinkClassName(isNavActive(link), highlight)}
+                    isLinkActive={isLinkActive}
+                    layout="accordion"
+                  />
+                );
+              })}
             </div>
           </div>
         </nav>

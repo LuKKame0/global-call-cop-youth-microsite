@@ -16,6 +16,7 @@ export const ar = {
     home: "الرئيسية",
     buildTheFuture: "بناء المستقبل",
     onMyWay: "On My Way",
+    directory: "الدليل",
   },
   language: {
     label: "اللغة",

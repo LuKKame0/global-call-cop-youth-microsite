@@ -16,6 +16,7 @@ export const ru = {
     home: "Главная",
     buildTheFuture: "Строить будущее",
     onMyWay: "On My Way",
+    directory: "Каталог",
   },
   language: {
     label: "Язык",

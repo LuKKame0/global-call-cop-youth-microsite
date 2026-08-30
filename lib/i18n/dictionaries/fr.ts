@@ -16,6 +16,7 @@ export const fr = {
     home: "Accueil",
     buildTheFuture: "Construire l'avenir",
     onMyWay: "On My Way",
+    directory: "Annuaire",
   },
   language: {
     label: "Langue",

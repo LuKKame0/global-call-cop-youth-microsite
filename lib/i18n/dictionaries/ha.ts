@@ -16,6 +16,7 @@ export const ha = {
     home: "Gida",
     buildTheFuture: "Gina makoma",
     onMyWay: "On My Way",
+    directory: "Jerin Kungiyoyi",
   },
   language: {
     label: "Harshe",

@@ -16,6 +16,7 @@ export const it = {
     home: "Home",
     buildTheFuture: "Costruire il futuro",
     onMyWay: "On My Way",
+    directory: "Elenco",
   },
   language: {
     label: "Lingua",

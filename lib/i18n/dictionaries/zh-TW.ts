@@ -16,6 +16,7 @@ export const zhTW = {
     home: "首頁",
     buildTheFuture: "構建未來",
     onMyWay: "On My Way",
+    directory: "名錄",
   },
   language: {
     label: "語言",

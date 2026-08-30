@@ -16,6 +16,7 @@ export const zhCN = {
     home: "首页",
     buildTheFuture: "构建未来",
     onMyWay: "On My Way",
+    directory: "名录",
   },
   language: {
     label: "语言",

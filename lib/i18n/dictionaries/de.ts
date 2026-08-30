@@ -16,6 +16,7 @@ export const de = {
     home: "Startseite",
     buildTheFuture: "Die Zukunft gestalten",
     onMyWay: "On My Way",
+    directory: "Verzeichnis",
   },
   language: {
     label: "Sprache",

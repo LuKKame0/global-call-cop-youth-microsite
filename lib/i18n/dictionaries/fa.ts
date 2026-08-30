@@ -16,6 +16,7 @@ export const fa = {
     home: "خانه",
     buildTheFuture: "ساختن آینده",
     onMyWay: "On My Way",
+    directory: "فهرست",
   },
   language: {
     label: "زبان",

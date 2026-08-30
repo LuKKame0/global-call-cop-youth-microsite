@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, DM_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import { SiteChrome } from "@/components/site-chrome";
 import { LocaleProvider } from "@/lib/i18n/context";
@@ -11,16 +11,10 @@ import "./globals.css";
 
 const themeInitScript = `(function(){try{var t=localStorage.getItem("tgc-theme");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light");}catch(e){document.documentElement.setAttribute("data-theme","light");}})();`;
 
-const dmSans = DM_Sans({
+const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const bebasNeue = Bebas_Neue({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -96,7 +90,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${dmSans.variable} ${bebasNeue.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
       data-theme="light"
       suppressHydrationWarning
     >

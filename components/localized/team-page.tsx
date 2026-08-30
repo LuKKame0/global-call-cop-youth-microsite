@@ -1,17 +1,27 @@
 "use client";
 
+import Image from "next/image";
+
 import { useDictionary } from "@/lib/i18n/context";
 import type { BoardMember, TeamMember } from "@/lib/i18n/types";
+
+function MemberPhoto({ src, name }: { src?: string; name: string }) {
+  if (!src) return null;
+  return (
+    <div className="relative mb-1 h-16 w-16 shrink-0 overflow-hidden rounded-full border border-[var(--glass-border)]">
+      <Image src={src} alt={name} fill sizes="64px" className="object-cover" />
+    </div>
+  );
+}
 
 function MemberCard({ member }: { member: TeamMember }) {
   return (
     <article className="glass-panel p-6 flex flex-col gap-2">
-      <p className="font-display text-xl uppercase tracking-[0.04em] text-[var(--text-primary)]">
+      <MemberPhoto src={member.photo} name={member.name} />
+      <p className="font-display text-xl text-[var(--text-primary)]">
         {member.name}
         {member.country ? (
-          <span className="ml-2 text-sm normal-case text-[var(--text-faint)]">
-            ({member.country})
-          </span>
+          <span className="ml-2 text-sm text-[var(--text-faint)]">({member.country})</span>
         ) : null}
       </p>
       <p className="text-xs uppercase tracking-[0.18em] text-[var(--brand-blue)]">{member.role}</p>
@@ -33,11 +43,10 @@ function MemberCard({ member }: { member: TeamMember }) {
 function BoardCard({ member }: { member: BoardMember }) {
   return (
     <article className="glass-panel p-6 flex flex-col gap-2">
-      <p className="font-display text-xl uppercase tracking-[0.04em] text-[var(--text-primary)]">
+      <MemberPhoto src={member.photo} name={member.name} />
+      <p className="font-display text-xl text-[var(--text-primary)]">
         {member.name}
-        <span className="ml-2 text-sm normal-case text-[var(--text-faint)]">
-          ({member.country})
-        </span>
+        <span className="ml-2 text-sm text-[var(--text-faint)]">({member.country})</span>
       </p>
       <p className="text-xs uppercase tracking-[0.18em] text-[var(--brand-blue)]">{member.role}</p>
     </article>
@@ -55,7 +64,7 @@ export function TeamPageContent() {
       <section className="mx-auto max-w-7xl px-3 pb-8 pt-4 sm:px-5 lg:pb-12 lg:pt-8">
         <div className="glass-panel-strong relative overflow-hidden p-6 sm:p-8 lg:p-10">
           <p className="text-xs uppercase tracking-[0.24em] text-[var(--text-faint)]">{copy.eyebrow}</p>
-          <h1 className="mt-3 font-display text-[clamp(2rem,6vw,4rem)] uppercase leading-[0.9] tracking-[0.04em] text-[var(--text-primary)]">
+          <h1 className="mt-3 font-display text-[clamp(2rem,6vw,4rem)] leading-[1.05] text-[var(--text-primary)]">
             {copy.title}
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-[var(--text-muted)]">{copy.subtitle}</p>

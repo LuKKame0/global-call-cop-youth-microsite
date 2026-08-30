@@ -16,6 +16,7 @@ export const sw = {
     home: "Nyumbani",
     buildTheFuture: "Jenga mustakabali",
     onMyWay: "On My Way",
+    directory: "Orodha",
   },
   language: {
     label: "Lugha",
