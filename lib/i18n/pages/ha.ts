@@ -9,7 +9,7 @@ export const pagesHa: PageDictionary = {
     heroTitle: "Tsarin dabarun diplomacy",
     heroTitleDim: "don ƙarni na gaba.",
     heroSubtitle:
-      "The Global Call yana haɗa matasa, al'ummai, ƙungiyoyi, da abokan tarayya cikin mataki guda na daidaitawa — don canza alƙawuran duniya zuwa manufofi da aka aiwatar, aiki mai aminci, da basirar tara.",
+      "Mayar da alkawuran duniya da na cikin gida zuwa gaskiya, ta hanyar ƙoƙarin gama gari da daidaitacce wanda matasa ke jagoranta.",
     heroCtaJoin: "Shiga motsi",
     heroCtaFocalPoint: "Zama mai mahimmanci na ƙasa",
     heroCtaFramework: "Bincika tsari",

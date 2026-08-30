@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Never lint stray repo backups.
+    "**/*-backup/**",
   ]),
 ]);
 

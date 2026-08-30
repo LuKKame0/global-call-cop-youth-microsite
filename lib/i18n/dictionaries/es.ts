@@ -16,6 +16,7 @@ export const es = {
     home: "Inicio",
     buildTheFuture: "Construir el futuro",
     onMyWay: "On My Way",
+    directory: "Directorio",
   },
   language: {
     label: "Idioma",
@@ -180,6 +181,117 @@ export const es = {
     partnerDescription:
       "Solicite su reunión de incorporación. Puntos focales nacionales, organizaciones juveniles y organismos gubernamentales tienen roles definidos antes, durante y después de Z-COP.",
     partnerEmailCta: "Solicitar incorporación",
+    rsvpEmail: "rsvp@z-cop.org",
+    nationalActionPlanEyebrow: "La solicitud",
+    nationalActionPlanTitle: "Comprométete con un Plan de Acción Nacional",
+    nationalActionPlanDescription:
+      "El Plan de Acción Nacional es la columna vertebral del programa Z-COP — redactado antes de la cumbre, revisado y confirmado por los puntos focales durante los dos días, y actualizado después como el registro de implementación del país.",
+    nationalActionPlanCta: "Confirma tu asistencia a Z-COP 2026",
+    scheduleEyebrow: "Programa",
+    scheduleTitle: "Cronograma de Z-COP 2026",
+    scheduleDescription:
+      "31 de agosto – 1 de septiembre de 2026. The Global Call se sincroniza a las 7:00 a. m., hora de San Francisco, en todos los nodos nacionales cada día.",
+    scheduleDays: [
+      {
+        day: "Día 1",
+        dateLabel: "31 de agosto",
+        note: "The Global Call se sincroniza a las 7:00 a. m., hora de San Francisco, en todos los nodos nacionales.",
+        sessions: [
+          {
+            time: "8:30–10:00",
+            session: "Desayuno y bienvenida / Sesiones de Política a Programación I: Perspectivas de liderazgo",
+            note: "Bienvenida; revisión de los datos de The Global Call; presentación de las propuestas de policy brief juveniles recibidas; teoría e inspiración a partir de ejemplos exitosos.",
+          },
+          {
+            time: "11:00–11:45",
+            session: "Encuentro regional (llamada de coordinación)",
+            note: "Llamada que conecta al nodo con otros nodos nacionales/globales para coordinación, inspiración y revisión conjunta.",
+          },
+          {
+            time: "11:45–12:30",
+            session: "De la política a las actividades",
+            note: "Taller que traduce las políticas del plan de acción en actividades concretas sobre el terreno.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Pausa / Almuerzo",
+            note: "",
+          },
+          {
+            time: "13:15–14:15",
+            session: "Talleres temáticos On My Way (implementación de programas)",
+            note: "Taller práctico de implementación en el país, con una actividad relevante localmente por país.",
+          },
+          {
+            time: "14:15–15:00",
+            session: "Sesión de reflexión y retroalimentación",
+            note: "Los jóvenes reflexionan sobre lo que funcionó y lo que no; revisión de los resultados de la Fase 1 (OMW y MESA).",
+          },
+          {
+            time: "15:00–15:45",
+            session: "Mapeo de actores y análisis de brechas",
+            note: "Mapeo inicial de actores y brechas a cubrir por proyecto; esbozo del plan de difusión de 21 días posteriores a la COP.",
+          },
+          {
+            time: "15:45–17:15",
+            session: "Actualización y retroalimentación del plan de acción",
+            note: "Punto de contacto con los puntos focales para resolver discrepancias y responder preguntas; oportunidad de enviar solicitudes mediante el formulario del libro de actividades. El plan de acción se revisa durante la noche y se comparte una versión actualizada a la mañana siguiente.",
+          },
+        ],
+      },
+      {
+        day: "Día 2",
+        dateLabel: "1 de septiembre",
+        note: "The Global Call se sincroniza a las 7:00 a. m., hora de San Francisco, en todos los nodos nacionales.",
+        sessions: [
+          {
+            time: "08:30–09:30",
+            session: "Inspiración y perspectiva del día",
+            note: "Presentación del plan de acción (incorporando la retroalimentación nocturna) y de los programas preliminares.",
+          },
+          {
+            time: "09:30–10:15",
+            session: "Taller de implementación OMW con perspectivas de MESA",
+            note: "Identificación de actores locales de política que puedan ayudar a implementar el cambio de políticas.",
+          },
+          {
+            time: "10:15–11:00",
+            session: "Taller de implementación II: Financiamiento",
+            note: "Identificación de fuentes de financiamiento, presentación de programas y obtención del apoyo de los actores clave.",
+          },
+          {
+            time: "11:00–12:00",
+            session: "Sesiones de Política a Programación II: Mapeo y cronogramas",
+            note: "Vinculación de políticas con la implementación (2-3 sesiones simultáneas); resultado: un calendario de hitos de implementación y financiamiento.",
+          },
+          {
+            time: "12:00–12:30",
+            session: "Distribución de los planes de acción y borrador del plan de activación de 21 días",
+            note: "Punto de contacto con los puntos focales para resolver discrepancias y responder preguntas.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Pausa / Almuerzo",
+            note: "",
+          },
+          {
+            time: "13:15–15:15",
+            session: "Revisión y apropiación del Plan de Acción Nacional",
+            note: "Revisión final e incorporaciones al plan de acción nacional considerando los resultados de los dos días.",
+          },
+          {
+            time: "15:15–16:00",
+            session: "Plan de acción OMW (activación de 21 días) y mapeo de actores",
+            note: "Discusión y revisión del plan de 21 días y del mapeo de actores.",
+          },
+          {
+            time: "16:00–16:30",
+            session: "Sesión de cierre",
+            note: "Palabras y reflexiones de cierre.",
+          },
+        ],
+      },
+    ],
     themes: [
       {
         day: "Día 0 · 30 ago",

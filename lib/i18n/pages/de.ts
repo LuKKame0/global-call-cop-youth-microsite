@@ -9,7 +9,7 @@ export const pagesDe: PageDictionary = {
     heroTitle: "Die diplomatische Infrastruktur",
     heroTitleDim: "für die nächste Generation.",
     heroSubtitle:
-      "The Global Call verbindet Jugend, Gemeinschaften, Institutionen und Verbündete in einer Koordinationsschicht — und verwandelt globale Verpflichtungen in umgesetzte Politik, glaubwürdiges Handeln und kollektive Intelligenz.",
+      "Globale und lokale Zusagen werden durch kollektive, synchronisierte, jugendgeführte Anstrengung in Realität verwandelt.",
     heroCtaJoin: "Der Bewegung beitreten",
     heroCtaFocalPoint: "Nationaler Focal Point werden",
     heroCtaFramework: "Den Rahmen erkunden",

@@ -9,7 +9,7 @@ export const pagesTr: PageDictionary = {
     heroTitle: "Diplomatik altyapı",
     heroTitleDim: "yeni nesil için.",
     heroSubtitle:
-      "The Global Call, gençleri, toplulukları, kurumları ve müttefikleri tek bir koordinasyon katmanında birleştirir — küresel taahhütleri uygulanan politikaya, güvenilir eyleme ve kolektif zekâya dönüştürür.",
+      "Küresel ve yerel taahhütleri, gençlik öncülüğünde kolektif ve eşzamanlı bir çabayla gerçeğe dönüştürmek.",
     heroCtaJoin: "Harekete katıl",
     heroCtaFocalPoint: "Ulusal odak noktası ol",
     heroCtaFramework: "Çerçeveyi keşfet",

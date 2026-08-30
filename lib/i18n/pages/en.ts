@@ -9,7 +9,7 @@ export const pagesEn: PageDictionary = {
     heroTitle: "The diplomatic infrastructure",
     heroTitleDim: "for the next generation.",
     heroSubtitle:
-      "The Global Call connects youth, communities, institutions, and allies into one coordination layer — turning global commitments into implemented policy, credible action, and collective intelligence.",
+      "Transforming global and local commitments into realities, through collective and synchronous youth-led effort.",
     heroCtaJoin: "Join the movement",
     heroCtaFocalPoint: "Become a national focal point",
     heroCtaFramework: "Explore the framework",
@@ -488,5 +488,142 @@ export const pagesEn: PageDictionary = {
     partnerDescription:
       "Organisations, hubs, and emerging leaders can engage with The Global Call and its partners — including MESA — on the road to Z-COP 2026.",
     partnerCta: "Become a partner",
+  },
+  directory: {
+    metaTitle: "Youth Leader Directory",
+    metaDescription:
+      "Browse national focal points and youth leaders from across The Global Call network — organised by country.",
+    eyebrow: "The Network",
+    title: "Youth leader directory",
+    subtitle:
+      "National focal points and youth leaders registered across 170+ countries. Powered by The Global Call coordination layer.",
+    searchPlaceholder: "Search by name or country…",
+    filterAll: "All regions",
+    emptyState: "No entries match your search.",
+    countryLabel: "Country",
+    cityLabel: "City",
+    linkedinLabel: "LinkedIn",
+    loadingLabel: "Loading directory…",
+    errorLabel: "Could not load directory. Please try again.",
+  },
+  advocacy: {
+    metaTitle: "Advocacy Resources",
+    metaDescription:
+      "Download the advocacy and media packages from The Global Call — materials to amplify youth policy implementation.",
+    eyebrow: "Resources",
+    title: "Advocacy toolkit",
+    subtitle:
+      "Materials to amplify youth policy implementation in your country. Download, adapt, and share.",
+    packagesTitle: "Our advocacies",
+    packages: [
+      {
+        title: "Advocacy Package",
+        description:
+          "Talking points, policy briefs, and action frameworks to support youth-led advocacy at local, national, and international levels.",
+        tag: "PDF · Advocacy",
+      },
+      {
+        title: "Media Package",
+        description:
+          "Brand assets, messaging guidelines, social media templates, and visual content for campaigns aligned with The Global Call.",
+        tag: "ZIP · Media",
+      },
+      {
+        title: "National Policy Booklet",
+        description:
+          "Country-level implementation guide linking Z-COP themes to national youth policy priorities and SDG targets.",
+        tag: "PDF · Policy",
+      },
+    ],
+    advocacies: ["United Nations Youth Delegate Programme", "UN Youth Overwrite"],
+    downloadCta: "Download",
+    comingSoonTag: "Coming soon",
+    requestCta: "Request early access",
+    requestDescription:
+      "Packages are being finalised. Request early access and we will send them directly.",
+    toolkitCta: "Download our Advocacy Toolkits",
+    toolkitNote: "Toolkit files to be supplied — placeholder link.",
+  },
+  team: {
+    metaTitle: "Our Team",
+    metaDescription:
+      "The Global Call executive team, regional coordinators, and the philosophy behind the network.",
+    eyebrow: "The people",
+    title: "Our team",
+    subtitle:
+      "A global coordination team committed to turning youth policy ambition into implemented reality.",
+    staffTitle: "Staff",
+    boardTitle: "Board",
+    executiveTitle: "Executive team",
+    coordinatorsTitle: "Regional coordinators",
+    philosophyTitle: "Our philosophy",
+    philosophyBody:
+      "The Global Call is built on the belief that the people closest to the problems are best placed to solve them. Our team does not represent youth — it works alongside youth structures, focal points, and allies to create the coordination infrastructure that lets local action travel to global rooms. We are operators, not spokespersons.",
+    members: [],
+    coordinators: [],
+    staff: [
+      {
+        name: "Ioana-Daria Popescu",
+        country: "Romania",
+        role: "Communications Lead",
+        email: "ioana@theglobalcall.org",
+        photo: "/team/1.jpg",
+      },
+      {
+        name: "Ilonah Rakotonanahary",
+        country: "France",
+        role: "Executive Assistant to Executive Director and Operations Lead",
+        email: "ilonah@onmyway-app.com",
+        photo: "/team/2.jpg",
+      },
+      {
+        name: "Homaira Sharifi",
+        country: "Afghanistan",
+        role: "Government and Partnerships Lead",
+        email: "homaira@theglobalcall.org",
+        photo: "/team/3.jpg",
+      },
+      {
+        name: "Uyai-Abasi Edem",
+        country: "Canada",
+        role: "Focal Points Coordinator",
+        email: "uyai-abasi@theglobalcall.org",
+        photo: "/team/8.jpg",
+      },
+      {
+        name: "Victoire Mandonnaud",
+        country: "France",
+        role: "Founder and Executive Director",
+        email: "victoire@onmyway-app.com",
+        photo: "/team/9.jpg",
+      },
+    ],
+    board: [
+      { name: "Paola Pozo", country: "Bolivia", role: "United Nations", photo: "/team/6.jpg" },
+      {
+        name: "Jana Seal",
+        country: "United States of America",
+        role: "Z-COP Lead and PhD Candidate",
+        photo: "/team/5.jpg",
+      },
+      {
+        name: "Fatoumata Jawara",
+        country: "The Gambia",
+        role: "CEO Maa Foundation for Women",
+        photo: "/team/7.jpg",
+      },
+      {
+        name: "Adam de Picot",
+        country: "Australia",
+        role: "Executive Director, MESA Institute for Global Impact",
+        photo: "/team/4.jpg",
+      },
+      {
+        name: "Lucas Arias",
+        country: "Argentina",
+        role: "GIAR (AI and Robotics Group, National Technological University) — Institutional Relations",
+        photo: "/team/10.jpg",
+      },
+    ],
   },
 };

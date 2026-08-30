@@ -1,7 +1,14 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 # dependencies
 /node_modules
 /.pnp
 .pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
 # testing
 /coverage
@@ -19,7 +26,10 @@
 # misc
 .DS_Store
 *.pem
-*.zip
+
+# stray repo backups (never versioned or linted)
+*-backup/
+*-backup.zip
 
 # debug
 npm-debug.log*
@@ -27,10 +37,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files — NEVER commit real values. Only .env.example is tracked.
-.env
-.env.*
-!.env.example
+# env files (can opt-in for committing if needed)
+.env*
 
 # vercel
 .vercel
@@ -39,8 +47,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local agent config
-.claude/settings.local.json
+.vercel
 
-# noosphere: real ingested corpus stays local (may derive from private docs)
-sites/noosphere/data/corpus.json
+.env*.local
+
+# generated search index
+/docs/index.bleve/

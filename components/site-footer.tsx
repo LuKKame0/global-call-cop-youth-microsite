@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { IconArrow, IconDoc } from "@/components/icons";
+import { IconDoc } from "@/components/icons";
 import { useCurrentLocale, useDictionary } from "@/lib/i18n/context";
 import { localizedLandingHref } from "@/lib/i18n/page-paths";
 
@@ -39,14 +39,7 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Link
-              href={`${localizedLandingHref(locale, "insights")}#framework-form`}
-              className="glass-button-primary justify-center"
-            >
-              <IconArrow className="h-4 w-4" />
-              {copy.startFramework}
-            </Link>
+          <div className="grid gap-3 sm:grid-cols-1">
             <Link
               href={localizedLandingHref(locale, "faq")}
               className="glass-button-secondary justify-center"

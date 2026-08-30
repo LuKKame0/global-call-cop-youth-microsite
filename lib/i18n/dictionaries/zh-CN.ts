@@ -16,6 +16,7 @@ export const zhCN = {
     home: "首页",
     buildTheFuture: "构建未来",
     onMyWay: "On My Way",
+    directory: "名录",
   },
   language: {
     label: "语言",
@@ -180,6 +181,117 @@ export const zhCN = {
     partnerDescription:
       "申请入门对接会议。国家联络点、青年组织与政府主体在 Z-COP 前、中、后各有明确角色。",
     partnerEmailCta: "申请入门对接",
+    rsvpEmail: "rsvp@z-cop.org",
+    nationalActionPlanEyebrow: "诉求",
+    nationalActionPlanTitle: "承诺制定国家行动计划",
+    nationalActionPlanDescription:
+      "国家行动计划是 Z-COP 项目的核心支柱——在峰会前起草，在两天内由联络点审核确认，并在此后作为该国的实施记录持续更新。",
+    nationalActionPlanCta: "报名参加 Z-COP 2026",
+    scheduleEyebrow: "日程",
+    scheduleTitle: "Z-COP 2026 日程安排",
+    scheduleDescription:
+      "2026年8月31日至9月1日。The Global Call 每天在所有国家枢纽以旧金山时间上午7:00同步。",
+    scheduleDays: [
+      {
+        day: "第一天",
+        dateLabel: "8月31日",
+        note: "Global Call 在所有国家枢纽以旧金山时间上午7:00同步。",
+        sessions: [
+          {
+            time: "8:30–10:00",
+            session: "早餐与欢迎 / 政策到项目会议 I：领导力洞见",
+            note: "欢迎致辞；回顾 Global Call 数据；展示已提交的青年政策简报提案；来自成功案例的理论与启发。",
+          },
+          {
+            time: "11:00–11:45",
+            session: "区域交流会（协调电话会议）",
+            note: "连接本枢纽与其他国家/全球枢纽的电话会议，用于协调、启发与共同回顾。",
+          },
+          {
+            time: "11:45–12:30",
+            session: "从政策到活动",
+            note: "将行动计划政策转化为具体落地活动的工作坊。",
+          },
+          {
+            time: "12:30–13:15",
+            session: "休息 / 午餐",
+            note: "",
+          },
+          {
+            time: "13:15–14:15",
+            session: "On My Way 主题工作坊（项目实施）",
+            note: "国内实地实施工作坊，各国开展本地相关活动。",
+          },
+          {
+            time: "14:15–15:00",
+            session: "反思与反馈会议",
+            note: "青年反思哪些有效、哪些无效；回顾第一阶段成果（OMW 与 MESA）。",
+          },
+          {
+            time: "15:00–15:45",
+            session: "利益相关方图谱与差距分析",
+            note: "初步梳理每个项目的利益相关方及待填补差距；起草 COP 后 21 天外联计划大纲。",
+          },
+          {
+            time: "15:45–17:15",
+            session: "行动计划更新与反馈",
+            note: "与联络点沟通以核对差异并解答疑问；可通过活动手册提交表单提出请求。行动计划将于当晚审阅，次日上午分享更新版本。",
+          },
+        ],
+      },
+      {
+        day: "第二天",
+        dateLabel: "9月1日",
+        note: "Global Call 在所有国家枢纽以旧金山时间上午7:00同步。",
+        sessions: [
+          {
+            time: "08:30–09:30",
+            session: "当日启发与展望",
+            note: "展示行动计划（纳入当晚反馈）及项目草案。",
+          },
+          {
+            time: "09:30–10:15",
+            session: "结合 MESA 洞见的 OMW 实施工作坊",
+            note: "识别能够协助推动政策变革落地的本地政策利益相关方。",
+          },
+          {
+            time: "10:15–11:00",
+            session: "实施工作坊 II：资金筹措",
+            note: "识别资金来源，推介项目，争取利益相关方的支持。",
+          },
+          {
+            time: "11:00–12:00",
+            session: "政策到项目会议 II：图谱与时间表",
+            note: "将政策与实施对接（2-3 个分组会议）；产出：实施与资金里程碑日历。",
+          },
+          {
+            time: "12:00–12:30",
+            session: "行动计划分发与21天启动计划草案",
+            note: "与联络点沟通以核对差异并解答疑问。",
+          },
+          {
+            time: "12:30–13:15",
+            session: "休息 / 午餐",
+            note: "",
+          },
+          {
+            time: "13:15–15:15",
+            session: "国家行动计划审阅与责任落实",
+            note: "结合两天成果，对国家行动计划进行最终审阅与补充。",
+          },
+          {
+            time: "15:15–16:00",
+            session: "OMW 行动计划（21天启动）与利益相关方图谱",
+            note: "讨论并修订21天计划及利益相关方图谱。",
+          },
+          {
+            time: "16:00–16:30",
+            session: "闭幕会议",
+            note: "闭幕致辞与总结反思。",
+          },
+        ],
+      },
+    ],
     themes: [
       {
         day: "第 0 天 · 8 月 30 日",

@@ -16,6 +16,7 @@ export const tr = {
     home: "Ana sayfa",
     buildTheFuture: "Geleceği inşa et",
     onMyWay: "On My Way",
+    directory: "Dizin",
   },
   language: {
     label: "Dil",
@@ -180,6 +181,117 @@ export const tr = {
     partnerDescription:
       "Oryantasyon toplantınızı talep edin. Ulusal fokal noktalar, gençlik kuruluşları ve kamu kurumlarının Z-COP öncesi, sırası ve sonrasında tanımlı rolleri vardır.",
     partnerEmailCta: "Oryantasyon talep et",
+    rsvpEmail: "rsvp@z-cop.org",
+    nationalActionPlanEyebrow: "Talep",
+    nationalActionPlanTitle: "Bir Ulusal Eylem Planına Bağlı Kalın",
+    nationalActionPlanDescription:
+      "Ulusal Eylem Planı, Z-COP programının omurgasıdır — zirve öncesinde hazırlanır, iki gün boyunca odak noktaları tarafından gözden geçirilip onaylanır ve sonrasında ülkenin uygulama kaydı olarak güncellenir.",
+    nationalActionPlanCta: "Z-COP 2026 için kayıt olun",
+    scheduleEyebrow: "Program",
+    scheduleTitle: "Z-COP 2026 programı",
+    scheduleDescription:
+      "31 Ağustos – 1 Eylül 2026. The Global Call, her gün tüm ulusal merkezlerde San Francisco saatiyle 07:00'de senkronize olur.",
+    scheduleDays: [
+      {
+        day: "1. Gün",
+        dateLabel: "31 Ağustos",
+        note: "Global Call tüm ulusal merkezlerde San Francisco saatiyle 07:00'de senkronize edildi.",
+        sessions: [
+          {
+            time: "8:30–10:00",
+            session: "Kahvaltı ve Karşılama / Politikadan Programlamaya Oturumlar I: Liderlik İçgörüleri",
+            note: "Karşılama; Global Call verilerinin gözden geçirilmesi; sunulan gençlik politika notu önerilerinin sunumu; başarılı örneklerden teori ve ilham.",
+          },
+          {
+            time: "11:00–11:45",
+            session: "Bölgesel Buluşma (Koordinasyon Görüşmesi)",
+            note: "Merkezi diğer ulusal/küresel merkezlerle koordinasyon, ilham ve ortak gözden geçirme için birbirine bağlayan görüşme.",
+          },
+          {
+            time: "11:45–12:30",
+            session: "Politikadan Faaliyetlere",
+            note: "Eylem planı politikalarını somut sahadaki faaliyetlere dönüştüren atölye.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Ara / Öğle Yemeği",
+            note: "",
+          },
+          {
+            time: "13:15–14:15",
+            session: "Tematik On My Way Atölyeleri (Program Uygulaması)",
+            note: "Ülke bazında uygulamalı uygulama atölyesi, her ülke için yerel olarak uygun faaliyet.",
+          },
+          {
+            time: "14:15–15:00",
+            session: "Yansıma ve Geri Bildirim Oturumu",
+            note: "Gençler nelerin işe yarayıp yaramadığını değerlendirir; Aşama 1 sonuçlarının (OMW ve MESA) gözden geçirilmesi.",
+          },
+          {
+            time: "15:00–15:45",
+            session: "Paydaş Haritalama ve Boşluk Analizi",
+            note: "Proje başına doldurulacak paydaşların ve boşlukların ilk haritalanması; COP sonrası 21 günlük erişim planının taslak özeti.",
+          },
+          {
+            time: "15:45–17:15",
+            session: "Eylem Planı Güncellemesi ve Geri Bildirim",
+            note: "Tutarsızlıkları gidermek ve soruları yanıtlamak için odak noktalarıyla temas noktası; faaliyet kitabı gönderim formu üzerinden talep gönderme fırsatı. Eylem planı gece boyunca gözden geçirilir ve güncellenmiş bir sürüm ertesi sabah paylaşılır.",
+          },
+        ],
+      },
+      {
+        day: "2. Gün",
+        dateLabel: "1 Eylül",
+        note: "Global Call tüm ulusal merkezlerde San Francisco saatiyle 07:00'de senkronize edildi.",
+        sessions: [
+          {
+            time: "08:30–09:30",
+            session: "Günün İlhamı ve Görünümü",
+            note: "Eylem planının (gece geri bildirimleri dahil edilerek) ve taslak programların sunumu.",
+          },
+          {
+            time: "09:30–10:15",
+            session: "MESA İçgörüleriyle OMW Uygulama Atölyesi",
+            note: "Politika değişikliğinin uygulanmasına yardımcı olabilecek yerel politika paydaşlarının belirlenmesi.",
+          },
+          {
+            time: "10:15–11:00",
+            session: "Uygulama Atölyesi II: Finansman",
+            note: "Finansman kaynaklarının belirlenmesi, programların sunulması, paydaş desteğinin sağlanması.",
+          },
+          {
+            time: "11:00–12:00",
+            session: "Politikadan Programlamaya Oturumlar II: Haritalama ve Zaman Çizelgeleri",
+            note: "Politikaların uygulamayla eşleştirilmesi (2-3 alt oturum); çıktı: uygulama ve finansman kilometre taşlarının takvimi.",
+          },
+          {
+            time: "12:00–12:30",
+            session: "Eylem Planlarının Dağıtımı ve Taslak 21 Günlük Aktivasyon Planı",
+            note: "Tutarsızlıkları gidermek ve soruları yanıtlamak için odak noktalarıyla temas noktası.",
+          },
+          {
+            time: "12:30–13:15",
+            session: "Ara / Öğle Yemeği",
+            note: "",
+          },
+          {
+            time: "13:15–15:15",
+            session: "Ulusal Eylem Planı Gözden Geçirme ve Sahiplenme",
+            note: "İki günlük sonuçları içeren ulusal eylem planının nihai gözden geçirilmesi ve eklemeler.",
+          },
+          {
+            time: "15:15–16:00",
+            session: "OMW Eylem Planı (21 Günlük Aktivasyon) ve Paydaş Haritalama",
+            note: "21 günlük planın ve paydaş haritalamasının tartışılması ve gözden geçirilmesi.",
+          },
+          {
+            time: "16:00–16:30",
+            session: "Kapanış Oturumu",
+            note: "Kapanış konuşmaları ve değerlendirmeler.",
+          },
+        ],
+      },
+    ],
     themes: [
       {
         day: "Gün 0 · 30 Ağu",

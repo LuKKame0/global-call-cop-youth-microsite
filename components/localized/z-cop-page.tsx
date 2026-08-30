@@ -5,7 +5,6 @@ import Link from "next/link";
 import { IconArrow } from "@/components/icons";
 import { localizedHref } from "@/lib/i18n/config";
 import { useCurrentLocale, useDictionary } from "@/lib/i18n/context";
-import { SANDBOX_CONTACT } from "@/lib/sandbox/content";
 
 export function ZCopPageContent() {
   const dictionary = useDictionary();
@@ -41,7 +40,7 @@ export function ZCopPageContent() {
             <span className="text-sm text-[var(--text-muted)]">{copy.heroTag}</span>
           </div>
           <div className="flex flex-wrap gap-3 pt-4">
-            <a href={`mailto:${SANDBOX_CONTACT.email}`} className="glass-button-primary">
+            <a href={`mailto:${copy.rsvpEmail}`} className="glass-button-primary">
               <IconArrow className="h-4 w-4" />
               {common.requestOnboarding}
             </a>
@@ -157,36 +156,66 @@ export function ZCopPageContent() {
 
       <section className="mx-auto mt-10 max-w-7xl px-3 sm:px-5 lg:px-8">
         <p className="text-xs uppercase tracking-[0.24em] text-[var(--text-faint)]">
-          {copy.cycleEyebrow}
+          {copy.scheduleEyebrow}
         </p>
         <h2 className="font-display text-4xl uppercase tracking-[0.04em] text-[var(--text-primary)]">
-          {copy.cycleTitle}
+          {copy.scheduleTitle}
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--text-muted)]">
-          {copy.cycleDescription}
+          {copy.scheduleDescription}
         </p>
-        <div className="mt-6 overflow-x-auto">
-          <table className="min-w-full border-separate border-spacing-y-2 text-sm">
-            <tbody>
-              {copy.dailyCycle.map((session) => (
-                <tr key={`${session.time}-${session.session}`}>
-                  <td className="glass-panel px-4 py-3 align-top text-[var(--text-faint)]">
-                    {session.time}
-                  </td>
-                  <td className="glass-panel px-4 py-3 align-top font-medium text-[var(--text-primary)]">
-                    {session.session}
-                  </td>
-                  <td className="glass-panel px-4 py-3 align-top text-[var(--text-muted)]">
-                    {session.note}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {copy.scheduleDays.map((day) => (
+          <div key={day.day} className="mt-6">
+            <div className="flex flex-wrap items-baseline gap-3">
+              <h3 className="font-display text-2xl uppercase tracking-[0.04em] text-[var(--text-primary)]">
+                {day.day}
+              </h3>
+              <span className="text-sm text-[var(--brand-blue)]">{day.dateLabel}</span>
+            </div>
+            <p className="mt-1 text-xs text-[var(--text-faint)]">{day.note}</p>
+            <div className="mt-3 overflow-x-auto">
+              <table className="min-w-full border-separate border-spacing-y-2 text-sm">
+                <tbody>
+                  {day.sessions.map((session) => (
+                    <tr key={`${day.day}-${session.time}-${session.session}`}>
+                      <td className="glass-panel px-4 py-3 align-top text-[var(--text-faint)]">
+                        {session.time}
+                      </td>
+                      <td className="glass-panel px-4 py-3 align-top font-medium text-[var(--text-primary)]">
+                        {session.session}
+                      </td>
+                      <td className="glass-panel px-4 py-3 align-top text-[var(--text-muted)]">
+                        {session.note}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
         <p className="glass-panel mt-6 p-5 text-sm leading-7 text-[var(--text-muted)]">
           {copy.cyclePrinciples}
         </p>
+      </section>
+
+      <section className="mx-auto mt-10 max-w-7xl px-3 sm:px-5 lg:px-8">
+        <div className="glass-panel-strong p-6 sm:p-8">
+          <p className="text-xs uppercase tracking-[0.24em] text-[var(--text-faint)]">
+            {copy.nationalActionPlanEyebrow}
+          </p>
+          <h2 className="mt-2 font-display text-3xl uppercase tracking-[0.04em] text-[var(--text-primary)]">
+            {copy.nationalActionPlanTitle}
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[var(--text-muted)] sm:text-base">
+            {copy.nationalActionPlanDescription}
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href={`mailto:${copy.rsvpEmail}`} className="glass-button-secondary">
+              {copy.nationalActionPlanCta}
+            </a>
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto mt-10 max-w-7xl px-3 pb-4 sm:px-5 lg:px-8">
@@ -201,7 +230,7 @@ export function ZCopPageContent() {
             {copy.partnerDescription}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href={`mailto:${SANDBOX_CONTACT.email}`} className="glass-button-primary">
+            <a href={`mailto:${copy.rsvpEmail}`} className="glass-button-primary">
               {copy.partnerEmailCta}
             </a>
             <Link href={localizedHref(locale, "activities")} className="glass-button-secondary">
